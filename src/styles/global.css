@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* Brand Colors from Highlands NC Vacation Rental Brand Guidelines */
+:root {
+  /* Primary Brand Colors */
+  --color-canvas: 248 249 248; /* Primary light/background */
+  --color-felted-green: 86 125 95; /* Primary brand color */
+  --color-deep-forest: 45 69 56; /* Dark green accent */
+  --color-brook-blue: 94 142 158; /* Secondary accent */
+  --color-granite: 64 68 71; /* Neutral/text color */
+
+  /* Extended Palette for Web Use */
+  --color-canvas-50: 252 253 252;
+  --color-canvas-100: 248 249 248;
+  --color-canvas-200: 240 241 240;
+  --color-canvas-300: 228 229 228;
+
+  --color-felted-green-50: 240 245 241;
+  --color-felted-green-100: 225 235 227;
+  --color-felted-green-500: 86 125 95;
+  --color-felted-green-600: 77 112 85;
+  --color-felted-green-700: 68 99 75;
+  --color-felted-green-800: 59 86 65;
+  --color-felted-green-900: 50 73 55;
+
+  --color-deep-forest-500: 45 69 56;
+  --color-deep-forest-600: 40 62 50;
+  --color-deep-forest-700: 35 55 44;
+  --color-deep-forest-800: 30 48 38;
+  --color-deep-forest-900: 25 41 32;
+
+  --color-brook-blue-50: 240 246 248;
+  --color-brook-blue-100: 225 237 241;
+  --color-brook-blue-500: 94 142 158;
+  --color-brook-blue-600: 85 128 142;
+  --color-brook-blue-700: 76 114 126;
+  --color-brook-blue-800: 67 100 110;
+  --color-brook-blue-900: 58 86 94;
+
+  --color-granite-100: 240 241 242;
+  --color-granite-200: 225 227 228;
+  --color-granite-300: 191 195 197;
+  --color-granite-400: 157 163 166;
+  --color-granite-500: 64 68 71;
+  --color-granite-600: 58 61 64;
+  --color-granite-700: 51 54 57;
+  --color-granite-800: 45 48 50;
+  --color-granite-900: 38 41 43;
+}
+
+/* Brand Typography Classes */
+.font-anamortee {
+  font-family: "Anamortee", cursive;
+}
+
+.font-nimbus-sans {
+  font-family: "Nimbus Sans", system-ui, sans-serif;
+}
+
+.font-abril-display {
+  font-family: "Abril Display", serif;
+}
+
+/* Base Typography */
+html {
+  font-family: "Nimbus Sans", system-ui, sans-serif;
+  color: rgb(var(--color-granite-500));
+  background-color: rgb(var(--color-canvas-100));
+}
+
+/* Brand Color Utilities */
+.text-canvas { color: rgb(var(--color-canvas-100)); }
+.text-felted-green { color: rgb(var(--color-felted-green-500)); }
+.text-deep-forest { color: rgb(var(--color-deep-forest-500)); }
+.text-brook-blue { color: rgb(var(--color-brook-blue-500)); }
+.text-granite { color: rgb(var(--color-granite-500)); }
+
+.bg-canvas { background-color: rgb(var(--color-canvas-100)); }
+.bg-felted-green { background-color: rgb(var(--color-felted-green-500)); }
+.bg-deep-forest { background-color: rgb(var(--color-deep-forest-500)); }
+.bg-brook-blue { background-color: rgb(var(--color-brook-blue-500)); }
+.bg-granite { background-color: rgb(var(--color-granite-500)); }

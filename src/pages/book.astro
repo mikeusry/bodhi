@@ -1,0 +1,657 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import CloudinaryImageEnhanced from '../components/ui/CloudinaryImageEnhanced.astro';
+import { pageSEO } from '../lib/seo';
+
+const seoData = {
+  title: "Book Your Stay | The Bodhi at Flat Mountain Estates",
+  description: "Book your luxury mountain retreat at The Bodhi. View rates, availability, and reserve your 5-bedroom estate in Highlands, NC with private theater, koi pond, and stunning mountain views.",
+  keywords: "book The Bodhi Highlands NC, luxury vacation rental booking, Flat Mountain Estates rates, Highlands NC accommodation booking, mountain estate rental",
+  type: 'website' as const
+};
+
+// Rate data organized by seasons and special periods
+const rateData = [
+  // September 2025
+  {
+    season: "September 2025",
+    period: "09/03/2025 - 09/30/2025",
+    minStay: 3,
+    rate: 900,
+    type: "standard"
+  },
+
+  // October 2025 - Peak Fall Foliage
+  {
+    season: "October 2025",
+    period: "10/01/2025 - 10/28/2025",
+    minStay: 3,
+    rate: "900 - 2,067",
+    type: "peak",
+    description: "Peak Fall Foliage Season - rates vary by date",
+    peakDates: [
+      { date: "10/09 - 10/12", rate: "1,604 - 2,067", note: "Peak foliage weekend" },
+      { date: "10/16 - 10/18", rate: "1,779 - 2,013", note: "High demand period" }
+    ]
+  },
+  {
+    season: "October 2025",
+    period: "10/29/2025 - 10/31/2025",
+    minStay: 3,
+    rate: "900 - 1,357",
+    type: "standard"
+  },
+
+  // November 2025
+  {
+    season: "November 2025",
+    period: "11/01/2025 - 11/12/2025",
+    minStay: 3,
+    rate: "900 - 1,749",
+    type: "standard"
+  },
+  {
+    season: "Highlands Food & Wine Festival",
+    period: "11/13/2025 - 11/16/2025",
+    minStay: 3,
+    rate: "1,075 - 1,453",
+    type: "event",
+    description: "Special event pricing"
+  },
+  {
+    season: "November 2025",
+    period: "11/17/2025 - 11/25/2025",
+    minStay: 4,
+    rate: "900 - 1,522",
+    type: "standard"
+  },
+  {
+    season: "Thanksgiving 2025",
+    period: "11/26/2025 - 11/28/2025",
+    minStay: 4,
+    rate: "1,777 - 1,884",
+    type: "holiday"
+  },
+  {
+    season: "November 2025",
+    period: "11/29/2025 - 11/30/2025",
+    minStay: 4,
+    rate: "950 - 1,489",
+    type: "standard"
+  },
+
+  // December 2025
+  {
+    season: "December 2025",
+    period: "12/01/2025 - 12/18/2025",
+    minStay: 4,
+    rate: "900 - 950",
+    type: "standard"
+  },
+  {
+    season: "December 2025",
+    period: "12/19/2025 - 12/22/2025",
+    minStay: 4,
+    rate: "1,184 - 1,377",
+    type: "standard"
+  },
+  {
+    season: "Christmas & New Years",
+    period: "12/23/2025 - 12/31/2025",
+    minStay: 4,
+    rate: "1,417 - 2,052",
+    type: "holiday",
+    description: "Holiday season premium rates"
+  },
+
+  // January 2026
+  {
+    season: "January 2026",
+    period: "01/01/2026 - 01/04/2026",
+    minStay: 4,
+    rate: "1,068 - 1,626",
+    type: "holiday"
+  },
+  {
+    season: "January 2026",
+    period: "01/05/2026 - 01/31/2026",
+    minStay: 4,
+    rate: "900 - 933",
+    type: "standard"
+  },
+
+  // February 2026
+  {
+    season: "February 2026",
+    period: "02/01/2026 - 02/12/2026",
+    minStay: 3,
+    rate: 900,
+    type: "standard"
+  },
+  {
+    season: "Valentine's Day 2026",
+    period: "02/13/2026 - 02/15/2026",
+    minStay: 3,
+    rate: "900 - 921",
+    type: "event"
+  },
+  {
+    season: "February 2026",
+    period: "02/16/2026 - 02/28/2026",
+    minStay: 3,
+    rate: 900,
+    type: "standard"
+  },
+
+  // March - April 2026
+  {
+    season: "Spring 2026",
+    period: "03/01/2026 - 04/18/2026",
+    minStay: 3,
+    rate: 900,
+    type: "standard"
+  },
+  {
+    season: "Easter 2026",
+    period: "04/19/2026 - 04/21/2026",
+    minStay: 3,
+    rate: 900,
+    type: "holiday"
+  },
+  {
+    season: "Spring 2026",
+    period: "04/22/2026 - 04/30/2026",
+    minStay: 3,
+    rate: 900,
+    type: "standard"
+  },
+
+  // May 2026
+  {
+    season: "May 2026",
+    period: "05/01/2026 - 05/21/2026",
+    minStay: 3,
+    rate: "900 - 1,321",
+    type: "standard",
+    description: "Spring season - rates vary by weekend"
+  },
+  {
+    season: "Memorial Day 2026",
+    period: "05/22/2026 - 05/26/2026",
+    minStay: 3,
+    rate: "900 - 1,359",
+    type: "holiday"
+  },
+  {
+    season: "May 2026",
+    period: "05/27/2026 - 05/31/2026",
+    minStay: 3,
+    rate: "900 - 1,024",
+    type: "standard"
+  },
+
+  // June 2026 - Summer Season
+  {
+    season: "June 2026",
+    period: "06/01/2026 - 06/30/2026",
+    minStay: 3,
+    rate: "900 - 1,836",
+    type: "peak",
+    description: "Summer season - premium rates on weekends",
+    peakDates: [
+      { date: "06/11 - 06/13", rate: "1,608 - 1,836", note: "Peak summer weekend" }
+    ]
+  },
+
+  // July 2026 - Peak Summer
+  {
+    season: "July 4th 2026",
+    period: "07/01/2026 - 07/06/2026",
+    minStay: 3,
+    rate: "1,443 - 1,750",
+    type: "holiday",
+    description: "Independence Day week"
+  },
+  {
+    season: "July 2026",
+    period: "07/07/2026 - 07/31/2026",
+    minStay: 3,
+    rate: "1,216 - 2,006",
+    type: "peak",
+    description: "Peak summer season"
+  },
+
+  // August 2026
+  {
+    season: "August 2026",
+    period: "08/01/2026 - 08/31/2026",
+    minStay: 3,
+    rate: "981 - 1,548",
+    type: "peak",
+    description: "Late summer season"
+  },
+
+  // September 2026
+  {
+    season: "September 2026",
+    period: "09/01/2026 - 09/03/2026",
+    minStay: 3,
+    rate: 1026,
+    type: "standard"
+  },
+  {
+    season: "Labor Day 2026",
+    period: "09/04/2026 - 09/08/2026",
+    minStay: 3,
+    rate: "1,026 - 1,716",
+    type: "holiday"
+  },
+  {
+    season: "September 2026",
+    period: "09/09/2026 - 09/30/2026",
+    minStay: 3,
+    rate: "900 - 1,263",
+    type: "standard"
+  },
+
+  // Fall/Winter 2026
+  {
+    season: "Fall/Winter 2026",
+    period: "10/01/2026 - 11/25/2026",
+    minStay: 3,
+    rate: 900,
+    type: "standard",
+    description: "Off-season rates"
+  },
+  {
+    season: "Thanksgiving 2026",
+    period: "11/26/2026 - 11/29/2026",
+    minStay: 4,
+    rate: 900,
+    type: "holiday"
+  },
+  {
+    season: "Winter 2026",
+    period: "11/30/2026 onwards",
+    minStay: 3,
+    rate: 900,
+    type: "standard",
+    description: "Off-season rates"
+  }
+];
+
+// Key booking information
+const bookingInfo = {
+  baseRate: 900,
+  peakRate: 2067,
+  minStay: { standard: 3, holiday: 4 },
+  sleeps: 17,
+  bedrooms: 5,
+  bathrooms: 5
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative h-96 bg-deep-forest">
+    <CloudinaryImageEnhanced
+      publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+      alt="The Bodhi Luxury Mountain Estate"
+      preset="hero"
+      className="absolute inset-0 w-full h-full object-cover opacity-60"
+    />
+    <div class="absolute inset-0 bg-deep-forest bg-opacity-40"></div>
+    <div class="relative z-10 h-full flex items-center">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center text-white">
+          <h1 class="text-4xl md:text-6xl font-display mb-6">
+            Book Your Stay at The Bodhi
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 opacity-90">
+            Luxury 5-bedroom mountain estate • Sleeps 17 guests • Private theater & koi pond
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 text-lg">
+            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+              <span class="font-semibold">From $900/night</span>
+            </div>
+            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+              <span class="font-semibold">3-4 night minimum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Booking Info -->
+  <section class="py-12 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-8 -mt-20 relative z-10">
+          <h2 class="text-2xl font-bold text-deep-forest mb-6 text-center">Ready to Book?</h2>
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-felted-green mb-2">${bookingInfo.baseRate}+</div>
+              <div class="text-granite-600">Starting Rate/Night</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-felted-green mb-2">{bookingInfo.minStay.standard}-{bookingInfo.minStay.holiday}</div>
+              <div class="text-granite-600">Night Minimum</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-felted-green mb-2">{bookingInfo.sleeps}</div>
+              <div class="text-granite-600">Max Guests</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <a
+              href="mailto:reservations@flatmountainestates.com?subject=Booking Inquiry for The Bodhi&body=Hello,%0A%0AI would like to inquire about booking The Bodhi for the following dates:%0A%0ACheck-in Date: %0ACheck-out Date: %0ANumber of Guests: %0A%0APlease send me availability and total cost information.%0A%0AThank you!"
+              class="inline-flex items-center bg-felted-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-felted-green-600 transition-colors duration-200 mr-4"
+            >
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+              </svg>
+              Email to Book
+            </a>
+            <a
+              href="tel:+1-XXX-XXX-XXXX"
+              class="inline-flex items-center border-2 border-felted-green text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-felted-green hover:text-white transition-colors duration-200"
+            >
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+              </svg>
+              Call to Book
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seasonal Rate Calendar -->
+  <section class="py-16 bg-granite-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-display text-deep-forest mb-6">
+            2025-2026 Seasonal Rates
+          </h2>
+          <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+            Our rates vary by season to reflect demand and local events. All rates are per night and require minimum stay periods.
+          </p>
+        </div>
+
+        <!-- Rate Legend -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <div class="flex items-center bg-white px-4 py-2 rounded-lg shadow">
+            <div class="w-4 h-4 bg-granite-300 rounded mr-2"></div>
+            <span class="text-sm">Off-Season</span>
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-lg shadow">
+            <div class="w-4 h-4 bg-brook-blue rounded mr-2"></div>
+            <span class="text-sm">Standard Season</span>
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-lg shadow">
+            <div class="w-4 h-4 bg-felted-green rounded mr-2"></div>
+            <span class="text-sm">Peak Season</span>
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-lg shadow">
+            <div class="w-4 h-4 bg-deep-forest rounded mr-2"></div>
+            <span class="text-sm">Holiday/Event</span>
+          </div>
+        </div>
+
+        <!-- Rates Grid -->
+        <div class="grid gap-6">
+          {rateData.map((period) => (
+            <div class={`rate-card p-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl ${
+              period.type === 'standard' ? 'bg-white border-l-4 border-brook-blue' :
+              period.type === 'peak' ? 'bg-felted-green-50 border-l-4 border-felted-green' :
+              period.type === 'holiday' ? 'bg-deep-forest-50 border-l-4 border-deep-forest' :
+              period.type === 'event' ? 'bg-granite-50 border-l-4 border-granite-500' :
+              'bg-white border-l-4 border-granite-300'
+            }`}>
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex-1">
+                  <div class="flex items-center mb-2">
+                    <h3 class="text-xl font-semibold text-deep-forest mr-3">
+                      {period.season}
+                    </h3>
+                    {period.type === 'peak' && (
+                      <span class="bg-felted-green text-white px-2 py-1 rounded text-xs font-medium">
+                        PEAK
+                      </span>
+                    )}
+                    {period.type === 'holiday' && (
+                      <span class="bg-deep-forest text-white px-2 py-1 rounded text-xs font-medium">
+                        HOLIDAY
+                      </span>
+                    )}
+                    {period.type === 'event' && (
+                      <span class="bg-granite-500 text-white px-2 py-1 rounded text-xs font-medium">
+                        EVENT
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-granite-600 mb-1">
+                    <span class="font-medium">Dates:</span> {period.period}
+                  </p>
+                  {period.description && (
+                    <p class="text-sm text-granite-500 italic">
+                      {period.description}
+                    </p>
+                  )}
+                  {period.peakDates && (
+                    <div class="mt-3 space-y-1">
+                      {period.peakDates.map((peak) => (
+                        <div class="text-sm text-granite-600 bg-white bg-opacity-50 px-3 py-2 rounded">
+                          <span class="font-medium">{peak.date}:</span> ${peak.rate}/night
+                          {peak.note && <span class="text-granite-500 ml-2">({peak.note})</span>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div class="mt-4 lg:mt-0 lg:ml-6 text-right">
+                  <div class="text-2xl font-bold text-deep-forest mb-1">
+                    ${period.rate}/night
+                  </div>
+                  <div class="text-sm text-granite-600 mb-2">
+                    {period.minStay} night minimum
+                  </div>
+                  <button
+                    onclick={`window.open('mailto:reservations@flatmountainestates.com?subject=Booking Inquiry - ${period.season}&body=Hello,%0A%0AI would like to inquire about booking The Bodhi during ${period.season} (${period.period}).%0A%0ANumber of Guests: %0A%0APlease send me availability and total cost information.%0A%0AThank you!', '_blank')`}
+                    class="bg-felted-green text-white px-4 py-2 rounded font-medium text-sm hover:bg-felted-green-600 transition-colors duration-200"
+                  >
+                    Inquire Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Information -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-display text-deep-forest mb-6">
+            Booking Information
+          </h2>
+          <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+            Everything you need to know about reserving your stay at The Bodhi.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12">
+          <!-- Booking Policies -->
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-bold text-deep-forest mb-6">
+              Booking Policies
+            </h3>
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-semibold text-deep-forest mb-2">Minimum Stay Requirements</h4>
+                <p class="text-granite-600">
+                  • Standard seasons: 3-night minimum<br>
+                  • Holiday periods: 4-night minimum<br>
+                  • Peak foliage & summer: varies by dates
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-deep-forest mb-2">Occupancy</h4>
+                <p class="text-granite-600">
+                  Maximum 17 guests across 5 bedrooms and 5 bathrooms. No pets allowed.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-deep-forest mb-2">Cancellation Policy</h4>
+                <p class="text-granite-600">
+                  Flexible cancellation up to 30 days before arrival. Holiday bookings may have different terms.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-deep-forest mb-2">Check-in/Check-out</h4>
+                <p class="text-granite-600">
+                  Check-in: 4:00 PM • Check-out: 11:00 AM
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- What's Included -->
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-bold text-deep-forest mb-6">
+              What's Included
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Private movie theater with professional seating</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Koi pond with waterfalls and outdoor seating</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Big Green Egg for gourmet outdoor cooking</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Fully equipped gourmet kitchen</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">High-speed WiFi throughout property</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Premium linens and towels</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">Private parking for multiple vehicles</span>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-granite-700">24/7 guest support and concierge services</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-16 bg-deep-forest text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-display mb-8">
+          Ready to Book Your Mountain Retreat?
+        </h2>
+        <p class="text-xl mb-12 opacity-90">
+          Contact us today to check availability and reserve your dates at The Bodhi. Our team is here to help make your mountain getaway perfect.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-white bg-opacity-10 p-8 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4">Email Reservations</h3>
+            <p class="mb-4">Send us your dates and we'll respond within 24 hours</p>
+            <a
+              href="mailto:reservations@flatmountainestates.com"
+              class="text-felted-green-300 hover:text-felted-green-200 font-medium"
+            >
+              reservations@flatmountainestates.com
+            </a>
+          </div>
+          <div class="bg-white bg-opacity-10 p-8 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4">Phone Bookings</h3>
+            <p class="mb-4">Speak directly with our reservations team</p>
+            <a
+              href="tel:+1-XXX-XXX-XXXX"
+              class="text-felted-green-300 hover:text-felted-green-200 font-medium text-xl"
+            >
+              +1 (XXX) XXX-XXXX
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white bg-opacity-10 rounded-lg p-8">
+          <h3 class="text-xl font-semibold mb-4">Questions About Your Stay?</h3>
+          <p class="mb-6">
+            Our local team knows Highlands inside and out. We're happy to help with restaurant recommendations,
+            activity planning, grocery delivery, and anything else to make your stay exceptional.
+          </p>
+          <a
+            href="/contact"
+            class="inline-flex items-center bg-felted-green text-white px-6 py-3 rounded-lg font-medium hover:bg-felted-green-600 transition-colors duration-200"
+          >
+            Get Local Recommendations
+            <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .rate-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rate-card:hover {
+    transform: translateY(-2px);
+  }
+</style>

@@ -1,0 +1,487 @@
+---
+/**
+ * Examples Page - Demonstrates all Cloudinary components
+ *
+ * This page showcases the enhanced Cloudinary components
+ * with various configurations and use cases.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import CloudinaryImageEnhanced from '../components/ui/CloudinaryImageEnhanced.astro';
+import CloudinaryHero from '../components/ui/CloudinaryHero.astro';
+import CloudinaryAvatar from '../components/ui/CloudinaryAvatar.astro';
+import CloudinaryGallery from '../components/ui/CloudinaryGallery.astro';
+
+// Example data
+const propertyImages = [
+  {
+    publicId: 'banyan_tree/flat_mountain/hero-exterior_rdyocb',
+    alt: 'Property exterior view',
+    caption: 'Stunning mountain views from every angle'
+  },
+  {
+    publicId: 'banyan_tree/flat_mountain/living-room',
+    alt: 'Spacious living room',
+    caption: 'Open concept living space with floor-to-ceiling windows'
+  },
+  {
+    publicId: 'banyan_tree/flat_mountain/kitchen',
+    alt: 'Gourmet kitchen',
+    caption: 'Fully equipped kitchen with premium appliances'
+  },
+  {
+    publicId: 'banyan_tree/flat_mountain/master-bedroom',
+    alt: 'Master bedroom suite',
+    caption: 'King bed with luxury linens and mountain views'
+  },
+  {
+    publicId: 'banyan_tree/flat_mountain/bathroom',
+    alt: 'Spa-like bathroom',
+    caption: 'Soaking tub with panoramic mountain views'
+  },
+  {
+    publicId: 'banyan_tree/flat_mountain/deck',
+    alt: 'Wraparound deck',
+    caption: 'Perfect for morning coffee and evening relaxation'
+  }
+];
+
+const staff = [
+  { publicId: 'staff/manager', name: 'John Smith', role: 'Property Manager', initials: 'JS' },
+  { publicId: 'staff/concierge', name: 'Sarah Johnson', role: 'Concierge', initials: 'SJ' },
+  { publicId: 'staff/housekeeper', name: 'Maria Garcia', role: 'Housekeeping', initials: 'MG' }
+];
+---
+
+<BaseLayout
+  title="Component Examples - Flat Mountain Estates"
+  description="Demonstration of enhanced Cloudinary components for the luxury vacation rental website"
+>
+  <Header />
+
+  <!-- Hero Section Example -->
+  <CloudinaryHero
+    publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+    alt="Flat Mountain Estates - Luxury Mountain Retreat"
+    overlay={true}
+    overlayOpacity={0.5}
+    minHeight="60vh"
+  >
+    <div class="text-center text-canvas max-w-4xl">
+      <h1 class="font-anamortee text-4xl md:text-6xl mb-4">Component Examples</h1>
+      <p class="text-lg md:text-xl opacity-90">
+        Demonstrating enhanced Cloudinary components
+      </p>
+    </div>
+  </CloudinaryHero>
+
+  <main class="py-16">
+    <!-- Enhanced Image Component Examples -->
+    <section class="max-w-7xl mx-auto px-4 mb-20">
+      <h2 class="text-3xl font-anamortee text-deep-forest text-center mb-12">
+        Enhanced Image Component
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <!-- Basic Usage -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Basic Usage</h3>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Property exterior - basic example"
+            className="rounded-lg shadow-md"
+            aspectRatio="16/9"
+          />
+          <pre class="mt-4 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryImageEnhanced
+  publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+  alt="Property exterior"
+  className="rounded-lg shadow-md"
+  aspectRatio="16/9"
+/&gt;</code></pre>
+        </div>
+
+        <!-- With Preset -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Using Presets</h3>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Property exterior - preset example"
+            preset="gallery"
+            responsive={true}
+            className="rounded-lg shadow-md"
+          />
+          <pre class="mt-4 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryImageEnhanced
+  publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+  alt="Property exterior"
+  preset="gallery"
+  responsive={true}
+  className="rounded-lg shadow-md"
+/&gt;</code></pre>
+        </div>
+
+        <!-- Custom Transformation -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Custom Transformation</h3>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Property exterior - sepia effect"
+            transformation={{
+              width: 600,
+              height: 400,
+              crop: 'fill',
+              effect: 'sepia:50'
+            }}
+            className="rounded-lg shadow-md"
+          />
+          <pre class="mt-4 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryImageEnhanced
+  publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+  alt="Property exterior - sepia effect"
+  transformation={{
+    width: 600,
+    height: 400,
+    crop: 'fill',
+    effect: 'sepia:50'
+  }}
+/&gt;</code></pre>
+        </div>
+
+        <!-- Responsive Configuration -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Custom Responsive</h3>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Property exterior - responsive example"
+            responsive={{
+              breakpoints: [400, 600, 800, 1200],
+              sizes: "(max-width: 768px) 100vw, 50vw"
+            }}
+            aspectRatio="4/3"
+            className="rounded-lg shadow-md"
+            blurPlaceholder={true}
+            fadeIn={true}
+          />
+          <pre class="mt-4 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryImageEnhanced
+  publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+  alt="Property exterior"
+  responsive={{
+    breakpoints: [400, 600, 800, 1200],
+    sizes: "(max-width: 768px) 100vw, 50vw"
+  }}
+  blurPlaceholder={true}
+  fadeIn={true}
+/&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avatar Component Examples -->
+    <section class="max-w-7xl mx-auto px-4 mb-20">
+      <h2 class="text-3xl font-anamortee text-deep-forest text-center mb-12">
+        Avatar Component
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <!-- Different Sizes -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold mb-4">Size Variations</h4>
+          <div class="space-y-4">
+            <div>
+              <CloudinaryAvatar
+                publicId="staff/manager"
+                alt="Small avatar"
+                size="sm"
+                fallbackInitials="SM"
+                className="mx-auto"
+              />
+              <p class="text-sm mt-2">Small (sm)</p>
+            </div>
+            <div>
+              <CloudinaryAvatar
+                publicId="staff/manager"
+                alt="Medium avatar"
+                size="md"
+                fallbackInitials="MD"
+                className="mx-auto"
+              />
+              <p class="text-sm mt-2">Medium (md)</p>
+            </div>
+            <div>
+              <CloudinaryAvatar
+                publicId="staff/manager"
+                alt="Large avatar"
+                size="lg"
+                fallbackInitials="LG"
+                className="mx-auto"
+              />
+              <p class="text-sm mt-2">Large (lg)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- With Border -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold mb-4">With Border</h4>
+          <CloudinaryAvatar
+            publicId="staff/manager"
+            alt="Avatar with border"
+            size="xl"
+            border={true}
+            borderColor="rgb(var(--color-felted-green-500))"
+            fallbackInitials="BG"
+            className="mx-auto"
+          />
+        </div>
+
+        <!-- Fallback Initials -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold mb-4">Fallback Initials</h4>
+          <div class="space-y-4">
+            <CloudinaryAvatar
+              publicId="non-existent-image"
+              alt="Fallback example"
+              size="lg"
+              fallbackInitials="FE"
+              fallbackBg="bg-felted-green"
+              className="mx-auto"
+            />
+            <CloudinaryAvatar
+              publicId="another-non-existent"
+              alt="Another fallback"
+              size="lg"
+              fallbackInitials="AB"
+              fallbackBg="bg-brook-blue"
+              className="mx-auto"
+            />
+          </div>
+        </div>
+
+        <!-- Staff Directory -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold mb-4">Staff Directory</h4>
+          <div class="space-y-4">
+            {staff.map(person => (
+              <div class="flex items-center space-x-3">
+                <CloudinaryAvatar
+                  publicId={person.publicId}
+                  alt={`${person.name}, ${person.role}`}
+                  size="md"
+                  fallbackInitials={person.initials}
+                  fallbackBg="bg-granite-500"
+                />
+                <div class="text-left">
+                  <p class="font-medium">{person.name}</p>
+                  <p class="text-sm text-granite-600">{person.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <pre class="p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryAvatar
+  publicId="staff/manager"
+  alt="John Smith, Property Manager"
+  size="lg"
+  border={true}
+  borderColor="rgb(var(--color-felted-green-500))"
+  fallbackInitials="JS"
+/&gt;</code></pre>
+    </section>
+
+    <!-- Gallery Component Examples -->
+    <section class="max-w-7xl mx-auto px-4 mb-20">
+      <h2 class="text-3xl font-anamortee text-deep-forest text-center mb-12">
+        Gallery Component
+      </h2>
+
+      <!-- Grid Layout -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-semibold mb-6">Grid Layout</h3>
+        <CloudinaryGallery
+          images={propertyImages.slice(0, 6)}
+          layout="grid"
+          columns={3}
+          aspectRatio="4/3"
+          lightbox={true}
+          captions={true}
+          spacing="md"
+        />
+        <pre class="mt-6 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryGallery
+  images={propertyImages}
+  layout="grid"
+  columns={3}
+  aspectRatio="4/3"
+  lightbox={true}
+  captions={true}
+/&gt;</code></pre>
+      </div>
+
+      <!-- Masonry Layout -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-semibold mb-6">Masonry Layout</h3>
+        <CloudinaryGallery
+          images={propertyImages.slice(0, 4)}
+          layout="masonry"
+          spacing="md"
+          lightbox={true}
+          captions={false}
+        />
+        <pre class="mt-6 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryGallery
+  images={propertyImages}
+  layout="masonry"
+  spacing="md"
+  lightbox={true}
+/&gt;</code></pre>
+      </div>
+
+      <!-- Carousel Layout (Mobile-friendly) -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-semibold mb-6">Carousel Layout</h3>
+        <CloudinaryGallery
+          images={propertyImages.slice(0, 4)}
+          layout="carousel"
+          lightbox={true}
+          captions={true}
+          spacing="md"
+        />
+        <pre class="mt-6 p-4 bg-granite-100 rounded text-sm overflow-x-auto"><code>&lt;CloudinaryGallery
+  images={propertyImages}
+  layout="carousel"
+  lightbox={true}
+  captions={true}
+/&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- Performance Features -->
+    <section class="max-w-7xl mx-auto px-4 mb-20">
+      <h2 class="text-3xl font-anamortee text-deep-forest text-center mb-12">
+        Performance Features
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Lazy Loading</h3>
+          <p class="text-granite-600 mb-4">
+            Images load as they enter the viewport, improving initial page load performance.
+          </p>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Lazy loaded image"
+            preset="gallery"
+            loading="lazy"
+            intersectionRootMargin="100px"
+            intersectionThreshold={0.1}
+            className="rounded-lg shadow-md"
+          />
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Priority Loading</h3>
+          <p class="text-granite-600 mb-4">
+            Critical images load immediately for better user experience.
+          </p>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Priority loaded image"
+            preset="gallery"
+            priority={true}
+            loading="eager"
+            className="rounded-lg shadow-md"
+          />
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Blur Placeholder</h3>
+          <p class="text-granite-600 mb-4">
+            Smooth loading experience with blurred placeholders.
+          </p>
+          <CloudinaryImageEnhanced
+            publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
+            alt="Image with blur placeholder"
+            preset="gallery"
+            blurPlaceholder={true}
+            fadeIn={true}
+            className="rounded-lg shadow-md"
+          />
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Error Handling</h3>
+          <p class="text-granite-600 mb-4">
+            Graceful fallbacks when images fail to load.
+          </p>
+          <CloudinaryImageEnhanced
+            publicId="non-existent-image"
+            alt="Error handling example"
+            preset="gallery"
+            errorFallback="https://via.placeholder.com/400x300/rgb(var(--color-granite-200))/rgb(var(--color-granite-500))?text=Image+Not+Available"
+            className="rounded-lg shadow-md"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Integration Guide -->
+    <section class="max-w-4xl mx-auto px-4 mb-20">
+      <h2 class="text-3xl font-anamortee text-deep-forest text-center mb-8">
+        Integration Guide
+      </h2>
+
+      <div class="bg-canvas-50 rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4">Quick Start</h3>
+        <ol class="space-y-4 text-granite-700">
+          <li>
+            <strong>1. Import the component:</strong>
+            <pre class="mt-2 p-3 bg-granite-100 rounded text-sm"><code>import CloudinaryImageEnhanced from '../components/ui/CloudinaryImageEnhanced.astro';</code></pre>
+          </li>
+          <li>
+            <strong>2. Use with your Cloudinary images:</strong>
+            <pre class="mt-2 p-3 bg-granite-100 rounded text-sm"><code>&lt;CloudinaryImageEnhanced
+  publicId="banyan_tree/flat_mountain/your-image"
+  alt="Your image description"
+  preset="gallery"
+/&gt;</code></pre>
+          </li>
+          <li>
+            <strong>3. Customize as needed:</strong>
+            <pre class="mt-2 p-3 bg-granite-100 rounded text-sm"><code>&lt;CloudinaryImageEnhanced
+  publicId="your-image"
+  alt="Description"
+  responsive={true}
+  aspectRatio="16/9"
+  className="rounded-lg"
+/&gt;</code></pre>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Enhanced code block styling */
+  pre {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    line-height: 1.4;
+  }
+
+  code {
+    font-size: 0.9em;
+  }
+
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus {
+    outline: 2px solid rgb(var(--color-felted-green-500));
+    outline-offset: 2px;
+  }
+</style>

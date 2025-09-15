@@ -1,0 +1,409 @@
+---
+/**
+ * CloudinaryGallery - Responsive image gallery component
+ *
+ * Features:
+ * - Grid layouts (masonry, uniform)
+ * - Lightbox integration ready
+ * - Lazy loading with intersection observer
+ * - Responsive breakpoints
+ * - Keyboard navigation support
+ * - Touch/swipe support for mobile
+ */
+
+import CloudinaryImageEnhanced from './CloudinaryImageEnhanced.astro';
+import type { CloudinaryTransformation } from '../../lib/cloudinary-types';
+
+interface GalleryImage {
+  publicId: string;
+  alt: string;
+  caption?: string;
+  transformation?: CloudinaryTransformation;
+}
+
+interface Props {
+  images: GalleryImage[];
+  layout?: 'grid' | 'masonry' | 'carousel';
+  columns?: 2 | 3 | 4 | 5 | 6;
+  aspectRatio?: string;
+  spacing?: 'none' | 'sm' | 'md' | 'lg';
+  lightbox?: boolean;
+  captions?: boolean;
+  lazy?: boolean;
+  className?: string;
+  imageClassName?: string;
+  onImageClick?: string; // Callback function name
+}
+
+const {
+  images = [],
+  layout = 'grid',
+  columns = 3,
+  aspectRatio = '4/3',
+  spacing = 'md',
+  lightbox = true,
+  captions = false,
+  lazy = true,
+  className = '',
+  imageClassName = '',
+  onImageClick
+} = Astro.props;
+
+// Gallery transformation for high-quality display
+const galleryTransformation: CloudinaryTransformation = {
+  width: 1200,
+  height: Math.round(1200 * (3/4)), // Default 4:3 ratio at high resolution
+  crop: 'fill',
+  gravity: 'auto',
+  quality: 'auto:best', // Higher quality for gallery display
+  format: 'auto',
+  dpr: 'auto'
+};
+
+// Responsive configuration for gallery images with larger breakpoints
+const galleryResponsiveConfig = {
+  breakpoints: [400, 600, 800, 1200, 1600],
+  sizes: `(max-width: 768px) 100vw, (max-width: 1200px) ${100/Math.min(columns, 2)}vw, ${100/columns}vw`
+};
+
+// CSS classes for different layouts
+const layoutClasses = {
+  grid: `grid grid-cols-1 md:grid-cols-${Math.min(columns, 2)} lg:grid-cols-${columns}`,
+  masonry: 'columns-1 md:columns-2 lg:columns-3',
+  carousel: 'flex overflow-x-auto snap-x snap-mandatory'
+};
+
+const spacingClasses = {
+  none: 'gap-0',
+  sm: 'gap-2',
+  md: 'gap-4',
+  lg: 'gap-6'
+};
+
+const galleryId = `gallery-${Math.random().toString(36).substring(2, 15)}`;
+---
+
+<div
+  id={galleryId}
+  class={`
+    cloudinary-gallery
+    ${layoutClasses[layout]}
+    ${spacingClasses[spacing]}
+    ${className}
+  `}
+  data-layout={layout}
+  data-lightbox={lightbox}
+  data-columns={columns}
+>
+  {images.map((image, index) => (
+    <div
+      class={`
+        gallery-item
+        ${layout === 'carousel' ? 'snap-center flex-shrink-0' : ''}
+        ${layout === 'masonry' ? 'break-inside-avoid mb-4' : ''}
+        ${lightbox ? 'cursor-pointer' : ''}
+        group relative overflow-hidden rounded-lg
+        hover:shadow-lg transition-all duration-300
+      `}
+      style={
+        layout === 'carousel' ? { width: '80vw', maxWidth: '400px' } :
+        aspectRatio ? { aspectRatio } : {}
+      }
+      data-image-index={index}
+      data-public-id={image.publicId}
+      data-alt={image.alt}
+      data-caption={image.caption}
+    >
+      <!-- Image -->
+      <CloudinaryImageEnhanced
+        publicId={image.publicId}
+        alt={image.alt}
+        transformation={{
+          ...galleryTransformation,
+          ...image.transformation
+        }}
+        responsive={galleryResponsiveConfig}
+        loading={lazy && index > 6 ? 'lazy' : 'eager'}
+        priority={index < 3} // Prioritize first few images
+        className={`
+          w-full h-full object-cover transition-transform duration-300
+          group-hover:scale-105 ${imageClassName}
+        `}
+        objectFit="cover"
+        fadeIn={true}
+        blurPlaceholder={true}
+        containerClassName="w-full h-full"
+      />
+
+      <!-- Overlay on hover -->
+      {lightbox && (
+        <div class="
+          absolute inset-0 bg-deep-forest bg-opacity-0
+          group-hover:bg-opacity-30 transition-all duration-300
+          flex items-center justify-center opacity-0 group-hover:opacity-100
+        ">
+          <svg class="w-12 h-12 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      )}
+
+      <!-- Caption -->
+      {captions && image.caption && (
+        <div class="
+          absolute bottom-0 left-0 right-0
+          bg-gradient-to-t from-deep-forest to-transparent
+          p-4 text-canvas text-sm
+          transform translate-y-full group-hover:translate-y-0
+          transition-transform duration-300
+        ">
+          <p>{image.caption}</p>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
+<!-- Navigation for carousel layout -->
+{layout === 'carousel' && images.length > 1 && (
+  <div class="flex justify-center mt-4 space-x-2">
+    <button
+      id={`${galleryId}-prev`}
+      class="p-2 rounded-full bg-felted-green text-canvas hover:bg-felted-green-600 transition-colors"
+      aria-label="Previous image"
+    >
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    <button
+      id={`${galleryId}-next`}
+      class="p-2 rounded-full bg-felted-green text-canvas hover:bg-felted-green-600 transition-colors"
+      aria-label="Next image"
+    >
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+)}
+
+<script define:vars={{ galleryId, layout, lightbox, onImageClick }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.getElementById(galleryId);
+    if (!gallery) return;
+
+    // Handle image clicks
+    const items = gallery.querySelectorAll('.gallery-item');
+    items.forEach((item, index) => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Custom click handler
+        if (onImageClick && typeof window[onImageClick] === 'function') {
+          const imageData = {
+            publicId: item.dataset.publicId,
+            alt: item.dataset.alt,
+            caption: item.dataset.caption,
+            index: parseInt(item.dataset.imageIndex)
+          };
+          window[onImageClick](imageData);
+          return;
+        }
+
+        // Default lightbox behavior
+        if (lightbox) {
+          openLightbox(index);
+        }
+      });
+
+      // Keyboard navigation
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+
+      // Make focusable for accessibility
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.setAttribute('aria-label', `View image: ${item.dataset.alt}`);
+    });
+
+    // Carousel navigation
+    if (layout === 'carousel') {
+      const prevBtn = document.getElementById(`${galleryId}-prev`);
+      const nextBtn = document.getElementById(`${galleryId}-next`);
+
+      if (prevBtn && nextBtn) {
+        let currentIndex = 0;
+
+        prevBtn.addEventListener('click', () => {
+          currentIndex = Math.max(0, currentIndex - 1);
+          scrollToImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+          currentIndex = Math.min(items.length - 1, currentIndex + 1);
+          scrollToImage(currentIndex);
+        });
+
+        function scrollToImage(index) {
+          const item = items[index];
+          if (item) {
+            item.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'center'
+            });
+          }
+        }
+
+        // Update button states based on scroll position
+        gallery.addEventListener('scroll', () => {
+          const scrollLeft = gallery.scrollLeft;
+          const itemWidth = items[0]?.offsetWidth || 0;
+          const newIndex = Math.round(scrollLeft / itemWidth);
+
+          prevBtn.disabled = newIndex <= 0;
+          nextBtn.disabled = newIndex >= items.length - 1;
+
+          prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+          nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+        });
+      }
+    }
+
+    // Simple lightbox implementation
+    function openLightbox(startIndex) {
+      // Create lightbox overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center';
+      overlay.innerHTML = `
+        <div class="relative max-w-4xl max-h-full p-4">
+          <img id="lightbox-image" class="max-w-full max-h-full object-contain" />
+          <button id="lightbox-close" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300">&times;</button>
+          <button id="lightbox-prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300">‹</button>
+          <button id="lightbox-next" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300">›</button>
+          <div id="lightbox-caption" class="absolute bottom-4 left-4 right-4 text-white text-center"></div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+
+      let currentLightboxIndex = startIndex;
+
+      function showImage(index) {
+        const item = items[index];
+        const img = overlay.querySelector('#lightbox-image');
+        const caption = overlay.querySelector('#lightbox-caption');
+
+        if (item && img) {
+          const publicId = item.dataset.publicId;
+          const alt = item.dataset.alt;
+          const captionText = item.dataset.caption;
+
+          // Use highest quality version for lightbox
+          img.src = `https://res.cloudinary.com/southland-organics/image/upload/c_fit,w_1800,h_1200,q_auto:best,f_auto,dpr_auto/${publicId}`;
+          img.alt = alt;
+
+          if (caption) {
+            caption.textContent = captionText || alt;
+          }
+        }
+      }
+
+      // Event listeners
+      overlay.querySelector('#lightbox-close').addEventListener('click', closeLightbox);
+      overlay.querySelector('#lightbox-prev').addEventListener('click', () => {
+        currentLightboxIndex = (currentLightboxIndex - 1 + items.length) % items.length;
+        showImage(currentLightboxIndex);
+      });
+      overlay.querySelector('#lightbox-next').addEventListener('click', () => {
+        currentLightboxIndex = (currentLightboxIndex + 1) % items.length;
+        showImage(currentLightboxIndex);
+      });
+
+      // Keyboard navigation
+      function handleKeydown(e) {
+        switch(e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowLeft':
+            currentLightboxIndex = (currentLightboxIndex - 1 + items.length) % items.length;
+            showImage(currentLightboxIndex);
+            break;
+          case 'ArrowRight':
+            currentLightboxIndex = (currentLightboxIndex + 1) % items.length;
+            showImage(currentLightboxIndex);
+            break;
+        }
+      }
+
+      document.addEventListener('keydown', handleKeydown);
+
+      function closeLightbox() {
+        document.removeEventListener('keydown', handleKeydown);
+        document.body.removeChild(overlay);
+        document.body.style.overflow = '';
+      }
+
+      // Show initial image
+      showImage(currentLightboxIndex);
+    }
+  });
+</script>
+
+<style>
+  .cloudinary-gallery {
+    /* Ensure proper spacing and alignment */
+    width: 100%;
+  }
+
+  /* Masonry layout optimization */
+  .cloudinary-gallery[data-layout="masonry"] {
+    column-fill: balance;
+  }
+
+  /* Carousel layout optimization */
+  .cloudinary-gallery[data-layout="carousel"] {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .cloudinary-gallery[data-layout="carousel"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Gallery item optimizations */
+  .gallery-item {
+    /* Optimize for animations */
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+  }
+
+  /* Focus states for accessibility */
+  .gallery-item:focus {
+    outline: 2px solid rgb(var(--color-felted-green-500));
+    outline-offset: 2px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cloudinary-gallery[data-layout="carousel"] .gallery-item {
+      width: 90vw !important;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item,
+    .gallery-item .cloudinary-main-image {
+      transition: none !important;
+    }
+  }
+</style>

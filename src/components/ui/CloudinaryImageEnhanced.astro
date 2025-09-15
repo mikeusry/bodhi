@@ -1,0 +1,383 @@
+---
+/**
+ * Enhanced CloudinaryImage Component
+ *
+ * Features:
+ * - Advanced Cloudinary transformations
+ * - Intersection Observer lazy loading
+ * - Error handling and fallbacks
+ * - Loading states and placeholders
+ * - Responsive image support
+ * - Performance optimizations
+ */
+
+import type { CloudinaryImageProps, PresetName } from '../../lib/cloudinary-types';
+import {
+  generateCloudinaryUrl,
+  generateResponsiveSrcSet,
+  generatePresetUrl,
+  generatePlaceholderUrl,
+  generateErrorFallbackUrl,
+  preloadImage,
+  ResponsiveConfigs
+} from '../../lib/cloudinary-enhanced';
+
+interface Props extends CloudinaryImageProps {
+  preset?: PresetName;
+  aspectRatio?: string;
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  containerClassName?: string;
+  sizes?: string;
+  blurPlaceholder?: boolean;
+  fadeIn?: boolean;
+  intersectionThreshold?: number;
+  intersectionRootMargin?: string;
+}
+
+const {
+  publicId,
+  alt,
+  preset,
+  transformation,
+  responsive = false,
+  loading = 'lazy',
+  priority = false,
+  placeholder = true,
+  blurPlaceholder = true,
+  fadeIn = true,
+  errorFallback,
+  className = '',
+  containerClassName = '',
+  style = {},
+  width,
+  height,
+  aspectRatio,
+  objectFit = 'cover',
+  sizes,
+  intersectionThreshold = 0.1,
+  intersectionRootMargin = '50px',
+  onLoad,
+  onError,
+  'data-testid': dataTestId,
+  id
+} = Astro.props;
+
+// Generate unique ID for this image instance
+const imageId = id || `cloudinary-image-${Math.random().toString(36).substring(2, 15)}`;
+
+// Determine final transformation
+let finalTransformation = transformation;
+if (preset) {
+  const { VacationRentalPresets } = await import('../../lib/cloudinary-enhanced');
+  const presetTransformation = VacationRentalPresets[preset].transformation;
+  finalTransformation = { ...presetTransformation, ...transformation };
+}
+
+// Set dimensions from transformation if not provided
+const finalWidth = width || finalTransformation?.width;
+const finalHeight = height || finalTransformation?.height;
+
+// Generate image URLs
+let imageSrc: string;
+let imageSrcSet: string | undefined;
+let imageSizes: string | undefined;
+
+if (responsive && typeof responsive === 'object') {
+  // Custom responsive configuration
+  const responsiveData = generateResponsiveSrcSet(publicId, responsive, finalTransformation);
+  imageSrc = responsiveData.src;
+  imageSrcSet = responsiveData.srcset;
+  imageSizes = sizes || responsive.sizes;
+} else if (responsive === true) {
+  // Default responsive configuration based on usage
+  const defaultConfig = ResponsiveConfigs.gallery;
+  const responsiveData = generateResponsiveSrcSet(publicId, defaultConfig, finalTransformation);
+  imageSrc = responsiveData.src;
+  imageSrcSet = responsiveData.srcset;
+  imageSizes = sizes || defaultConfig.sizes;
+} else if (preset) {
+  // Use preset
+  imageSrc = generatePresetUrl(publicId, preset);
+} else {
+  // Standard single image
+  imageSrc = generateCloudinaryUrl(publicId, finalTransformation);
+}
+
+// Generate placeholder URL
+const placeholderSrc = blurPlaceholder && placeholder
+  ? generatePlaceholderUrl(publicId, 40, Math.round(40 * 0.75))
+  : null;
+
+// Generate error fallback URL
+const errorSrc = errorFallback || generateErrorFallbackUrl(finalWidth || 400, finalHeight || 300);
+
+// Container styles
+const containerStyles = {
+  position: 'relative',
+  overflow: 'hidden',
+  ...(aspectRatio && { aspectRatio }),
+  ...(finalWidth && { maxWidth: `${finalWidth}px` }),
+  ...(finalHeight && !aspectRatio && { height: `${finalHeight}px` })
+};
+
+// Image styles
+const imageStyles = {
+  width: '100%',
+  height: '100%',
+  objectFit,
+  ...style
+};
+
+// Preload critical images
+if (priority && typeof window !== 'undefined') {
+  preloadImage(imageSrc);
+}
+---
+
+<div
+  class={`cloudinary-image-container ${containerClassName}`}
+  style={containerStyles}
+  data-image-id={imageId}
+>
+  <!-- Placeholder (shown while loading) -->
+  {placeholderSrc && (
+    <img
+      src={placeholderSrc}
+      alt=""
+      class={`cloudinary-placeholder absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}
+      style={imageStyles}
+      aria-hidden="true"
+    />
+  )}
+
+  <!-- Main Image -->
+  <img
+    id={imageId}
+    src={loading === 'eager' || priority ? imageSrc : placeholderSrc || imageSrc}
+    srcset={imageSrcSet}
+    sizes={imageSizes}
+    alt={alt}
+    width={finalWidth}
+    height={finalHeight}
+    loading={priority ? 'eager' : loading}
+    decoding="async"
+    class={`cloudinary-main-image ${className} ${fadeIn ? 'opacity-0 transition-opacity duration-500' : ''}`}
+    style={imageStyles}
+    data-src={imageSrc}
+    data-srcset={imageSrcSet}
+    data-sizes={imageSizes}
+    data-error-src={errorSrc}
+    data-testid={dataTestId}
+    data-intersection-threshold={intersectionThreshold}
+    data-intersection-margin={intersectionRootMargin}
+  />
+
+  <!-- Loading indicator -->
+  {placeholder && (
+    <div
+      class="cloudinary-loading absolute inset-0 flex items-center justify-center bg-granite-100 opacity-100 transition-opacity duration-300"
+    >
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-felted-green"></div>
+    </div>
+  )}
+
+  <!-- Error state -->
+  <div
+    class="cloudinary-error absolute inset-0 flex items-center justify-center bg-granite-100 opacity-0 transition-opacity duration-300 hidden"
+  >
+    <div class="text-center p-4">
+      <svg class="w-12 h-12 text-granite-400 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+      </svg>
+      <p class="text-sm text-granite-600">Image not available</p>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ imageId, intersectionThreshold, intersectionRootMargin, imageSrc, imageSrcSet, imageSizes, errorSrc, fadeIn, onLoad, onError }}>
+  // Enhanced image loading with Intersection Observer
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector(`[data-image-id="${imageId}"]`);
+    if (!container) return;
+
+    const mainImage = container.querySelector('.cloudinary-main-image');
+    const placeholder = container.querySelector('.cloudinary-placeholder');
+    const loadingIndicator = container.querySelector('.cloudinary-loading');
+    const errorIndicator = container.querySelector('.cloudinary-error');
+
+    if (!mainImage) return;
+
+    let imageLoaded = false;
+    let hasError = false;
+
+    // Image load success handler
+    function handleImageLoad() {
+      if (imageLoaded) return;
+      imageLoaded = true;
+
+      // Hide loading indicator
+      if (loadingIndicator) {
+        loadingIndicator.style.opacity = '0';
+        setTimeout(() => loadingIndicator.style.display = 'none', 300);
+      }
+
+      // Hide placeholder
+      if (placeholder) {
+        placeholder.style.opacity = '0';
+        setTimeout(() => placeholder.style.display = 'none', 300);
+      }
+
+      // Show main image with fade-in effect
+      if (fadeIn) {
+        mainImage.style.opacity = '1';
+      }
+
+      // Call custom onLoad callback
+      if (typeof onLoad === 'function') {
+        onLoad();
+      }
+    }
+
+    // Image load error handler
+    function handleImageError() {
+      if (hasError) return;
+      hasError = true;
+
+      console.warn(`Failed to load image: ${mainImage.src}`);
+
+      // Try error fallback
+      if (errorSrc && mainImage.src !== errorSrc) {
+        mainImage.src = errorSrc;
+        mainImage.srcset = '';
+        return;
+      }
+
+      // Hide loading indicator and placeholder
+      if (loadingIndicator) {
+        loadingIndicator.style.opacity = '0';
+        setTimeout(() => loadingIndicator.style.display = 'none', 300);
+      }
+      if (placeholder) {
+        placeholder.style.opacity = '0';
+        setTimeout(() => placeholder.style.display = 'none', 300);
+      }
+
+      // Show error indicator
+      if (errorIndicator) {
+        errorIndicator.classList.remove('hidden');
+        errorIndicator.style.opacity = '1';
+      }
+
+      // Call custom onError callback
+      if (typeof onError === 'function') {
+        onError();
+      }
+    }
+
+    // Intersection Observer for lazy loading
+    function createIntersectionObserver() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              loadImage();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: parseFloat(intersectionThreshold) || 0.1,
+          rootMargin: intersectionRootMargin || '50px'
+        }
+      );
+
+      observer.observe(mainImage);
+    }
+
+    // Load the actual image
+    function loadImage() {
+      if (imageLoaded || hasError) return;
+
+      // Set up event listeners
+      mainImage.addEventListener('load', handleImageLoad);
+      mainImage.addEventListener('error', handleImageError);
+
+      // Load the image
+      if (mainImage.dataset.src && mainImage.src !== mainImage.dataset.src) {
+        mainImage.src = mainImage.dataset.src;
+        if (mainImage.dataset.srcset) {
+          mainImage.srcset = mainImage.dataset.srcset;
+        }
+        if (mainImage.dataset.sizes) {
+          mainImage.sizes = mainImage.dataset.sizes;
+        }
+      }
+    }
+
+    // Initialize loading strategy
+    const shouldLazyLoad = mainImage.loading === 'lazy' && 'IntersectionObserver' in window;
+
+    if (shouldLazyLoad) {
+      createIntersectionObserver();
+    } else {
+      // Immediate loading
+      loadImage();
+    }
+
+    // Handle cases where image is already cached
+    if (mainImage.complete && mainImage.naturalWidth > 0) {
+      handleImageLoad();
+    }
+  });
+</script>
+
+<style>
+  .cloudinary-image-container {
+    display: block;
+  }
+
+  .cloudinary-main-image,
+  .cloudinary-placeholder {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .cloudinary-loading {
+    background: linear-gradient(90deg, rgba(var(--color-granite-100)), rgba(var(--color-canvas-100)));
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Responsive image optimization */
+  @media (max-width: 640px) {
+    .cloudinary-image-container {
+      max-width: 100%;
+    }
+  }
+
+  /* Performance optimizations */
+  .cloudinary-main-image {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .cloudinary-main-image,
+    .cloudinary-placeholder,
+    .cloudinary-loading,
+    .cloudinary-error {
+      transition: none;
+    }
+  }
+</style>

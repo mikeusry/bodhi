@@ -1,0 +1,889 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import CloudinaryImageEnhanced from '../components/ui/CloudinaryImageEnhanced.astro';
+import CloudinaryGallery from '../components/ui/CloudinaryGallery.astro';
+import { pageSEO } from '../lib/seo';
+
+const seoData = {
+  title: pageSEO.property.title,
+  description: pageSEO.property.description,
+  keywords: pageSEO.property.keywords,
+  type: 'article' as const
+};
+
+// Property details
+const propertyDetails = {
+  bedrooms: 5,
+  bathrooms: 5,
+  sleeps: 17,
+  area: "4,500+ sq ft",
+  address: "480 Flat Mountain Estates Road, Highlands, NC 28741"
+};
+
+// Tag to room mapping
+const tagToRoomMapping = {
+  "Upstairs Family Suite Loft": "Upstairs Family Suite Loft",
+  "Upstairs-Family Suite Loft": "Upstairs Family Suite Loft"
+  // Add more mappings as you provide them
+};
+
+// Room images using actual Cloudinary images
+const roomImages: Record<string, string[]> = {
+  "Main Floor Master": ["banyan_tree/flat_mountain/highland_nc_rental_132_pu9pjx"],
+  "Main Floor Double Queen Room 1": ["banyan_tree/flat_mountain/highland_nc_rental_131_nenmsc"],
+  "Main Floor Double Queen Room 2": ["banyan_tree/flat_mountain/highland_nc_rental_130_dcu5s3"],
+  "Upstairs Family Suite Loft": ["banyan_tree/flat_mountain/highland_nc_rental_129_xmynqg"],
+  "Upstairs Landing Loft": ["banyan_tree/flat_mountain/highland_nc_rental_128_mtdic5"],
+  "Downstairs Queen": ["banyan_tree/flat_mountain/highland_nc_rental_127_y2lxqw"]
+};
+
+// Room configurations
+const roomLayouts = [
+  {
+    name: "Main Floor Master",
+    type: "King Bed",
+    sleeps: 2,
+    features: ["Private toilet", "Bathtub", "Shower", "Mountain views", "Walk-in closet"],
+    images: roomImages["Main Floor Master"]
+  },
+  {
+    name: "Main Floor Double Queen Room 1",
+    type: "2 Queen Beds",
+    sleeps: 4,
+    features: ["Private toilet", "Shower", "Spacious room with two queens", "Forest views"],
+    images: roomImages["Main Floor Double Queen Room 1"]
+  },
+  {
+    name: "Main Floor Double Queen Room 2",
+    type: "2 Queen Beds",
+    sleeps: 4,
+    features: ["Private toilet", "Shower", "Spacious room with two queens", "Mountain views"],
+    images: roomImages["Main Floor Double Queen Room 2"]
+  },
+  {
+    name: "Upstairs Family Suite Loft",
+    type: "King + 2 Twin Singles",
+    sleeps: 4,
+    features: ["Private toilet", "Bathtub", "Shower", "Family-friendly layout", "Loft design"],
+    images: roomImages["Upstairs Family Suite Loft"]
+  },
+  {
+    name: "Upstairs Landing Loft",
+    type: "Twin Single",
+    sleeps: 1,
+    features: ["Private toilet", "Bathtub", "Shower", "Cozy loft space", "Reading nook"],
+    images: roomImages["Upstairs Landing Loft"]
+  },
+  {
+    name: "Downstairs Queen",
+    type: "Queen Bed",
+    sleeps: 2,
+    features: ["Private toilet", "Shower", "Lower level location", "Theater room access"],
+    images: roomImages["Downstairs Queen"]
+  }
+];
+
+// Detailed amenities
+const amenityCategories = [
+  {
+    title: "Entertainment",
+    items: [
+      { name: "Private Movie Theater", description: "Professional-grade home theater with surround sound and comfortable seating for the whole group" },
+      { name: "Multiple Large TVs", description: "Smart TVs in living areas and bedrooms with streaming capabilities" },
+      { name: "High-Speed WiFi", description: "Reliable internet throughout the property for work and entertainment" },
+      { name: "Board Games & Books", description: "Collection of family games and reading materials" }
+    ]
+  },
+  {
+    title: "Kitchen & Dining",
+    items: [
+      { name: "Gourmet Kitchen", description: "Fully equipped with professional-grade appliances and ample counter space" },
+      { name: "Big Green Egg", description: "Premium ceramic grill for outdoor cooking experiences" },
+      { name: "Multiple Dining Areas", description: "Indoor dining for 12+ and outdoor dining options" },
+      { name: "Bar Area", description: "Wet bar with seating for cocktails and socializing" }
+    ]
+  },
+  {
+    title: "Outdoor Spaces",
+    items: [
+      { name: "Koi Pond with Waterfalls", description: "Tranquil water feature creating a peaceful ambiance" },
+      { name: "Multiple Covered Patios", description: "Various outdoor seating areas with mountain views" },
+      { name: "Private Parking", description: "Ample parking for multiple vehicles" },
+      { name: "Mountain Views", description: "Panoramic Blue Ridge Mountain vistas from multiple vantage points" }
+    ]
+  },
+  {
+    title: "Comfort & Convenience",
+    items: [
+      { name: "Multiple Fireplaces", description: "Cozy fireplaces in living areas for ambiance and warmth" },
+      { name: "Reading Nook", description: "Quiet space for relaxation with natural light" },
+      { name: "Sunroom", description: "Bright space to enjoy mountain views year-round" },
+      { name: "Climate Control", description: "Central air conditioning and heating throughout" }
+    ]
+  }
+];
+
+// Gallery images - Real photos from The Bodhi
+const galleryImages = [
+  { publicId: "banyan_tree/flat_mountain/hero-exterior_rdyocb", alt: "The Bodhi exterior with stunning mountain views" },
+  { publicId: "banyan_tree/flat_mountain/living_mupvue", alt: "Spacious living room with fireplace and mountain views" },
+  { publicId: "banyan_tree/flat_mountain/kitchen", alt: "Gourmet kitchen with professional appliances" },
+  { publicId: "banyan_tree/flat_mountain/kitchen-1", alt: "Kitchen island and dining area" },
+  { publicId: "banyan_tree/flat_mountain/den_olvl2a", alt: "Comfortable den area with seating" },
+  { publicId: "banyan_tree/flat_mountain/table_xk3jr0", alt: "Elegant dining table for large groups" },
+  { publicId: "banyan_tree/flat_mountain/table_2_nnbsc4", alt: "Additional dining space with mountain views" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_132_pu9pjx", alt: "Master bedroom with luxury furnishings" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_131_nenmsc", alt: "Guest bedroom with queen beds" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_129_xmynqg", alt: "Upstairs family suite loft" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_128_mtdic5", alt: "Upstairs landing loft area" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_127_y2lxqw", alt: "Downstairs queen bedroom" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_107_gry0rv", alt: "Bathroom with luxury fixtures" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_105_dnsobw", alt: "Mountain view from property" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_103_t2hnzu", alt: "Outdoor patio and seating area" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_102_dbttec", alt: "Property exterior and landscaping" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_101_vnhtyn", alt: "Architectural details and design" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_100_hy3f5m", alt: "Interior design and furnishings" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_99_xtirx6", alt: "Property amenities and features" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_98_fik2ug", alt: "Luxury finishes throughout the estate" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_80_kvodaq", alt: "Tagged room with multiple amenities" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_79_iztfpu", alt: "Beautifully appointed living space" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_78_mzdk3w", alt: "Comfortable seating area" },
+  { publicId: "banyan_tree/flat_mountain/highland_nc_rental_77_btbwkc", alt: "Mountain estate interior design" }
+];
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Matterport 3D Tour Hero -->
+  <section class="relative w-full h-screen bg-granite-900" id="matterport-container">
+    <div class="absolute inset-0 z-10">
+      <iframe
+        id="matterport-iframe"
+        src="https://my.matterport.com/show/?m=B9iFxysbczV&play=1&qs=1&gt=0&help=0&hr=0&ts=0"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        allowfullscreen
+        allow="gyroscope; accelerometer"
+        title="The Bodhi 3D Virtual Tour"
+        loading="eager"
+        style="border: none; background: #000; pointer-events: none;"
+      ></iframe>
+    </div>
+
+    <!-- Click overlay to activate 3D tour -->
+    <div class="absolute inset-0 z-15 bg-black bg-opacity-40 flex items-center justify-center cursor-pointer transition-opacity duration-300" id="matterport-overlay">
+      <div class="text-center text-white bg-black bg-opacity-70 p-8 rounded-xl max-w-md mx-4">
+        <div class="mb-4">
+          <svg class="w-16 h-16 mx-auto mb-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-1 11V7l6 3-6 3z"/>
+          </svg>
+        </div>
+        <h3 class="font-anamortee text-2xl font-bold mb-3">
+          Interactive 3D Tour
+        </h3>
+        <p class="text-lg mb-4 opacity-90">
+          Click to explore The Bodhi in immersive 3D
+        </p>
+        <div class="bg-felted-green bg-opacity-20 border border-felted-green-300 rounded-lg p-3">
+          <p class="text-sm opacity-80">
+            Navigate with mouse or touch to explore every room
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading fallback -->
+    <div class="absolute inset-0 bg-granite-900 flex items-center justify-center z-5" id="loading-fallback">
+      <div class="text-center text-white">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+        <p class="text-lg">Loading 3D Tour...</p>
+      </div>
+    </div>
+
+    <!-- Title overlay (initially hidden) -->
+    <div class="absolute top-6 left-6 bg-black bg-opacity-70 text-white p-4 rounded-lg z-20 opacity-0" id="title-overlay">
+      <h1 class="font-anamortee text-2xl md:text-3xl font-bold mb-2">
+        The Bodhi Virtual Tour
+      </h1>
+      <p class="text-sm opacity-90">
+        Explore this luxury mountain estate in 3D
+      </p>
+    </div>
+
+  </section>
+
+  <!-- Property Overview -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-display text-deep-forest mb-6">
+            The Bodhi Estate Overview
+          </h1>
+          <p class="text-xl text-granite-700 leading-relaxed max-w-3xl mx-auto">
+            Nestled in the prestigious Flat Mountain Estates, The Bodhi offers an unparalleled luxury vacation experience. This exceptional 5-bedroom, 5-bathroom estate combines sophisticated comfort with unique amenities, creating the perfect retreat for large groups and special celebrations.
+          </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="mb-3">
+              <svg class="w-8 h-8 mx-auto text-felted-green" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+              </svg>
+            </div>
+            <div class="text-3xl font-bold text-felted-green mb-2">{propertyDetails.bedrooms}</div>
+            <div class="text-granite-600">Bedrooms</div>
+          </div>
+          <div class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="mb-3">
+              <svg class="w-8 h-8 mx-auto text-felted-green" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8 2a2 2 0 00-2 2v1H5a3 3 0 00-3 3v1a1 1 0 001 1h1v3a3 3 0 003 3h6a3 3 0 003-3V9h1a1 1 0 001-1V7a3 3 0 00-3-3h-1V4a2 2 0 00-2-2H8zM7 9h6v4a1 1 0 01-1 1H8a1 1 0 01-1-1V9z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="text-3xl font-bold text-felted-green mb-2">{propertyDetails.bathrooms}</div>
+            <div class="text-granite-600">Bathrooms</div>
+          </div>
+          <div class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="mb-3">
+              <svg class="w-8 h-8 mx-auto text-felted-green" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+              </svg>
+            </div>
+            <div class="text-3xl font-bold text-felted-green mb-2">{propertyDetails.sleeps}</div>
+            <div class="text-granite-600">Guests</div>
+          </div>
+          <div class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div class="mb-3">
+              <svg class="w-8 h-8 mx-auto text-felted-green" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="text-3xl font-bold text-felted-green mb-2">4,500+</div>
+            <div class="text-granite-600">Sq Ft</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Room Layouts Section -->
+  <section class="py-16 bg-granite-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Bedroom & Sleeping Arrangements
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Thoughtfully designed sleeping spaces accommodate up to 17 guests with comfort and privacy in mind.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {roomLayouts.map((room) => (
+          <div class="room-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="aspect-w-16 aspect-h-10">
+              <CloudinaryImageEnhanced
+                publicId={room.images?.[0] || "banyan_tree/flat_mountain/placeholder"}
+                alt={`${room.name} at The Bodhi`}
+                preset="gallery"
+                className="room-image w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="room-title text-xl font-semibold text-deep-forest mb-2">{room.name}</h3>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-felted-green font-medium">{room.type}</span>
+                <span class="bg-brook-blue-light text-brook-blue px-3 py-1 rounded-full text-sm">
+                  Sleeps {room.sleeps}
+                </span>
+              </div>
+              <ul class="space-y-2">
+                {room.features.map((feature) => (
+                  <li class="flex items-start">
+                    <svg class="w-4 h-4 text-felted-green mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-granite-600 text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Total Sleeping Summary -->
+      <div class="mt-12 text-center">
+        <div class="bg-felted-green text-white rounded-lg p-8 max-w-2xl mx-auto">
+          <h3 class="text-2xl font-bold mb-4">Total Accommodation</h3>
+          <p class="text-lg">
+            Comfortably sleeps <strong>17 guests</strong> across 5 bedrooms with flexible arrangements for larger groups and families.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Amenities -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Exceptional Amenities & Features
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Every detail has been carefully considered to create an extraordinary vacation experience.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+        {amenityCategories.map((category) => (
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-bold text-deep-forest mb-6 border-b border-granite-200 pb-4">
+              {category.title}
+            </h3>
+            <div class="space-y-6">
+              {category.items.map((item) => (
+                <div class="flex items-start">
+                  <div class="bg-felted-green-light rounded-full p-2 mr-4 flex-shrink-0">
+                    <svg class="w-4 h-4 text-felted-green" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-deep-forest mb-1">{item.name}</h4>
+                    <p class="text-granite-600 text-sm leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Gallery -->
+  <section class="bg-granite-50">
+    <!-- Header -->
+    <div class="container mx-auto px-4 pt-16 pb-8">
+      <div class="text-center">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Property Gallery
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Explore every corner of The Bodhi through our comprehensive photo gallery.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery Status Check -->
+    <div class="w-full mb-8 text-center">
+      <p class="text-lg text-gray-600">Gallery should load below...</p>
+    </div>
+
+    <!-- Full Width Gallery Grid - Simplified -->
+    <div class="w-full border-4 border-blue-500 p-4">
+      <!-- Top row: Large image + 2x2 grid -->
+      <div class="flex flex-col md:flex-row h-auto md:h-[600px]">
+        <!-- Large feature image (left) -->
+        <div class="w-full md:w-1/2 relative group cursor-pointer"
+             style="height: 400px;"
+             data-gallery-item="0">
+          <img
+            src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/hero-exterior_rdyocb.jpg"
+            alt="The Bodhi exterior with stunning mountain views"
+            loading="eager"
+            style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid red; background: yellow;"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+          <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-sm font-medium">The Bodhi exterior with stunning mountain views</p>
+          </div>
+          <!-- Lightbox indicator -->
+          <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="bg-white bg-opacity-20 p-2">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side - 2x2 grid -->
+        <div class="w-full md:w-1/2 grid grid-cols-2 h-[400px] md:h-full">
+          <!-- Top left -->
+          <div class="relative group overflow-hidden cursor-pointer"
+               data-gallery-item="1">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/living_mupvue.jpg"
+              alt="Spacious living room with fireplace and mountain views"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+            <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-xs font-medium">Living room</p>
+            </div>
+          </div>
+
+          <!-- Top right -->
+          <div class="relative group overflow-hidden cursor-pointer"
+               data-gallery-item="2">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/kitchen.jpg"
+              alt="Gourmet kitchen"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+            <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-xs font-medium">Kitchen</p>
+            </div>
+          </div>
+
+          <!-- Bottom left -->
+          <div class="relative group overflow-hidden cursor-pointer"
+               data-gallery-item="3">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/kitchen-1.jpg"
+              alt="Kitchen island and dining area"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+            <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-xs font-medium">Dining area</p>
+            </div>
+          </div>
+
+          <!-- Bottom right -->
+          <div class="relative group overflow-hidden cursor-pointer"
+               data-gallery-item="4">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/den_olvl2a.jpg"
+              alt="Comfortable den area"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+            <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-xs font-medium">Den area</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom row - 4 equal images -->
+      <div class="grid grid-cols-4 h-[200px] md:h-[250px]">
+        <div class="relative group overflow-hidden cursor-pointer"
+             data-gallery-item="5">
+          <img
+            src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/table_xk3jr0.jpg"
+            alt="Elegant dining table"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+        </div>
+
+        <div class="relative group overflow-hidden cursor-pointer"
+             data-gallery-item="6">
+          <img
+            src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/table_2_nnbsc4.jpg"
+            alt="Additional dining space"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+        </div>
+
+        <div class="relative group overflow-hidden cursor-pointer"
+             data-gallery-item="7">
+          <img
+            src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/highland_nc_rental_132_pu9pjx.jpg"
+            alt="Master bedroom"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+        </div>
+
+        <div class="relative group overflow-hidden cursor-pointer"
+             data-gallery-item="8">
+          <img
+            src="https://res.cloudinary.com/southland-organics/image/upload/banyan_tree/flat_mountain/highland_nc_rental_131_nenmsc.jpg"
+            alt="Guest bedroom"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="text-2xl font-bold">+15</span>
+              <p class="text-sm mt-1">More Photos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Address -->
+  <section class="py-16 bg-deep-forest text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-display mb-8">
+          Prime Flat Mountain Estates Location
+        </h2>
+        <div class="bg-white/10 rounded-lg p-8 mb-8">
+          <p class="text-2xl font-semibold mb-4">{propertyDetails.address}</p>
+          <p class="text-lg opacity-90">
+            Located in the exclusive Flat Mountain Estates community, offering privacy, security, and stunning mountain views in the heart of Highlands, North Carolina.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Downtown Highlands</h3>
+            <p class="opacity-90">5 minutes to shops & restaurants</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Cashiers, NC</h3>
+            <p class="opacity-90">15 minutes to additional amenities</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Mountain Activities</h3>
+            <p class="opacity-90">Hiking, waterfalls & outdoor adventures</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-felted-green text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-4xl font-display mb-6">
+        Ready to Experience The Bodhi?
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Book your stay at this exceptional mountain estate and create unforgettable memories with your group.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/booking"
+          class="bg-white text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-granite-50 transition-colors duration-200"
+        >
+          Check Availability
+        </a>
+        <a
+          href="/contact"
+          class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-felted-green transition-colors duration-200"
+        >
+          Ask Questions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Load room images from Cloudinary tags after page load - DISABLED due to API issues
+  /*
+  document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🏠 Loading room images from Cloudinary tags...');
+
+    // Function to fetch images by tag
+    async function getImagesByTag(tag) {
+      try {
+        const response = await fetch(`/api/cloudinary/tags?action=search&tag=${encodeURIComponent(tag)}`);
+        const data = await response.json();
+
+        if (data.error) {
+          console.error(`Error fetching tag "${tag}":`, data.error);
+          return [];
+        }
+
+        return (data.resources || []).map(resource => resource.public_id);
+      } catch (error) {
+        console.error(`Failed to fetch images for tag "${tag}":`, error);
+        return [];
+      }
+    }
+
+    // Load images for each mapped tag
+    const roomImageMap = {};
+
+    for (const [tag, roomName] of Object.entries(tagToRoomMapping)) {
+      try {
+        console.log(`🔍 Fetching images for tag: "${tag}" (${roomName})`);
+        const images = await getImagesByTag(tag);
+
+        if (images.length > 0) {
+          roomImageMap[roomName] = images;
+          console.log(`✅ Found ${images.length} images for ${roomName}:`, images);
+
+          // Update the image on the page
+          updateRoomImage(roomName, images[0]);
+        } else {
+          console.warn(`⚠️ No images found for tag "${tag}" (${roomName})`);
+        }
+      } catch (error) {
+        console.error(`❌ Failed to load images for ${roomName}:`, error);
+      }
+    }
+  });
+
+  // Function to update room image on the page
+  function updateRoomImage(roomName, publicId) {
+    // Find the room card by room name
+    const roomCards = document.querySelectorAll('.room-card');
+
+    roomCards.forEach(card => {
+      const roomTitle = card.querySelector('.room-title');
+      if (roomTitle && roomTitle.textContent.trim() === roomName) {
+        const img = card.querySelector('.room-image');
+        if (img && publicId) {
+          // Generate Cloudinary URL with gallery preset
+          const cloudinaryUrl = `https://res.cloudinary.com/southland-organics/image/upload/w_800,h_600,c_fill,g_auto,q_auto:good,f_auto,dpr_auto/${publicId}`;
+
+          // Update the image source
+          img.src = cloudinaryUrl;
+          console.log(`🖼️ Updated ${roomName} image to:`, cloudinaryUrl);
+
+          // Add a visual indicator that the image was updated
+          img.style.border = '2px solid #10B981';
+          setTimeout(() => {
+            if (img.style) img.style.border = '';
+          }, 2000);
+        }
+      }
+    });
+  }
+  */
+</script>
+
+<script>
+  // Handle Matterport iframe loading and overlay interaction
+  document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.getElementById('matterport-iframe');
+    const overlay = document.getElementById('matterport-overlay');
+    const loadingFallback = document.getElementById('loading-fallback');
+    const titleOverlay = document.getElementById('title-overlay');
+
+    let isActivated = false;
+
+    // Handle overlay click to activate 3D tour
+    if (overlay) {
+      overlay.addEventListener('click', function() {
+        console.log('Activating Matterport 3D tour');
+
+        // Remove pointer-events: none from iframe
+        if (iframe) {
+          iframe.style.pointerEvents = 'all';
+        }
+
+        // Hide the overlay with animation
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 300);
+
+        // Show title overlay
+        if (titleOverlay) {
+          setTimeout(() => {
+            titleOverlay.style.opacity = '1';
+            titleOverlay.style.transition = 'opacity 0.5s ease-in-out';
+          }, 500);
+        }
+
+        isActivated = true;
+      });
+    }
+
+    if (iframe) {
+      // Set up iframe load handler
+      iframe.addEventListener('load', function() {
+        console.log('Matterport iframe loaded');
+
+        // Hide loading fallback
+        if (loadingFallback) {
+          setTimeout(() => {
+            loadingFallback.style.opacity = '0';
+            setTimeout(() => {
+              loadingFallback.style.display = 'none';
+            }, 500);
+          }, 1000);
+        }
+
+        // Don't auto-show title overlay - only show after user clicks
+      });
+
+      // Handle iframe errors
+      iframe.addEventListener('error', function() {
+        console.error('Failed to load Matterport tour');
+        if (loadingFallback) {
+          loadingFallback.innerHTML = `
+            <div class="text-center text-white">
+              <p class="text-lg mb-4">Unable to load 3D tour</p>
+              <a href="https://my.matterport.com/show/?m=B9iFxysbczV" target="_blank"
+                 class="bg-felted-green text-white px-6 py-3 rounded-lg hover:bg-felted-green-600 transition-colors">
+                Open Tour in New Window
+              </a>
+            </div>
+          `;
+        }
+      });
+
+      // Fallback timeout
+      setTimeout(() => {
+        if (loadingFallback && loadingFallback.style.display !== 'none') {
+          console.warn('Matterport tour taking longer than expected to load');
+          // Show alternative if still loading after 10 seconds
+          if (loadingFallback.querySelector('.animate-spin')) {
+            loadingFallback.innerHTML = `
+              <div class="text-center text-white">
+                <p class="text-lg mb-4">3D Tour is loading...</p>
+                <p class="text-sm opacity-75 mb-4">This may take a moment on slower connections</p>
+                <a href="https://my.matterport.com/show/?m=B9iFxysbczV" target="_blank"
+                   class="bg-felted-green text-white px-6 py-3 rounded-lg hover:bg-felted-green-600 transition-colors">
+                  Open Tour in New Window
+                </a>
+              </div>
+            `;
+          }
+        }
+      }, 10000);
+    }
+
+    // Handle scroll behavior - reshow overlay if user scrolls away and back
+    let hasScrolledAway = false;
+
+    function checkScrollPosition() {
+      const section = document.getElementById('matterport-container');
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (!isVisible && isActivated) {
+        hasScrolledAway = true;
+      } else if (isVisible && hasScrolledAway && isActivated) {
+        // User scrolled back to 3D section - optionally reshow overlay for better UX
+        // This prevents accidental interactions while scrolling past
+        // Uncomment these lines if you want the overlay to reappear:
+        /*
+        if (iframe && overlay) {
+          iframe.style.pointerEvents = 'none';
+          overlay.style.display = 'flex';
+          overlay.style.opacity = '0.8';
+          titleOverlay.style.opacity = '0';
+          isActivated = false;
+          hasScrolledAway = false;
+        }
+        */
+      }
+    }
+
+    // Uncomment to enable scroll detection
+    // window.addEventListener('scroll', checkScrollPosition, { passive: true });
+  });
+</script>
+
+<script define:vars={{ galleryImages }}>
+  // New gallery lightbox functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const galleryItems = document.querySelectorAll('[data-gallery-item]');
+
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', function() {
+        const itemIndex = parseInt(item.dataset.galleryItem);
+        openGalleryLightbox(itemIndex);
+      });
+    });
+
+    function openGalleryLightbox(startIndex) {
+      // Create lightbox overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center';
+      overlay.innerHTML = `
+        <div class="relative max-w-5xl max-h-full p-4 w-full">
+          <img id="gallery-lightbox-image" class="max-w-full max-h-full object-contain mx-auto" />
+          <button id="gallery-lightbox-close" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">&times;</button>
+          <button id="gallery-lightbox-prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">‹</button>
+          <button id="gallery-lightbox-next" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">›</button>
+          <div id="gallery-lightbox-caption" class="absolute bottom-4 left-4 right-4 text-white text-center bg-black bg-opacity-50 rounded-lg p-3"></div>
+          <div id="gallery-lightbox-counter" class="absolute top-4 left-4 text-white text-sm bg-black bg-opacity-50 rounded-lg px-3 py-2"></div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+
+      let currentIndex = startIndex;
+
+      function showGalleryImage(index) {
+        const image = galleryImages[index];
+        const img = overlay.querySelector('#gallery-lightbox-image');
+        const caption = overlay.querySelector('#gallery-lightbox-caption');
+        const counter = overlay.querySelector('#gallery-lightbox-counter');
+
+        if (image && img) {
+          // Use high-quality version for lightbox
+          img.src = `https://res.cloudinary.com/southland-organics/image/upload/c_fit,w_1600,h_1200,g_auto,q_auto:best,f_auto,dpr_auto/${image.publicId}`;
+          img.alt = image.alt;
+
+          if (caption) {
+            caption.textContent = image.alt;
+          }
+
+          if (counter) {
+            counter.textContent = `${index + 1} / ${galleryImages.length}`;
+          }
+        }
+      }
+
+      // Event listeners
+      overlay.querySelector('#gallery-lightbox-close').addEventListener('click', closeGalleryLightbox);
+      overlay.querySelector('#gallery-lightbox-prev').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        showGalleryImage(currentIndex);
+      });
+      overlay.querySelector('#gallery-lightbox-next').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        showGalleryImage(currentIndex);
+      });
+
+      // Keyboard navigation
+      function handleGalleryKeydown(e) {
+        switch(e.key) {
+          case 'Escape':
+            closeGalleryLightbox();
+            break;
+          case 'ArrowLeft':
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            showGalleryImage(currentIndex);
+            break;
+          case 'ArrowRight':
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            showGalleryImage(currentIndex);
+            break;
+        }
+      }
+
+      document.addEventListener('keydown', handleGalleryKeydown);
+
+      function closeGalleryLightbox() {
+        document.removeEventListener('keydown', handleGalleryKeydown);
+        document.body.removeChild(overlay);
+        document.body.style.overflow = '';
+      }
+
+      // Show initial image
+      showGalleryImage(currentIndex);
+    }
+  });
+</script>

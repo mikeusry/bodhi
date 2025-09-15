@@ -1,0 +1,258 @@
+---
+/**
+ * CloudinaryHero - Specialized component for hero sections
+ *
+ * Features:
+ * - Full viewport height support
+ * - Optimized for large hero images
+ * - Built-in overlay and content positioning
+ * - Mobile-responsive with art direction
+ * - Performance optimized for above-the-fold content
+ */
+
+import CloudinaryImageEnhanced from './CloudinaryImageEnhanced.astro';
+import type { CloudinaryTransformation } from '../../lib/cloudinary-types';
+
+interface Props {
+  publicId: string;
+  mobilePublicId?: string; // Different image for mobile
+  alt: string;
+  overlay?: boolean;
+  overlayOpacity?: number;
+  overlayColor?: string;
+  minHeight?: string;
+  maxHeight?: string;
+  objectPosition?: string;
+  parallax?: boolean;
+  priority?: boolean;
+  className?: string;
+  containerClassName?: string;
+}
+
+const {
+  publicId,
+  mobilePublicId,
+  alt,
+  overlay = true,
+  overlayOpacity = 0.4,
+  overlayColor = 'bg-deep-forest',
+  minHeight = '100vh',
+  maxHeight,
+  objectPosition = 'center',
+  parallax = false,
+  priority = true,
+  className = '',
+  containerClassName = ''
+} = Astro.props;
+
+// Hero-specific transformations
+const desktopTransformation: CloudinaryTransformation = {
+  width: 1920,
+  height: 1080,
+  crop: 'fill',
+  gravity: 'auto',
+  quality: 'auto:best', // Higher quality for heroes
+  format: 'auto',
+  dpr: 'auto'
+};
+
+const mobileTransformation: CloudinaryTransformation = {
+  width: 768,
+  height: 1024, // Taller for mobile
+  crop: 'fill',
+  gravity: 'auto',
+  quality: 'auto:good',
+  format: 'auto',
+  dpr: 'auto'
+};
+
+// Responsive configuration for hero images
+const heroResponsiveConfig = {
+  breakpoints: [768, 1024, 1280, 1536, 1920],
+  sizes: '100vw'
+};
+
+const containerStyles = {
+  minHeight,
+  ...(maxHeight && { maxHeight }),
+  position: 'relative',
+  overflow: 'hidden'
+};
+
+const overlayStyles = {
+  opacity: overlayOpacity
+};
+---
+
+<section
+  class={`
+    cloudinary-hero
+    ${containerClassName}
+    relative flex items-center justify-center w-full
+    ${parallax ? 'parallax-container' : ''}
+  `}
+  style={containerStyles}
+>
+  <!-- Desktop Image -->
+  <div class="absolute inset-0 hidden md:block">
+    <CloudinaryImageEnhanced
+      publicId={publicId}
+      alt={alt}
+      transformation={desktopTransformation}
+      responsive={heroResponsiveConfig}
+      loading="eager"
+      priority={priority}
+      className={`w-full h-full object-cover ${className}`}
+      objectFit="cover"
+      fadeIn={false}
+      blurPlaceholder={true}
+      containerClassName="w-full h-full"
+      style={{ objectPosition }}
+    />
+  </div>
+
+  <!-- Mobile Image (if different) -->
+  {mobilePublicId && (
+    <div class="absolute inset-0 block md:hidden">
+      <CloudinaryImageEnhanced
+        publicId={mobilePublicId}
+        alt={alt}
+        transformation={mobileTransformation}
+        responsive={{
+          breakpoints: [375, 414, 768],
+          sizes: '100vw'
+        }}
+        loading="eager"
+        priority={priority}
+        className={`w-full h-full object-cover ${className}`}
+        objectFit="cover"
+        fadeIn={false}
+        blurPlaceholder={true}
+        containerClassName="w-full h-full"
+        style={{ objectPosition }}
+      />
+    </div>
+  )}
+
+  <!-- Mobile fallback (same image with mobile optimization) -->
+  {!mobilePublicId && (
+    <div class="absolute inset-0 block md:hidden">
+      <CloudinaryImageEnhanced
+        publicId={publicId}
+        alt={alt}
+        transformation={mobileTransformation}
+        responsive={{
+          breakpoints: [375, 414, 768],
+          sizes: '100vw'
+        }}
+        loading="eager"
+        priority={priority}
+        className={`w-full h-full object-cover ${className}`}
+        objectFit="cover"
+        fadeIn={false}
+        blurPlaceholder={true}
+        containerClassName="w-full h-full"
+        style={{ objectPosition }}
+      />
+    </div>
+  )}
+
+  <!-- Overlay -->
+  {overlay && (
+    <div
+      class={`absolute inset-0 ${overlayColor}`}
+      style={overlayStyles}
+    ></div>
+  )}
+
+  <!-- Content Slot -->
+  <div class="relative z-10 w-full h-full flex items-center justify-center">
+    <slot />
+  </div>
+</section>
+
+{parallax && (
+  <script>
+    // Simple parallax effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const parallaxContainers = document.querySelectorAll('.parallax-container');
+
+      if ('IntersectionObserver' in window && 'requestAnimationFrame' in window) {
+        let ticking = false;
+
+        function updateParallax() {
+          const scrolled = window.pageYOffset;
+
+          parallaxContainers.forEach(container => {
+            const rect = container.getBoundingClientRect();
+            const isVisible = rect.bottom >= 0 && rect.top <= window.innerHeight;
+
+            if (isVisible) {
+              const rate = scrolled * -0.5;
+              const image = container.querySelector('.cloudinary-main-image');
+              if (image) {
+                image.style.transform = `translate3d(0, ${rate}px, 0)`;
+              }
+            }
+          });
+
+          ticking = false;
+        }
+
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        }
+
+        window.addEventListener('scroll', requestTick, { passive: true });
+      }
+    });
+  </script>
+)}
+
+<style>
+  .cloudinary-hero {
+    /* Ensure hero takes full viewport */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  /* Parallax optimization */
+  .parallax-container .cloudinary-main-image {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Performance optimizations */
+  .cloudinary-hero .cloudinary-main-image {
+    content-visibility: auto;
+    contain-intrinsic-size: 1920px 1080px;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .cloudinary-hero {
+      min-height: 60vh; /* Shorter on mobile */
+    }
+
+    .parallax-container .cloudinary-main-image {
+      transform: none !important; /* Disable parallax on mobile */
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-container .cloudinary-main-image {
+      transform: none !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .cloudinary-hero [class*="bg-"] {
+      opacity: 0.7;
+    }
+  }
+</style>

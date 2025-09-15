@@ -1,0 +1,60 @@
+---
+import { propertyImageTransforms } from '../../lib/cloudinary';
+
+interface Props {
+  publicId: string;
+  alt: string;
+  preset?: 'hero' | 'gallery' | 'thumbnail' | 'mobile';
+  responsive?: boolean;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  width?: number;
+  height?: number;
+}
+
+const {
+  publicId,
+  alt,
+  preset = 'gallery',
+  responsive = false,
+  class: className = '',
+  loading = 'lazy',
+  width,
+  height
+} = Astro.props;
+
+// Generate image URLs based on preset
+let imageAttrs;
+
+if (responsive) {
+  imageAttrs = propertyImageTransforms.responsiveImage(publicId);
+} else {
+  let src;
+  switch (preset) {
+    case 'hero':
+      src = propertyImageTransforms.heroMain(publicId);
+      break;
+    case 'thumbnail':
+      src = propertyImageTransforms.cardThumbnail(publicId);
+      break;
+    case 'mobile':
+      src = propertyImageTransforms.mobileHero(publicId);
+      break;
+    default:
+      src = propertyImageTransforms.galleryImage(publicId);
+  }
+  imageAttrs = { src };
+}
+---
+
+<img
+  src={imageAttrs.src}
+  srcset={imageAttrs.srcset}
+  sizes={imageAttrs.sizes}
+  alt={alt}
+  class={className}
+  loading={loading}
+  width={width}
+  height={height}
+  decoding="async"
+/>

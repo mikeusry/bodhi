@@ -1,16 +1,288 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import CloudinaryHeroSlideshow from '../components/ui/CloudinaryHeroSlideshow.astro';
+import { pageSEO } from '../lib/seo';
 
+const seoData = {
+  title: pageSEO.home.title,
+  description: pageSEO.home.description,
+  type: 'website' as const
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section - Dynamic Slideshow -->
+  <CloudinaryHeroSlideshow
+    images={[
+      "hero-exterior_rdyocb",
+      "den_olvl2a",
+      "living_mupvue",
+      "table_2_nnbsc4",
+      "table_xk3jr0"
+    ]}
+    alt="The Bodhi - Luxury 5-Bedroom Mountain Estate in Highlands, NC"
+    overlay={true}
+    overlayOpacity={0.6}
+    overlayColor="bg-black"
+    minHeight="100vh"
+    autoplay={true}
+    interval={5000}
+    kenBurns={true}
+    priority={true}
+  >
+    <div class="text-center text-canvas max-w-5xl mx-auto px-4">
+      <p class="mb-4 text-lg font-medium tracking-wide opacity-90 sm:text-xl">
+        Luxury 5-Bedroom Mountain Estate in Highlands, NC
+      </p>
+
+      <h1 class="font-anamortee text-5xl font-bold sm:text-6xl lg:text-7xl xl:text-8xl mb-6">
+        The Bodhi
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-3xl text-lg text-canvas-200 sm:text-xl lg:text-2xl mb-10">
+        Escape to this exceptional vacation rental in prestigious Flat Mountain Estates, where stunning Blue Ridge Mountain vistas meet luxury accommodations. Sleeping up to 17 guests across 5 bedrooms and 5 bathrooms, The Bodhi offers the perfect mountain retreat for families, groups, and special celebrations in the heart of Highlands, North Carolina.
+      </p>
+
+      <div class="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        <a
+          href="/book"
+          class="inline-flex items-center justify-center rounded-md bg-felted-green px-8 py-4 text-lg font-semibold text-canvas transition-all duration-200 hover:bg-felted-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-felted-green-500 focus:ring-offset-2 focus:ring-offset-deep-forest sm:px-10 sm:py-5 sm:text-xl"
+        >
+          Book Your Stay
+        </a>
+        <a
+          href="/property"
+          class="inline-flex items-center justify-center rounded-md border-2 border-canvas bg-transparent px-8 py-4 text-lg font-semibold text-canvas transition-all duration-200 hover:bg-canvas hover:text-deep-forest focus:outline-none focus:ring-2 focus:ring-canvas focus:ring-offset-2 focus:ring-offset-deep-forest sm:px-10 sm:py-5 sm:text-xl"
+        >
+          View Property
+        </a>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-4 sm:gap-6">
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-granite-600">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+              <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Sleeps 17 Guests</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-granite-600">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Private Theater</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-granite-600">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"/>
+              <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Koi Pond & Waterfalls</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-granite-600">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Big Green Egg</p>
+        </div>
+      </div>
+    </div>
+  </CloudinaryHero>
+
+  <main>
+
+    <!-- Property Highlights -->
+    <section class="py-16 px-4 bg-canvas">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="font-anamortee text-4xl md:text-5xl text-deep-forest mb-4">
+            Unparalleled Luxury in the Blue Ridge Mountains
+          </h2>
+          <p class="text-granite-600 text-lg max-w-3xl mx-auto">
+            The Bodhi harmonizes comfort and beauty with unique amenities rarely found in Highlands NC vacation rentals, creating the perfect canvas for life's most precious moments.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Private Theater -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-brook-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Private Movie Theater</h3>
+            <p class="text-granite-600">
+              Incredible downstairs theater room with plush seating and state-of-the-art audiovisual technology for immersive family entertainment.
+            </p>
+          </div>
+
+          <!-- Koi Pond & Waterfalls -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-felted-green rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"/>
+                <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Tranquil Koi Pond</h3>
+            <p class="text-granite-600">
+              Serene retreat with miniature waterfalls - a unique amenity among Highlands vacation rentals, perfect for reflection and peaceful moments.
+            </p>
+          </div>
+
+          <!-- Large Group Accommodation -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-deep-forest rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                <path d="M6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Sleeps 17 Guests</h3>
+            <p class="text-granite-600">
+              Five bedrooms and five bathrooms accommodate large families, friend groups, and corporate retreats in the North Carolina mountains.
+            </p>
+          </div>
+
+          <!-- Outdoor Cooking -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-granite-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Big Green Egg</h3>
+            <p class="text-granite-600">
+              Gourmet outdoor cooking with our Big Green Egg, perfect for mountain dining experiences and gathering around the fire pit.
+            </p>
+          </div>
+
+          <!-- Multiple Fireplaces -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-deep-forest rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Multiple Fireplaces</h3>
+            <p class="text-granite-600">
+              Wood-burning fireplace on the main floor and gas fireplace downstairs, plus outdoor fire pit for stargazing and s'mores.
+            </p>
+          </div>
+
+          <!-- Blue Ridge Views -->
+          <div class="bg-canvas-50 border border-granite-200 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-brook-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-8 h-8 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12l-2-2 2-2 2 2-2 2z"/>
+                <path d="M3 3h14a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-2">Panoramic Mountain Views</h3>
+            <p class="text-granite-600">
+              Stunning Blue Ridge Mountain vistas from the sunroom, covered patios, and throughout this luxury Highlands NC vacation rental.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="py-16 px-4 bg-felted-green-50">
+      <div class="max-w-7xl mx-auto text-center">
+        <h2 class="font-anamortee text-4xl md:text-5xl text-deep-forest mb-6">
+          Prestigious Flat Mountain Estates Location
+        </h2>
+        <p class="text-granite-700 text-lg mb-8 max-w-4xl mx-auto">
+          Located in exclusive Flat Mountain Estates at 480 Flat Mountain Estates Road, The Bodhi offers the perfect balance of privacy and convenience.
+          Just minutes from downtown Highlands' shops and restaurants, yet secluded enough to enjoy the tranquil koi pond with waterfalls and
+          stunning Blue Ridge Mountain vistas. Easy access to nearby Cashiers for additional dining and outdoor adventures.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+          <div class="text-center">
+            <div class="text-2xl font-semibold text-felted-green mb-2">5 minutes</div>
+            <p class="text-granite-600">to downtown Highlands shops & restaurants</p>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-semibold text-felted-green mb-2">15 minutes</div>
+            <p class="text-granite-600">to Cashiers for additional activities</p>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-semibold text-felted-green mb-2">Minutes away</div>
+            <p class="text-granite-600">from hiking trails & waterfalls</p>
+          </div>
+        </div>
+
+        <a
+          href="/local-guide"
+          class="bg-deep-forest text-canvas hover:bg-deep-forest-600 px-8 py-3 rounded-md text-lg font-medium transition-colors inline-block"
+        >
+          Explore Highlands Area Attractions
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-deep-forest text-canvas">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="font-anamortee text-4xl md:text-5xl mb-6">
+          Experience The Bodhi Difference
+        </h2>
+        <p class="text-canvas-200 text-lg mb-8 max-w-3xl mx-auto">
+          This exquisite estate harmonizes comfort and beauty, creating the perfect canvas for life's most precious moments.
+          From family reunions to corporate retreats, The Bodhi accommodates up to 17 guests in unparalleled luxury amidst the Blue Ridge Mountains.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-sm">
+          <div class="bg-deep-forest-600 rounded-lg p-4">
+            <div class="font-semibold mb-1">Perfect for Groups</div>
+            <div class="text-canvas-300">5 bedrooms • 5 bathrooms • Sleeps 17</div>
+          </div>
+          <div class="bg-deep-forest-600 rounded-lg p-4">
+            <div class="font-semibold mb-1">Unique Amenities</div>
+            <div class="text-canvas-300">Theater • Koi Pond • Big Green Egg</div>
+          </div>
+          <div class="bg-deep-forest-600 rounded-lg p-4">
+            <div class="font-semibold mb-1">Prime Location</div>
+            <div class="text-canvas-300">Flat Mountain Estates • Highlands, NC</div>
+          </div>
+        </div>
+
+        <div class="space-x-4">
+          <a
+            href="/book"
+            class="bg-felted-green text-canvas hover:bg-felted-green-600 px-8 py-4 rounded-md text-lg font-medium transition-colors inline-block"
+          >
+            Check Availability & Book
+          </a>
+          <a
+            href="/property"
+            class="border-2 border-canvas text-canvas hover:bg-canvas hover:text-deep-forest px-8 py-4 rounded-md text-lg font-medium transition-colors inline-block"
+          >
+            Explore The Bodhi
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

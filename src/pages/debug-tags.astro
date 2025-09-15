@@ -1,0 +1,247 @@
+---
+// Debug page to view all Cloudinary tags and images
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+const seoData = {
+  title: "Debug: Cloudinary Tags - The Bodhi",
+  description: "Debug page for viewing Cloudinary tags and images",
+  type: 'article' as const
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <main class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-display text-deep-forest mb-8 text-center">
+          Cloudinary Tags Debug
+        </h1>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <h2 class="text-2xl font-semibold text-deep-forest mb-4">Instructions</h2>
+          <ol class="list-decimal list-inside space-y-2 text-granite-700">
+            <li>Make sure you've added your Cloudinary API credentials to your <code>.env</code> file</li>
+            <li>Click "Load Tags" to fetch all tags from your Cloudinary account</li>
+            <li>Review the tags and images below</li>
+            <li>Tell me which tags correspond to which rooms for mapping</li>
+          </ol>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="bg-felted-green text-white rounded-lg p-6 mb-8">
+          <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <h3 class="text-xl font-semibold">Cloudinary Data Controls</h3>
+            <div class="flex gap-3">
+              <button
+                id="load-tags-btn"
+                class="bg-white text-felted-green px-4 py-2 rounded hover:bg-granite-50 transition-colors"
+              >
+                Load All Tags
+              </button>
+              <button
+                id="load-resources-btn"
+                class="bg-white text-felted-green px-4 py-2 rounded hover:bg-granite-50 transition-colors"
+              >
+                Load Resources with Tags
+              </button>
+              <button
+                id="clear-btn"
+                class="bg-granite-600 text-white px-4 py-2 rounded hover:bg-granite-700 transition-colors"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="hidden text-center py-8">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-felted-green mx-auto mb-4"></div>
+          <p class="text-granite-600">Loading Cloudinary data...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="hidden bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+          <h3 class="text-red-800 font-semibold mb-2">Error</h3>
+          <p id="error-message" class="text-red-700"></p>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="space-y-8">
+          <!-- Tags List -->
+          <div id="tags-section" class="hidden">
+            <h3 class="text-2xl font-semibold text-deep-forest mb-4">Available Tags</h3>
+            <div id="tags-list" class="bg-granite-50 rounded-lg p-6">
+              <!-- Tags will be populated here -->
+            </div>
+          </div>
+
+          <!-- Resources by Tags -->
+          <div id="resources-section" class="hidden">
+            <h3 class="text-2xl font-semibold text-deep-forest mb-4">Images Grouped by Tags</h3>
+            <div id="resources-list" class="space-y-6">
+              <!-- Resources will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Import our Cloudinary API functions
+  import { getAllTags, getResourcesByTags } from '../lib/cloudinary-api';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const loadTagsBtn = document.getElementById('load-tags-btn');
+    const loadResourcesBtn = document.getElementById('load-resources-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const errorMessage = document.getElementById('error-message');
+    const results = document.getElementById('results');
+    const tagsSection = document.getElementById('tags-section');
+    const tagsList = document.getElementById('tags-list');
+    const resourcesSection = document.getElementById('resources-section');
+    const resourcesList = document.getElementById('resources-list');
+
+    function showLoading() {
+      loading?.classList.remove('hidden');
+      error?.classList.add('hidden');
+    }
+
+    function hideLoading() {
+      loading?.classList.add('hidden');
+    }
+
+    function showError(message: string) {
+      hideLoading();
+      if (errorMessage) errorMessage.textContent = message;
+      error?.classList.remove('hidden');
+    }
+
+    function clearResults() {
+      tagsSection?.classList.add('hidden');
+      resourcesSection?.classList.add('hidden');
+      error?.classList.add('hidden');
+      if (tagsList) tagsList.innerHTML = '';
+      if (resourcesList) resourcesList.innerHTML = '';
+    }
+
+    // Load all tags
+    loadTagsBtn?.addEventListener('click', async () => {
+      showLoading();
+      clearResults();
+
+      try {
+        const tags = await getAllTags();
+        hideLoading();
+
+        if (tags.length === 0) {
+          showError('No tags found. Make sure your Cloudinary credentials are set correctly.');
+          return;
+        }
+
+        // Display tags
+        if (tagsList) {
+          tagsList.innerHTML = `
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              ${tags.map(tag => `
+                <div class="bg-white border border-granite-200 rounded px-3 py-2 text-sm">
+                  <code class="text-felted-green">${tag}</code>
+                </div>
+              `).join('')}
+            </div>
+            <p class="mt-4 text-granite-600">Total tags: ${tags.length}</p>
+          `;
+        }
+
+        tagsSection?.classList.remove('hidden');
+
+      } catch (err) {
+        showError(`Failed to load tags: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    });
+
+    // Load resources with tags
+    loadResourcesBtn?.addEventListener('click', async () => {
+      showLoading();
+      clearResults();
+
+      try {
+        const groupedResources = await getResourcesByTags();
+        hideLoading();
+
+        if (Object.keys(groupedResources).length === 0) {
+          showError('No resources found. Make sure your Cloudinary credentials are set correctly.');
+          return;
+        }
+
+        // Display resources grouped by tags
+        if (resourcesList) {
+          resourcesList.innerHTML = Object.entries(groupedResources)
+            .map(([tag, resources]) => `
+              <div class="bg-white border border-granite-200 rounded-lg p-6">
+                <h4 class="text-xl font-semibold text-deep-forest mb-4">
+                  🏷️ Tag: <code class="text-felted-green bg-felted-green-light px-2 py-1 rounded">${tag}</code>
+                  <span class="text-granite-500 text-sm ml-2">(${resources.length} images)</span>
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  ${resources.map(resource => `
+                    <div class="border border-granite-200 rounded-lg overflow-hidden">
+                      <img
+                        src="${resource.url}"
+                        alt="${resource.public_id}"
+                        class="w-full h-32 object-cover"
+                        loading="lazy"
+                      />
+                      <div class="p-3">
+                        <p class="text-sm font-mono text-granite-600 break-all">${resource.public_id}</p>
+                        <p class="text-xs text-granite-500 mt-1">${resource.width}×${resource.height} • ${Math.round(resource.bytes / 1024)}KB</p>
+                        ${resource.tags.length > 1 ? `
+                          <div class="mt-2">
+                            <p class="text-xs text-granite-500 mb-1">Other tags:</p>
+                            <div class="flex flex-wrap gap-1">
+                              ${resource.tags.filter(t => t !== tag).map(otherTag => `
+                                <span class="text-xs bg-granite-100 text-granite-600 px-1 py-0.5 rounded">${otherTag}</span>
+                              `).join('')}
+                            </div>
+                          </div>
+                        ` : ''}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('');
+        }
+
+        resourcesSection?.classList.remove('hidden');
+
+        // Log to console for easy copying
+        console.log('🏠 Cloudinary Resources by Tags:', groupedResources);
+
+      } catch (err) {
+        showError(`Failed to load resources: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    });
+
+    // Clear results
+    clearBtn?.addEventListener('click', () => {
+      clearResults();
+    });
+  });
+</script>
+
+<style>
+  code {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  }
+</style>

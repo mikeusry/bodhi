@@ -1,0 +1,172 @@
+---
+/**
+ * CloudinaryAvatar - Specialized component for user avatars and profile images
+ *
+ * Features:
+ * - Automatic face detection and cropping
+ * - Circular design with optional border
+ * - Multiple size options
+ * - Fallback to initials
+ * - Optimized for profile images
+ */
+
+import CloudinaryImageEnhanced from './CloudinaryImageEnhanced.astro';
+import type { CloudinaryTransformation } from '../../lib/cloudinary-types';
+
+interface Props {
+  publicId: string;
+  alt: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | number;
+  border?: boolean;
+  borderColor?: string;
+  fallbackInitials?: string;
+  fallbackBg?: string;
+  className?: string;
+  priority?: boolean;
+  onClick?: string; // For client-side click handlers
+}
+
+const {
+  publicId,
+  alt,
+  size = 'md',
+  border = false,
+  borderColor = 'white',
+  fallbackInitials,
+  fallbackBg = 'bg-felted-green',
+  className = '',
+  priority = false,
+  onClick
+} = Astro.props;
+
+// Size configuration
+const sizeConfig = {
+  xs: { size: 32, class: 'w-8 h-8' },
+  sm: { size: 40, class: 'w-10 h-10' },
+  md: { size: 64, class: 'w-16 h-16' },
+  lg: { size: 80, class: 'w-20 h-20' },
+  xl: { size: 96, class: 'w-24 h-24' },
+  '2xl': { size: 128, class: 'w-32 h-32' }
+};
+
+const finalSize = typeof size === 'number' ? size : sizeConfig[size].size;
+const sizeClass = typeof size === 'number' ? '' : sizeConfig[size].class;
+
+// Avatar-specific transformation
+const avatarTransformation: CloudinaryTransformation = {
+  width: finalSize,
+  height: finalSize,
+  crop: 'fill',
+  gravity: 'face', // Focus on faces for avatars
+  quality: 'auto:good',
+  format: 'auto',
+  radius: 'max', // Make it circular
+  dpr: 'auto'
+};
+
+// Custom styles for size when using number
+const customStyles = typeof size === 'number' ? {
+  width: `${size}px`,
+  height: `${size}px`
+} : {};
+
+// Border styles
+const borderStyles = border ? {
+  border: `2px solid ${borderColor}`,
+  padding: '2px'
+} : {};
+---
+
+<div
+  class={`
+    cloudinary-avatar
+    ${sizeClass}
+    ${border ? 'p-0.5' : ''}
+    ${className}
+    relative inline-flex items-center justify-center
+    rounded-full overflow-hidden
+    ${onClick ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}
+  `}
+  style={{ ...customStyles, ...borderStyles }}
+  {onClick && { 'data-click': onClick }}
+>
+  {publicId ? (
+    <CloudinaryImageEnhanced
+      publicId={publicId}
+      alt={alt}
+      transformation={avatarTransformation}
+      loading={priority ? 'eager' : 'lazy'}
+      priority={priority}
+      className="rounded-full"
+      objectFit="cover"
+      fadeIn={true}
+      blurPlaceholder={true}
+      containerClassName="w-full h-full"
+    />
+  ) : fallbackInitials ? (
+    <!-- Fallback with initials -->
+    <div class={`
+      w-full h-full rounded-full flex items-center justify-center
+      text-canvas font-semibold ${fallbackBg}
+    `}>
+      <span class={`
+        ${typeof size === 'number' ? '' :
+          size === 'xs' ? 'text-xs' :
+          size === 'sm' ? 'text-sm' :
+          size === 'md' ? 'text-lg' :
+          size === 'lg' ? 'text-xl' :
+          size === 'xl' ? 'text-2xl' :
+          'text-3xl'
+        }
+      `}>
+        {fallbackInitials.slice(0, 2).toUpperCase()}
+      </span>
+    </div>
+  ) : (
+    <!-- Default fallback -->
+    <div class={`
+      w-full h-full rounded-full flex items-center justify-center
+      bg-granite-200 text-granite-500
+    `}>
+      <svg class="w-1/2 h-1/2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  )}
+</div>
+
+{onClick && (
+  <script define:vars={{ onClick }}>
+    document.addEventListener('DOMContentLoaded', function() {
+      const avatars = document.querySelectorAll('[data-click]');
+      avatars.forEach(avatar => {
+        avatar.addEventListener('click', function() {
+          const clickHandler = this.dataset.click;
+          if (clickHandler && typeof window[clickHandler] === 'function') {
+            window[clickHandler]();
+          }
+        });
+      });
+    });
+  </script>
+)}
+
+<style>
+  .cloudinary-avatar {
+    /* Ensure crisp edges on avatar */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+
+  /* Hover effects for interactive avatars */
+  .cloudinary-avatar[data-click]:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  /* Focus styles for accessibility */
+  .cloudinary-avatar[data-click]:focus {
+    outline: 2px solid rgb(var(--color-felted-green-500));
+    outline-offset: 2px;
+  }
+</style>

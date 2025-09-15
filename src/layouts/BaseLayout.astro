@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import type { SEOData } from '../lib/seo';
+import { generateLocalBusinessSchema, propertySEO } from '../lib/seo';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  image?: string;
+  seoData?: SEOData;
+}
+
+const {
+  title,
+  description,
+  canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url,
+  image,
+  seoData
+} = Astro.props;
+
+// Use SEO data if provided, otherwise fall back to props or defaults
+const finalTitle = seoData?.title || title || propertySEO.siteName;
+const finalDescription = seoData?.description || description || 'Escape to The Bodhi - a luxury 5-bedroom mountain estate in prestigious Flat Mountain Estates. Sleeps 17 guests with private theater, koi pond, and stunning Blue Ridge Mountain views.';
+const finalImage = seoData?.image || image || propertySEO.defaultImage;
+const finalCanonicalURL = seoData?.canonicalURL || canonicalURL;
+
+// Generate structured data
+const localBusinessSchema = generateLocalBusinessSchema();
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{finalTitle}</title>
+    <link rel="canonical" href={finalCanonicalURL} />
+
+    <!-- Keywords -->
+    {seoData?.type === 'article' && (
+      <meta name="article:published_time" content={seoData.publishedTime} />
+      <meta name="article:modified_time" content={seoData.modifiedTime} />
+    )}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={seoData?.type || "website"} />
+    <meta property="og:url" content={finalCanonicalURL} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDescription} />
+    <meta property="og:image" content={finalImage.startsWith('http') ? finalImage : propertySEO.baseURL + finalImage} />
+    <meta property="og:site_name" content={propertySEO.siteName} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={finalCanonicalURL} />
+    <meta property="twitter:title" content={finalTitle} />
+    <meta property="twitter:description" content={finalDescription} />
+    <meta property="twitter:image" content={finalImage.startsWith('http') ? finalImage : propertySEO.baseURL + finalImage} />
+
+    <!-- Additional SEO Tags -->
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="geo.region" content="US-NC" />
+    <meta name="geo.placename" content="Highlands, North Carolina" />
+    <meta name="geo.position" content="35.0531;-83.1960" />
+    <meta name="ICBM" content="35.0531, -83.1960" />
+
+    <!-- Local Business Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)}></script>
+
+    <!-- Preload Brand Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+  </head>
+  <body class="font-nimbus-sans text-granite bg-canvas antialiased">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,404 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { CloudinaryImageEnhanced } from '../components/ui/CloudinaryImageEnhanced.astro';
+import { CloudinaryHero } from '../components/ui/CloudinaryHero.astro';
+import { pageSEO } from '../lib/seo';
+
+const seoData = {
+  title: pageSEO.localGuide.title,
+  description: pageSEO.localGuide.description,
+  keywords: pageSEO.localGuide.keywords,
+  type: 'article' as const
+};
+
+// Local attractions and activities
+const waterfalls = [
+  {
+    name: "Dry Falls",
+    distance: "8 miles",
+    description: "Walk behind this stunning 75-foot waterfall for a unique perspective",
+    difficulty: "Easy",
+    image: "banyan_tree/flat_mountain/dry-falls"
+  },
+  {
+    name: "Bridal Veil Falls",
+    distance: "9 miles",
+    description: "Drive behind this beautiful waterfall on US Highway 64",
+    difficulty: "Easy",
+    image: "banyan_tree/flat_mountain/bridal-veil-falls"
+  },
+  {
+    name: "Glen Falls",
+    distance: "12 miles",
+    description: "Three-tiered waterfall with swimming holes and hiking trails",
+    difficulty: "Moderate",
+    image: "banyan_tree/flat_mountain/glen-falls"
+  },
+  {
+    name: "Whitewater Falls",
+    distance: "15 miles",
+    description: "The highest waterfall in the eastern United States at 411 feet",
+    difficulty: "Easy to Moderate",
+    image: "banyan_tree/flat_mountain/whitewater-falls"
+  }
+];
+
+const restaurants = [
+  {
+    name: "The Old Edwards Inn & Spa",
+    type: "Fine Dining",
+    distance: "5 minutes",
+    cuisine: "Contemporary American",
+    description: "Elegant dining with seasonal menus and mountain views",
+    price: "$$$$"
+  },
+  {
+    name: "Skyline Lodge Restaurant",
+    type: "Mountain Lodge",
+    distance: "8 minutes",
+    cuisine: "Southern Mountain",
+    description: "Rustic charm with hearty mountain fare and scenic views",
+    price: "$$$"
+  },
+  {
+    name: "Wild Thyme Gourmet",
+    type: "Market & Cafe",
+    distance: "6 minutes",
+    cuisine: "Gourmet Market",
+    description: "Artisan foods, wine selection, and casual dining",
+    price: "$$"
+  },
+  {
+    name: "Cyprus Restaurant",
+    type: "International",
+    distance: "5 minutes",
+    cuisine: "Mediterranean",
+    description: "Fresh Mediterranean flavors in a cozy atmosphere",
+    price: "$$$"
+  }
+];
+
+const activities = [
+  {
+    name: "Highlands Country Club",
+    type: "Golf",
+    distance: "10 minutes",
+    description: "18-hole championship golf course with mountain views",
+    season: "April - October"
+  },
+  {
+    name: "Highlands Nature Center",
+    type: "Education",
+    distance: "8 minutes",
+    description: "Wildlife exhibits, botanical gardens, and nature trails",
+    season: "Year-round"
+  },
+  {
+    name: "Sunset Rock",
+    type: "Hiking",
+    distance: "15 minutes",
+    description: "Popular hiking destination with panoramic sunset views",
+    season: "Year-round"
+  },
+  {
+    name: "Lake Sequoyah",
+    type: "Recreation",
+    distance: "12 minutes",
+    description: "Swimming, fishing, and paddling on a pristine mountain lake",
+    season: "May - September"
+  }
+];
+
+const shopping = [
+  {
+    name: "Highland Hiker",
+    type: "Outdoor Gear",
+    distance: "6 minutes",
+    description: "Premium outdoor equipment and local trail guides"
+  },
+  {
+    name: "Acorns & Bird Song",
+    type: "Art Gallery",
+    distance: "5 minutes",
+    description: "Local and regional artists featuring mountain-inspired artwork"
+  },
+  {
+    name: "Mountain Findings",
+    type: "Antiques",
+    distance: "7 minutes",
+    description: "Unique antiques and vintage mountain collectibles"
+  },
+  {
+    name: "The Hen House",
+    type: "Home Goods",
+    distance: "6 minutes",
+    description: "Mountain home decor and artisan crafts"
+  }
+];
+
+const dayTrips = [
+  {
+    name: "Cashiers, NC",
+    distance: "15 miles",
+    highlights: ["Village Green", "Shopping", "Additional Dining"],
+    description: "Charming mountain village with boutique shopping and dining"
+  },
+  {
+    name: "Franklin, NC",
+    distance: "25 miles",
+    highlights: ["Gem Mining", "Scottish Tartans Museum", "Macon County History"],
+    description: "Historic town famous for gem mining and Scottish heritage"
+  },
+  {
+    name: "Cherokee, NC",
+    distance: "45 miles",
+    highlights: ["Great Smoky Mountains", "Cultural Heritage", "Casino"],
+    description: "Gateway to Great Smoky Mountains with rich Cherokee culture"
+  },
+  {
+    name: "Asheville, NC",
+    distance: "75 miles",
+    highlights: ["Blue Ridge Parkway", "Breweries", "Arts District"],
+    description: "Vibrant arts scene, craft breweries, and mountain culture"
+  }
+];
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <CloudinaryHero
+    publicId="banyan_tree/flat_mountain/highlands-downtown"
+    alt="Downtown Highlands, NC near The Bodhi vacation rental"
+    headline="Discover Highlands, NC"
+    subheadline="Your complete guide to Western North Carolina's mountain paradise"
+    height="70vh"
+    overlay={0.5}
+    className="mb-0"
+  />
+
+  <!-- Introduction -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-display text-deep-forest mb-6">
+          Explore the Magic of Highlands
+        </h1>
+        <p class="text-xl text-granite-700 leading-relaxed mb-8">
+          From The Bodhi's prime location in Flat Mountain Estates, you're perfectly positioned to explore the best of Highlands, NC. This charming mountain town offers world-class dining, spectacular waterfalls, outdoor adventures, and year-round activities just minutes from your luxury vacation rental.
+        </p>
+        <div class="bg-felted-green-light rounded-lg p-6">
+          <p class="text-lg text-deep-forest font-medium">
+            <strong>Location:</strong> 480 Flat Mountain Estates Road - 5 minutes to downtown Highlands
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waterfalls Section -->
+  <section class="py-16 bg-granite-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Spectacular Waterfalls
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Highlands is renowned for its stunning waterfalls. From easy walks to adventurous hikes, discover cascading waters throughout the region.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        {waterfalls.map((waterfall) => (
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="aspect-w-16 aspect-h-12">
+              <CloudinaryImageEnhanced
+                publicId={waterfall.image}
+                alt={`${waterfall.name} near Highlands, NC`}
+                preset="gallery"
+                className="w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-deep-forest mb-2">{waterfall.name}</h3>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-felted-green font-medium">{waterfall.distance}</span>
+                <span class="bg-brook-blue-light text-brook-blue px-2 py-1 rounded text-sm">
+                  {waterfall.difficulty}
+                </span>
+              </div>
+              <p class="text-granite-600 text-sm">{waterfall.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Dining Section -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Exceptional Dining
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Highlands offers an impressive culinary scene with restaurants ranging from fine dining to casual mountain fare.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {restaurants.map((restaurant) => (
+          <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-semibold text-deep-forest mb-1">{restaurant.name}</h3>
+                <p class="text-felted-green font-medium">{restaurant.cuisine} • {restaurant.type}</p>
+              </div>
+              <div class="text-right">
+                <div class="text-granite-600 text-sm">{restaurant.distance}</div>
+                <div class="text-brook-blue font-medium">{restaurant.price}</div>
+              </div>
+            </div>
+            <p class="text-granite-600">{restaurant.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities Section -->
+  <section class="py-16 bg-granite-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Outdoor Adventures
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          From championship golf to mountain hiking, Highlands offers year-round outdoor activities for every interest level.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        {activities.map((activity) => (
+          <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300">
+            <h3 class="text-lg font-semibold text-deep-forest mb-2">{activity.name}</h3>
+            <div class="text-felted-green font-medium mb-2">{activity.type}</div>
+            <div class="text-granite-600 text-sm mb-3">{activity.distance}</div>
+            <p class="text-granite-600 text-sm mb-3">{activity.description}</p>
+            <div class="bg-brook-blue-light text-brook-blue px-3 py-1 rounded-full text-sm">
+              {activity.season}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Shopping Section -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          Shopping & Galleries
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto">
+          Discover unique boutiques, art galleries, and specialty shops in downtown Highlands.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        {shopping.map((shop) => (
+          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+            <h3 class="text-lg font-semibold text-deep-forest mb-2">{shop.name}</h3>
+            <div class="text-felted-green font-medium mb-2">{shop.type}</div>
+            <div class="text-granite-600 text-sm mb-3">{shop.distance}</div>
+            <p class="text-granite-600 text-sm">{shop.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Day Trips Section -->
+  <section class="py-16 bg-deep-forest text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display mb-6">
+          Day Trip Destinations
+        </h2>
+        <p class="text-xl opacity-90 max-w-3xl mx-auto">
+          Extend your mountain adventure with day trips to nearby attractions and towns throughout Western North Carolina.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        {dayTrips.map((destination) => (
+          <div class="bg-white/10 rounded-lg p-6 hover:bg-white/15 transition-colors duration-300">
+            <h3 class="text-xl font-semibold mb-3">{destination.name}</h3>
+            <div class="text-felted-green-light font-medium mb-3">{destination.distance}</div>
+            <div class="mb-4">
+              {destination.highlights.map((highlight, index) => (
+                <span class="inline-block bg-white/20 text-white px-2 py-1 rounded text-sm mr-2 mb-1">
+                  {highlight}
+                </span>
+              ))}
+            </div>
+            <p class="text-white/90 text-sm">{destination.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Local Tips Section -->
+  <section class="py-16 bg-felted-green text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-display mb-8">
+          Local Insider Tips
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8 text-left">
+          <div class="bg-white/10 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">🌡️ Best Times to Visit</h3>
+            <ul class="space-y-2 text-white/90">
+              <li><strong>Spring (April-May):</strong> Wildflowers and mild weather</li>
+              <li><strong>Summer (June-August):</strong> Perfect hiking and lake activities</li>
+              <li><strong>Fall (September-October):</strong> Peak foliage season</li>
+              <li><strong>Winter (November-March):</strong> Cozy mountain charm</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/10 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">📱 Local Resources</h3>
+            <ul class="space-y-2 text-white/90">
+              <li><strong>Weather:</strong> Elevation 4,118 ft - dress in layers</li>
+              <li><strong>Emergency:</strong> Highlands-Cashiers Hospital nearby</li>
+              <li><strong>Groceries:</strong> Bryson's Food Store for essentials</li>
+              <li><strong>Gas:</strong> Several stations on Main Street</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 bg-white/10 rounded-lg p-8">
+          <h3 class="text-2xl font-semibold mb-4">Planning Your Stay at The Bodhi</h3>
+          <p class="text-lg mb-6">
+            With so much to see and do, you'll want to plan your days to make the most of your mountain vacation. The Bodhi's location in Flat Mountain Estates puts you at the center of it all.
+          </p>
+          <a
+            href="/property"
+            class="inline-flex items-center justify-center bg-white text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-granite-50 transition-colors duration-200"
+          >
+            View Property Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

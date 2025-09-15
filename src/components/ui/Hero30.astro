@@ -1,0 +1,158 @@
+---
+// Hero component inspired by Relume Header 30 pattern
+// Customized for Flat Mountain Estates luxury vacation rental
+
+import CloudinaryImage from './CloudinaryImage.astro';
+
+interface Props {
+  heading?: string;
+  subheading?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonUrl?: string;
+  secondaryButtonText?: string;
+  secondaryButtonUrl?: string;
+  backgroundImage?: string;
+  cloudinaryId?: string;
+}
+
+const {
+  heading = "Flat Mountain Estates",
+  subheading = "Luxury Mountain Retreat",
+  description = "Experience the perfect blend of modern luxury and natural beauty in the heart of Highlands, NC. Your premium mountain getaway awaits.",
+  primaryButtonText = "Book Your Stay",
+  primaryButtonUrl = "/book",
+  secondaryButtonText = "View Property",
+  secondaryButtonUrl = "/property",
+  backgroundImage = "/images/hero-flat-mountain-estates.jpg",
+  cloudinaryId = "sample" // Replace with actual property image
+} = Astro.props;
+---
+
+<section class="relative flex h-screen items-center justify-center overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    {cloudinaryId ? (
+      <img
+        src={`https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_1080,g_auto,f_auto,q_auto/${cloudinaryId}`}
+        alt="Flat Mountain Estates luxury vacation rental"
+        class="h-full w-full object-cover"
+        loading="eager"
+      />
+    ) : (
+      <img
+        src={backgroundImage}
+        alt="Flat Mountain Estates luxury vacation rental"
+        class="h-full w-full object-cover"
+        loading="eager"
+      />
+    )}
+  </div>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 z-10 bg-deep-forest bg-opacity-40"></div>
+
+  <!-- Content -->
+  <div class="relative z-20 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <!-- Subheading -->
+      <p class="mb-4 text-lg font-medium tracking-wide text-canvas-100 opacity-90 sm:text-xl">
+        {subheading}
+      </p>
+
+      <!-- Main Heading -->
+      <h1 class="font-anamortee text-5xl font-bold text-canvas sm:text-6xl lg:text-7xl xl:text-8xl">
+        {heading}
+      </h1>
+
+      <!-- Description -->
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-canvas-200 sm:text-xl lg:text-2xl">
+        {description}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        <a
+          href={primaryButtonUrl}
+          class="inline-flex items-center justify-center rounded-md bg-felted-green px-8 py-4 text-lg font-semibold text-canvas transition-all duration-200 hover:bg-felted-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-felted-green-500 focus:ring-offset-2 focus:ring-offset-deep-forest sm:px-10 sm:py-5 sm:text-xl"
+        >
+          {primaryButtonText}
+        </a>
+        <a
+          href={secondaryButtonUrl}
+          class="inline-flex items-center justify-center rounded-md border-2 border-canvas bg-transparent px-8 py-4 text-lg font-semibold text-canvas transition-all duration-200 hover:bg-canvas hover:text-deep-forest focus:outline-none focus:ring-2 focus:ring-canvas focus:ring-offset-2 focus:ring-offset-deep-forest sm:px-10 sm:py-5 sm:text-xl"
+        >
+          {secondaryButtonText}
+        </a>
+      </div>
+
+      <!-- Trust Indicators / Features -->
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-felted-green">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z"/>
+              <path d="M8 8a3 3 0 116 0v1h1a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 012-2h1V8z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Pet-Friendly</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-brook-blue">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12l-2-2 2-2 2 2-2 2z"/>
+              <path d="M3 3h14a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Mountain Views</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-deep-forest">
+            <svg class="h-6 w-6 text-canvas" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-canvas-100">Luxury Amenities</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 z-20 -translate-x-1/2">
+    <div class="flex flex-col items-center">
+      <p class="mb-2 text-xs font-medium text-canvas-200">Scroll to explore</p>
+      <div class="animate-bounce">
+        <svg class="h-6 w-6 text-canvas-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -30px, 0);
+    }
+    70% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -15px, 0);
+    }
+    90% {
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+</style>
