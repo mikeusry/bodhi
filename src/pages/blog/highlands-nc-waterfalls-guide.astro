@@ -1,0 +1,650 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const seoData = {
+  title: 'Ultimate Guide to Highlands NC Waterfalls: A Local\'s Secret Spots - The Bodhi Blog',
+  description: 'Discover the most spectacular waterfalls near Highlands, NC including Dry Falls, Bridal Veil Falls, Glen Falls, and Whitewater Falls. Local insider tips and secret viewpoints from The Bodhi luxury vacation rental.',
+  keywords: 'Highlands NC waterfalls, Dry Falls, Bridal Veil Falls, Glen Falls, Whitewater Falls, North Carolina waterfall guide, Blue Ridge Mountains',
+  type: 'article' as const
+};
+
+const postData = {
+  title: "Ultimate Guide to Highlands NC Waterfalls: A Local's Secret Spots",
+  publishDate: "September 20, 2024",
+  readTime: "12 min read",
+  category: "Travel Guide",
+  author: "The Bodhi Team",
+  heroImage: "banyan_tree/flat_mountain/dryfallsfeature_m4ubgb"
+};
+
+const waterfalls = [
+  {
+    name: "Dry Falls",
+    distance: "2.5 miles from Highlands",
+    height: "75 feet",
+    image: "banyan_tree/flat_mountain/dryfallsfeature_m4ubgb",
+    difficulty: "Easy",
+    highlight: "Walk behind the waterfall"
+  },
+  {
+    name: "Bridal Veil Falls",
+    distance: "4.5 miles from Highlands",
+    height: "60 feet",
+    image: "banyan_tree/flat_mountain/Bridal-Veil-Falls",
+    difficulty: "Easy",
+    highlight: "Drive through the waterfall"
+  },
+  {
+    name: "Glen Falls",
+    distance: "1 mile from Highlands",
+    height: "60 feet (upper falls)",
+    image: "banyan_tree/flat_mountain/glen-falls-nc",
+    difficulty: "Moderate",
+    highlight: "Three waterfalls in one hike"
+  },
+  {
+    name: "Whitewater Falls",
+    distance: "15 miles from Highlands",
+    height: "411 feet",
+    image: "banyan_tree/flat_mountain/Whitewater-Falls",
+    difficulty: "Easy to Strenuous",
+    highlight: "Tallest waterfall east of Rockies"
+  }
+];
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <article class="blog-post">
+    <section class="relative overflow-hidden" style="height: 80vh;">
+      <img
+        src={`https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_1200,q_auto:best,f_auto/${postData.heroImage}`}
+        alt={postData.title}
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+        loading="eager"
+      />
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(45, 69, 56, 0.4), rgba(0, 0, 0, 0.7)); z-index: 2;"></div>
+
+      <!-- Content Overlay -->
+      <div class="relative h-full flex items-end pb-16" style="z-index: 3;">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto text-white">
+            <!-- Category Badge -->
+            <div class="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4" style="background-color: rgb(86, 125, 95); color: white;">
+              {postData.category}
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-4xl md:text-6xl font-anamortee mb-6 leading-tight">
+              {postData.title}
+            </h1>
+
+            <!-- Meta Info -->
+            <div class="flex flex-wrap items-center gap-6 text-lg opacity-90">
+              <div class="flex items-center">
+                <span class="mr-2">📅</span>
+                <time datetime={postData.publishDate}>{postData.publishDate}</time>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">⏱️</span>
+                <span>{postData.readTime}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">✍️</span>
+                <span>{postData.author}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waterfall Quick Guide -->
+    <section class="py-16 text-white" style="background: linear-gradient(to right, rgb(86, 125, 95), rgb(45, 69, 56));">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">🌊 The Four Must-See Waterfalls</h2>
+          <p class="text-xl opacity-90 mb-12">Your complete guide to Highlands' most spectacular cascades</p>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {waterfalls.map((waterfall) => (
+              <div class="bg-white/10 rounded-lg p-6 hover:bg-white/20 transition-colors duration-300">
+                <div class="aspect-square rounded-lg overflow-hidden mb-4">
+                  <img
+                    src={`https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_300,h_300,q_auto:best,f_auto/${waterfall.image}`}
+                    alt={waterfall.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{waterfall.name}</h3>
+                <div class="text-sm opacity-90 space-y-1">
+                  <div>📏 {waterfall.height}</div>
+                  <div>📍 {waterfall.distance}</div>
+                  <div>🥾 {waterfall.difficulty}</div>
+                  <div class="text-yellow-300 font-medium">✨ {waterfall.highlight}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="py-16 bg-canvas">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+
+          <!-- Introduction -->
+          <div class="prose prose-lg max-w-none mb-16">
+            <div class="text-xl leading-relaxed text-gray-700 font-light">
+              <p class="text-2xl text-deep-forest font-medium mb-6">
+                Nestled in the heart of the Blue Ridge Mountains, Highlands, North Carolina, sits at an elevation of 4,118 feet, making it one of the highest incorporated towns east of the Mississippi.
+              </p>
+
+              <p class="mb-6">
+                This mountain paradise isn't just known for its cool summer temperatures and vibrant fall foliage—it's home to some of the most spectacular waterfalls in the Southeast. The unique geography of the area, where the Blue Ridge Escarpment drops dramatically toward South Carolina, creates the perfect conditions for stunning cascades that draw visitors from around the world.
+              </p>
+
+              <div class="text-white rounded-xl p-8 my-12" style="background-color: rgb(71, 133, 169);">
+                <h3 class="text-2xl font-bold mb-4">🏔️ Did You Know?</h3>
+                <p class="text-lg opacity-95">
+                  Highlands sits at the center of what locals call "Waterfall Alley," receiving over 80 inches of rainfall annually—the highest precipitation rate in the eastern United States after the Pacific Northwest.
+                </p>
+              </div>
+
+              <p class="mb-6">
+                What many visitors don't realize is that this abundant rainfall, combined with the dramatic elevation changes of the Nantahala National Forest, has carved out some of the most accessible yet breathtaking waterfalls you'll find anywhere in Appalachia.
+              </p>
+
+              <p class="mb-8">
+                While guidebooks might give you the basics, this local's guide will share the insider knowledge that transforms a simple waterfall visit into an unforgettable mountain experience. From the best times to avoid crowds to secret viewpoints and seasonal surprises, you're about to discover why these four waterfalls near Highlands have captivated generations of mountain lovers.
+              </p>
+            </div>
+          </div>
+
+          <!-- Dry Falls Section -->
+          <section class="mb-16">
+            <div class="relative rounded-2xl overflow-hidden mb-8" style="height: 60vh;">
+              <img
+                src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/dryfallsfeature_m4ubgb"
+                alt="Dry Falls - Walk behind the waterfall"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-8 left-8 text-white">
+                <h2 class="text-4xl font-anamortee mb-2">Dry Falls</h2>
+                <p class="text-xl opacity-90">Walk Behind a Waterfall Wonder</p>
+              </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl font-medium mb-6" style="color: rgb(45, 69, 56);">
+                Despite its misleading name, Dry Falls is anything but dry. This 75-foot cascade on the Cullasaja River got its name because you can walk completely behind the waterfall and stay relatively dry—though "relatively" is the key word here.
+              </p>
+
+              <p class="mb-6">
+                Located just 2.5 miles northwest of downtown Highlands on US Highway 64, Dry Falls offers one of the most unique waterfall experiences in the region. The approach to Dry Falls sets it apart from other waterfalls. After parking in the well-maintained lot (which fills up quickly on summer weekends), you'll descend a short but steep paved path that switches back through a canopy of rhododendron and hemlock.
+              </p>
+
+              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-8">
+                <h4 class="text-lg font-semibold mb-2" style="color: rgb(133, 77, 14);">🌅 Local's Tip</h4>
+                <p style="color: rgb(161, 98, 7);">
+                  Visit Dry Falls early in the morning during late spring when the mountain laurel is blooming. Not only will you avoid the crowds, but the morning light filtering through the mist creates an ethereal atmosphere that photographers dream about.
+                </p>
+              </div>
+
+              <p class="mb-6">
+                What makes Dry Falls truly special is the massive overhang of rock that allows visitors to walk completely behind the 75-foot curtain of water. The rock shelter extends back about 15-20 feet, creating a natural amphitheater where you can experience the raw power of thousands of gallons of water plummeting past you every second.
+              </p>
+
+              <p class="mb-8">
+                On sunny days, the mist creates countless rainbows that dance in the spray, while the negative ions generated by the falling water create that refreshing, energizing feeling that waterfall enthusiasts seek. In winter, ice formations create stunning natural sculptures, though the path can be treacherous—check with the Forest Service for current conditions.
+              </p>
+            </div>
+          </section>
+
+          <!-- Bridal Veil Falls Section -->
+          <section class="mb-16">
+            <div class="relative rounded-2xl overflow-hidden mb-8" style="height: 60vh;">
+              <img
+                src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/Bridal-Veil-Falls"
+                alt="Bridal Veil Falls - Drive through the waterfall"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-8 left-8 text-white">
+                <h2 class="text-4xl font-anamortee mb-2">Bridal Veil Falls</h2>
+                <p class="text-xl opacity-90">Drive Through a Mountain Marvel</p>
+              </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl font-medium mb-6" style="color: rgb(45, 69, 56);">
+                Just two miles west of Dry Falls along the same scenic Highway 64, Bridal Veil Falls offers a completely different but equally memorable experience. This 60-foot waterfall is the only one in North Carolina that you can actually drive behind.
+              </p>
+
+              <p class="mb-6">
+                The history of Bridal Veil Falls is as fascinating as the waterfall itself. When Highway 64 was originally constructed, engineers could have easily routed around the falls, but they recognized the unique opportunity to create something special. They carved the road right behind the cascade, instantly turning it into one of the most distinctive attractions in the Southern Appalachians.
+              </p>
+
+              <div class="text-white rounded-xl p-8 my-8" style="background-color: rgb(86, 125, 95);">
+                <h4 class="text-xl font-semibold mb-4">📸 Photography Tip</h4>
+                <p class="opacity-95">
+                  Bridal Veil Falls is best photographed in the late afternoon when the sun backlights the falling water, creating that classic bridal veil effect. During autumn, the surrounding hardwoods burst into color, framing the falls in brilliant reds, oranges, and golds.
+                </p>
+              </div>
+
+              <p class="mb-6">
+                While driving through is the main attraction, don't miss the opportunity to park in the designated pull-off area and explore on foot. A short, easy trail leads to the base of the falls, where you can feel the cool mist and appreciate the full height of the cascade.
+              </p>
+
+              <p class="mb-8">
+                The area around Bridal Veil Falls is also rich in biodiversity. The constant mist creates a unique microclimate that supports rare plants, including several species of native orchids and ferns. Keep an eye out for the walking fern, which "walks" across rocks by sprouting new plants from the tips of its fronds.
+              </p>
+            </div>
+          </section>
+
+          <!-- Glen Falls Section -->
+          <section class="mb-16">
+            <div class="relative rounded-2xl overflow-hidden mb-8" style="height: 60vh;">
+              <img
+                src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/glen-falls-nc"
+                alt="Glen Falls - Three waterfalls in one hike"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-8 left-8 text-white">
+                <h2 class="text-4xl font-anamortee mb-2">Glen Falls</h2>
+                <p class="text-xl opacity-90">The Triple Threat Hidden Gem</p>
+              </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl font-medium mb-6" style="color: rgb(45, 69, 56);">
+                While Dry Falls and Bridal Veil Falls attract the highway travelers, Glen Falls remains something of a local secret, requiring a bit more effort to reach but rewarding visitors with not one, but three spectacular waterfalls along a moderate 2-mile round trip hike.
+              </p>
+
+              <p class="mb-6">
+                Located just a mile south of Highlands off Highway 106, Glen Falls on the East Fork of Overflow Creek offers a more intimate, wilderness experience. The trail presents you with a choice about a third of a mile in: take the left fork to reach the top of the 60-foot upper falls first, or bear right to approach from below.
+              </p>
+
+              <div class="text-white rounded-xl p-8 my-8" style="background-color: rgb(45, 69, 56);">
+                <h4 class="text-xl font-semibold mb-4">🌙 Secret Experience</h4>
+                <p class="opacity-95">
+                  The best-kept secret about Glen Falls is visiting during a full moon in summer. The lack of artificial light pollution means the falls are illuminated naturally, creating an otherworldly scene that few people ever witness.
+                </p>
+              </div>
+
+              <p class="mb-6">
+                Most locals recommend starting with the lower trail to build up to the dramatic upper falls. The lower falls, at about 15 feet, might seem modest, but the deep pool at its base is a favorite summer swimming hole for those brave enough to face the perpetually cold mountain water.
+              </p>
+
+              <p class="mb-8">
+                But it's the upper falls that truly takes your breath away. At 60 feet, this powerful cascade shoots through a narrow chute before spreading across the rock face. A wooden observation deck provides safe viewing, but adventurous hikers can carefully make their way to the rocks above the falls for a bird's eye view of the Blue Valley below.
+              </p>
+            </div>
+          </section>
+
+          <!-- Whitewater Falls Section -->
+          <section class="mb-16">
+            <div class="relative rounded-2xl overflow-hidden mb-8" style="height: 60vh;">
+              <img
+                src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/Whitewater-Falls"
+                alt="Whitewater Falls - Tallest waterfall east of the Rockies"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-8 left-8 text-white">
+                <h2 class="text-4xl font-anamortee mb-2">Whitewater Falls</h2>
+                <p class="text-xl opacity-90">The Southeast's Tallest Cascade</p>
+              </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl font-medium mb-6" style="color: rgb(45, 69, 56);">
+                Saving the most dramatic for last, Whitewater Falls straddles the North Carolina-South Carolina border about 15 miles south of Highlands, claiming the title of the highest waterfall east of the Rocky Mountains.
+              </p>
+
+              <p class="mb-6">
+                With a total drop of 811 feet through a series of cascades, Whitewater Falls is actually best experienced from both states, each offering unique perspectives of this natural wonder. From the North Carolina side, accessed via Highway 281, a quarter-mile paved trail leads to an overlook that provides the classic view of the upper 411-foot drop.
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8 my-8">
+                <div class="rounded-lg p-6" style="background-color: rgb(245, 245, 244); border: 2px solid rgb(86, 125, 95);">
+                  <h4 class="text-lg font-semibold mb-3" style="color: rgb(86, 125, 95);">🔬 Geological Wonder</h4>
+                  <p class="text-sm text-gray-700">
+                    The exposed rock face tells a billion-year-old story of continental collision and mountain building. The waterfall is actively eroding headward at about one foot every thousand years.
+                  </p>
+                </div>
+                <div class="rounded-lg p-6" style="background-color: rgb(245, 245, 244); border: 2px solid rgb(71, 133, 169);">
+                  <h4 class="text-lg font-semibold mb-3" style="color: rgb(71, 133, 169);">📸 Photo Challenge</h4>
+                  <p class="text-sm text-gray-700">
+                    The massive scale makes it difficult to capture in a single frame. Best light occurs in mid-morning when sun illuminates the falls while leaving the forest in shade.
+                  </p>
+                </div>
+              </div>
+
+              <p class="mb-6">
+                What many visitors don't realize is that there's a challenging but rewarding trail that descends 700+ steps to the base of the falls. This strenuous hike isn't for everyone—the return trip will test your fitness level—but those who make the journey are rewarded with a completely different perspective.
+              </p>
+
+              <p class="mb-8">
+                From below, you can truly appreciate the violence with which the water strikes the rocks, creating a perpetual thunderstorm of mist and sound. The pool at the base is often shrouded in spray, creating an ever-changing pattern of rainbows on sunny days.
+              </p>
+            </div>
+          </section>
+
+          <!-- Seasonal Guide -->
+          <section class="mb-16">
+            <div class="text-white rounded-2xl p-10" style="background: linear-gradient(to bottom right, rgb(86, 125, 95), rgb(45, 69, 56));">
+              <h2 class="text-3xl font-anamortee mb-8 text-center">🗓️ Seasonal Secrets and Timing</h2>
+
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white/10 rounded-lg p-6">
+                  <div class="text-3xl mb-3">🌸</div>
+                  <h3 class="text-lg font-semibold mb-3">Spring (Apr-Jun)</h3>
+                  <ul class="text-sm opacity-90 space-y-1">
+                    <li>• Highest water flow</li>
+                    <li>• Wildflowers blooming</li>
+                    <li>• Thunderous sounds</li>
+                    <li>• Migrating birds</li>
+                  </ul>
+                </div>
+
+                <div class="bg-white/10 rounded-lg p-6">
+                  <div class="text-3xl mb-3">☀️</div>
+                  <h3 class="text-lg font-semibold mb-3">Summer (Jun-Aug)</h3>
+                  <ul class="text-sm opacity-90 space-y-1">
+                    <li>• Swimming opportunities</li>
+                    <li>• Lush green forests</li>
+                    <li>• Visit before 9 AM</li>
+                    <li>• Afternoon storms</li>
+                  </ul>
+                </div>
+
+                <div class="bg-white/10 rounded-lg p-6">
+                  <div class="text-3xl mb-3">🍂</div>
+                  <h3 class="text-lg font-semibold mb-3">Fall (Sep-Nov)</h3>
+                  <ul class="text-sm opacity-90 space-y-1">
+                    <li>• Spectacular colors</li>
+                    <li>• Lower water reveals rocks</li>
+                    <li>• Peak in mid-October</li>
+                    <li>• Weekdays best</li>
+                  </ul>
+                </div>
+
+                <div class="bg-white/10 rounded-lg p-6">
+                  <div class="text-3xl mb-3">❄️</div>
+                  <h3 class="text-lg font-semibold mb-3">Winter (Dec-Mar)</h3>
+                  <ul class="text-sm opacity-90 space-y-1">
+                    <li>• Ice formations</li>
+                    <li>• Dramatic ice palaces</li>
+                    <li>• Check road conditions</li>
+                    <li>• Proper equipment needed</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Conservation Section -->
+          <section class="mb-16">
+            <div class="bg-white border-2 rounded-xl p-10" style="border-color: rgb(86, 125, 95);">
+              <h2 class="text-3xl font-bold mb-6 text-center" style="color: rgb(45, 69, 56);">🌱 Conservation and Respect</h2>
+
+              <div class="prose prose-lg max-w-none">
+                <p class="text-lg text-gray-700 mb-6">
+                  These waterfalls have survived millions of years of geological time, but they're surprisingly fragile when it comes to human impact. Each year, thousands of visitors come to experience these natural wonders, and it's crucial that we all do our part to preserve them for future generations.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 class="text-xl font-semibold mb-4" style="color: rgb(86, 125, 95);">✅ Do:</h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>• Stay on designated trails</li>
+                      <li>• Pack out all trash</li>
+                      <li>• Observe wildlife from distance</li>
+                      <li>• Visit during off-peak times</li>
+                      <li>• Support local conservation groups</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xl font-semibold mb-4" style="color: rgb(45, 69, 56);">❌ Don't:</h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>• Step off designated areas</li>
+                      <li>• Throw anything in waterfalls</li>
+                      <li>• Feed wildlife</li>
+                      <li>• Remove rocks or plants</li>
+                      <li>• Enter water during storms</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Planning Section -->
+          <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center" style="color: rgb(45, 69, 56);">🎒 Planning Your Waterfall Adventure</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-xl font-semibold mb-4" style="color: rgb(86, 125, 95);">📋 Essential Gear</h3>
+                <ul class="space-y-3 text-gray-700">
+                  <li class="flex items-start">
+                    <span class="mr-2" style="color: rgb(86, 125, 95);">👟</span>
+                    <span>Sturdy footwear with good traction</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="mr-2" style="color: rgb(86, 125, 95);">🧥</span>
+                    <span>Rain jacket or poncho</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="mr-2" style="color: rgb(86, 125, 95);">📱</span>
+                    <span>Camera protection</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="mr-2" style="color: rgb(86, 125, 95);">💧</span>
+                    <span>Water and snacks</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="mr-2" style="color: rgb(86, 125, 95);">🩹</span>
+                    <span>Basic first aid supplies</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-xl font-semibold mb-4" style="color: rgb(71, 133, 169);">⏰ Time Planning</h3>
+                <div class="space-y-4 text-gray-700">
+                  <div>
+                    <strong>Dry Falls & Bridal Veil:</strong>
+                    <br><span class="text-sm">Single morning, 45 min each</span>
+                  </div>
+                  <div>
+                    <strong>Glen Falls:</strong>
+                    <br><span class="text-sm">Afternoon adventure, 2+ hours</span>
+                  </div>
+                  <div>
+                    <strong>Whitewater Falls:</strong>
+                    <br><span class="text-sm">Half-day trip, 3+ hours total</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Conclusion -->
+          <section class="mb-16">
+            <div class="prose prose-lg max-w-none">
+              <h2 class="text-3xl font-bold mb-6" style="color: rgb(45, 69, 56);">The Magic of Mountain Water</h2>
+
+              <p class="text-xl text-gray-700 font-light mb-6">
+                These four waterfalls near Highlands, NC, each offer something unique—from the walk-behind wonder of Dry Falls to the drive-through novelty of Bridal Veil, from the triple cascade adventure of Glen Falls to the sheer majesty of Whitewater Falls.
+              </p>
+
+              <p class="mb-6 text-gray-700">
+                But beyond their physical beauty, these waterfalls connect us to something deeper. They remind us of the patient work of time and water in shaping our landscape. They provide habitat for rare and endangered species. They offer places of reflection and renewal in our increasingly connected and busy world.
+              </p>
+
+              <div class="text-white rounded-xl p-8 my-8" style="background: linear-gradient(to right, rgb(45, 69, 56), rgb(86, 125, 95));">
+                <p class="text-lg font-light opacity-95">
+                  "The negative ions generated by falling water have been scientifically proven to elevate mood and reduce stress, but anyone who has stood in the spray of a waterfall knows that the benefits go far beyond what science can measure."
+                </p>
+              </div>
+
+              <p class="mb-6 text-gray-700">
+                Whether you're a first-time visitor or a longtime local, these waterfalls never lose their magic. Each visit reveals something new—a different quality of light, a previously unnoticed wildflower, a fresh perspective on an ancient cascade.
+              </p>
+
+              <p class="text-xl font-medium" style="color: rgb(45, 69, 56);">
+                So lace up your boots, grab your rain jacket, and set out to explore these liquid treasures. The waterfalls of Highlands are waiting to share their secrets with you, one misty trail at a time.
+              </p>
+            </div>
+          </section>
+
+          <!-- Call to Action -->
+          <section class="text-white rounded-2xl p-10 text-center" style="background-color: rgb(86, 125, 95);">
+            <h2 class="text-3xl font-bold mb-4">🏔️ Ready to Experience These Waterfalls?</h2>
+            <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+              Make The Bodhi your base camp for exploring Highlands' waterfall wonders. Just minutes from all four spectacular cascades.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+              <a
+                href="/book"
+                class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors duration-200"
+                style="color: rgb(45, 69, 56);"
+              >
+                🌊 Book Your Waterfall Adventure
+              </a>
+              <a
+                href="/local-guide#waterfalls"
+                class="inline-flex items-center justify-center bg-white/20 text-white border-2 border-white/40 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/30 transition-colors duration-200"
+              >
+                📍 View Waterfall Guide
+              </a>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/20">
+              <p class="text-sm opacity-80">
+                🏡 The Bodhi: 5 minutes to downtown • 8 minutes to Dry Falls • Your luxury mountain retreat awaits
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <Footer />
+
+  <!-- Article Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Ultimate Guide to Highlands NC Waterfalls: A Local's Secret Spots",
+    "description": "Discover the most spectacular waterfalls near Highlands, NC including Dry Falls, Bridal Veil Falls, Glen Falls, and Whitewater Falls. Local insider tips and secret viewpoints.",
+    "image": "https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_630,q_auto:best,f_auto/banyan_tree/flat_mountain/dryfallsfeature_m4ubgb",
+    "author": {
+      "@type": "Organization",
+      "name": "The Bodhi at Flat Mountain Estates"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "The Bodhi Blog",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://highlands-rental.com/logo.png"
+      }
+    },
+    "datePublished": "2024-09-20",
+    "dateModified": "2024-09-20",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://highlands-rental.com/blog/highlands-nc-waterfalls-guide"
+    },
+    "about": [
+      {
+        "@type": "Place",
+        "name": "Dry Falls",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.1545,
+          "longitude": -83.2976
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "Bridal Veil Falls",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.1445,
+          "longitude": -83.3076
+        }
+      }
+    ],
+    "mentions": [
+      {
+        "@type": "TouristAttraction",
+        "name": "Highlands, North Carolina",
+        "description": "Mountain town at 4,118 feet elevation"
+      }
+    ]
+  }
+  </script>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    line-height: 1.7;
+  }
+
+  .prose h2 {
+    color: rgb(45, 69, 56);
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose h3 {
+    color: rgb(86, 125, 95);
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose p {
+    margin-bottom: 1.5rem;
+  }
+
+  .prose ul {
+    margin: 1rem 0;
+  }
+
+  .prose li {
+    margin: 0.5rem 0;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Image hover effects */
+  .blog-post img {
+    transition: transform 0.3s ease;
+  }
+
+  .blog-post img:hover {
+    transform: scale(1.02);
+  }
+</style>

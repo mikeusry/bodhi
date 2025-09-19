@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+const seoData = {
+  title: 'Terms of Service - The Bodhi at Flat Mountain Estates',
+  description: 'Terms of service for The Bodhi luxury vacation rental in Highlands, NC. Booking terms, policies, and guest responsibilities.',
+  keywords: 'terms of service, booking terms, vacation rental policies, The Bodhi rules',
+  type: 'website' as const
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden mb-0" style="height: 40vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/hero-exterior_rdyocb"
+      alt="Terms of Service - The Bodhi"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(45, 69, 56, 0.8); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-anamortee mb-4 leading-tight">
+          Terms of Service
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">
+          Booking terms and guest policies
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms Content -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg">
+
+        <p class="text-lg text-gray-700 mb-8">
+          <strong>Effective Date:</strong> September 18, 2024
+        </p>
+
+        <p class="mb-6">
+          Welcome to The Bodhi at Flat Mountain Estates. These Terms of Service ("Terms") govern your use of our vacation rental property and website. By making a reservation, you agree to these terms.
+        </p>
+
+        <h2 style="color: rgb(45, 69, 56);">Booking and Reservations</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Reservation Process</h3>
+        <ul>
+          <li><strong>Booking Confirmation:</strong> Reservations are confirmed upon receipt of required deposit and signed rental agreement</li>
+          <li><strong>Payment Schedule:</strong> 50% deposit due at booking, remainder due 30 days before arrival</li>
+          <li><strong>Age Requirement:</strong> Primary guest must be at least 25 years old</li>
+          <li><strong>Guest Count:</strong> Maximum occupancy is 17 guests. Additional guests not permitted</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Cancellation Policy</h3>
+        <ul>
+          <li><strong>60+ days before arrival:</strong> Full refund minus 3% processing fee</li>
+          <li><strong>30-59 days before arrival:</strong> 50% refund</li>
+          <li><strong>Less than 30 days:</strong> No refund unless we can re-book the dates</li>
+          <li><strong>Weather/Emergency:</strong> Case-by-case consideration for natural disasters or emergencies</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Property Rules and Policies</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Pet Policy</h3>
+        <ul>
+          <li>Well-behaved pets welcome with prior approval</li>
+          <li>$150 pet fee per stay (covers deep cleaning)</li>
+          <li>Maximum 2 pets per reservation</li>
+          <li>Pets must be house-trained and supervised at all times</li>
+          <li>Pet waste must be cleaned up immediately</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Noise and Behavior</h3>
+        <ul>
+          <li><strong>Quiet Hours:</strong> 10 PM - 8 AM (respect for neighbors in gated community)</li>
+          <li><strong>No Parties:</strong> Large gatherings, events, or parties are prohibited</li>
+          <li><strong>No Smoking:</strong> Smoking is prohibited inside the property</li>
+          <li><strong>Outdoor Areas:</strong> Use responsibly and clean up after yourself</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Property Care</h3>
+        <ul>
+          <li>Treat the property with respect as if it were your own home</li>
+          <li>Report any damages or issues immediately</li>
+          <li>Do not move furniture or artwork</li>
+          <li>Use appliances and amenities as intended</li>
+          <li>Keep doors and windows locked when not at the property</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Check-in and Check-out</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Arrival and Departure</h3>
+        <ul>
+          <li><strong>Check-in:</strong> 4:00 PM or later</li>
+          <li><strong>Check-out:</strong> 11:00 AM or earlier</li>
+          <li><strong>Early/Late Requests:</strong> Subject to availability and additional fees</li>
+          <li><strong>Key Access:</strong> Digital lock code provided 24 hours before arrival</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Departure Requirements</h3>
+        <ul>
+          <li>Secure all doors and windows</li>
+          <li>Turn off all lights, appliances, and electronics</li>
+          <li>Start dishwasher if used</li>
+          <li>Remove all food items and personal belongings</li>
+          <li>Report any issues or damages</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Fees and Charges</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Standard Fees</h3>
+        <ul>
+          <li><strong>Cleaning Fee:</strong> $250 per stay</li>
+          <li><strong>Pet Fee:</strong> $150 per stay (if applicable)</li>
+          <li><strong>Resort Fee:</strong> Covers linens, amenities, and property access</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Additional Charges</h3>
+        <ul>
+          <li><strong>Excessive Cleaning:</strong> $50-200 depending on condition</li>
+          <li><strong>Lost/Damaged Keys:</strong> $100 lock re-programming fee</li>
+          <li><strong>Smoking Violations:</strong> $500 cleaning and deodorizing fee</li>
+          <li><strong>Property Damage:</strong> Repair/replacement costs plus labor</li>
+          <li><strong>Noise Violations:</strong> $250 fine for disturbances</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Liability and Safety</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Guest Responsibility</h3>
+        <ul>
+          <li>Guests use the property at their own risk</li>
+          <li>We are not liable for personal injury or property loss</li>
+          <li>Guests are responsible for their belongings and vehicles</li>
+          <li>Report safety hazards immediately</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Insurance</h3>
+        <ul>
+          <li>We recommend travel insurance for your protection</li>
+          <li>Guest insurance should cover personal liability</li>
+          <li>We are not responsible for weather-related cancellations</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Privacy and Data</h2>
+
+        <p>Your privacy is important to us. Please review our <a href="/privacy" style="color: rgb(86, 125, 95);">Privacy Policy</a> for details on how we collect, use, and protect your information.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Dispute Resolution</h2>
+
+        <ul>
+          <li>Good faith efforts to resolve disputes directly</li>
+          <li>Mediation preferred before legal action</li>
+          <li>North Carolina law governs these terms</li>
+          <li>Jurisdiction in Macon County, NC courts</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Modifications</h2>
+
+        <p>We reserve the right to modify these terms at any time. Changes will be posted on our website with an updated effective date. Your continued use of our services constitutes acceptance of modified terms.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Contact Information</h2>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <p class="mb-4">Questions about these terms or your reservation? Contact us:</p>
+          <ul class="list-none">
+            <li><strong>Email:</strong> <a href="mailto:reservations@highlands-rental.com" style="color: rgb(86, 125, 95);">reservations@highlands-rental.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+1-XXX-XXX-XXXX" style="color: rgb(86, 125, 95);">+1 (XXX) XXX-XXXX</a></li>
+            <li><strong>Address:</strong> 480 Flat Mountain Estates Road, Highlands, NC 28741</li>
+          </ul>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="mt-16 bg-white border-2 rounded-xl p-10 text-center" style="border-color: rgb(86, 125, 95);">
+          <h3 class="text-2xl font-bold mb-4" style="color: rgb(45, 69, 56);">Ready to Book Your Mountain Getaway?</h3>
+          <p class="text-lg text-gray-700 mb-6">
+            By booking, you agree to these terms and are ready to enjoy your luxury mountain retreat.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center text-white px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200"
+              style="background-color: rgb(86, 125, 95);"
+            >
+              🏔️ Book Your Stay
+            </a>
+            <a
+              href="/property"
+              class="inline-flex items-center justify-center bg-white border-2 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all duration-200"
+              style="border-color: rgb(86, 125, 95); color: rgb(86, 125, 95);"
+            >
+              🏡 View Property Details
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

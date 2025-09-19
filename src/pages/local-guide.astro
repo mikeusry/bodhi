@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
-import { CloudinaryImageEnhanced } from '../components/ui/CloudinaryImageEnhanced.astro';
-import { CloudinaryHero } from '../components/ui/CloudinaryHero.astro';
 import { pageSEO } from '../lib/seo';
 
 const seoData = {
@@ -20,28 +18,28 @@ const waterfalls = [
     distance: "8 miles",
     description: "Walk behind this stunning 75-foot waterfall for a unique perspective",
     difficulty: "Easy",
-    image: "banyan_tree/flat_mountain/dry-falls"
+    image: "banyan_tree/flat_mountain/dryfallsfeature_m4ubgb"
   },
   {
     name: "Bridal Veil Falls",
     distance: "9 miles",
     description: "Drive behind this beautiful waterfall on US Highway 64",
     difficulty: "Easy",
-    image: "banyan_tree/flat_mountain/bridal-veil-falls"
+    image: "banyan_tree/flat_mountain/Bridal-Veil-Falls"
   },
   {
     name: "Glen Falls",
     distance: "12 miles",
     description: "Three-tiered waterfall with swimming holes and hiking trails",
     difficulty: "Moderate",
-    image: "banyan_tree/flat_mountain/glen-falls"
+    image: "banyan_tree/flat_mountain/glen-falls-nc"
   },
   {
     name: "Whitewater Falls",
     distance: "15 miles",
     description: "The highest waterfall in the eastern United States at 411 feet",
     difficulty: "Easy to Moderate",
-    image: "banyan_tree/flat_mountain/whitewater-falls"
+    image: "banyan_tree/flat_mountain/Whitewater-Falls"
   }
 ];
 
@@ -52,7 +50,8 @@ const restaurants = [
     distance: "5 minutes",
     cuisine: "Contemporary American",
     description: "Elegant dining with seasonal menus and mountain views",
-    price: "$$$$"
+    price: "$$$$",
+    website: "https://oldedwardsinn.com"
   },
   {
     name: "Skyline Lodge Restaurant",
@@ -60,7 +59,8 @@ const restaurants = [
     distance: "8 minutes",
     cuisine: "Southern Mountain",
     description: "Rustic charm with hearty mountain fare and scenic views",
-    price: "$$$"
+    price: "$$$",
+    website: "https://skyline-lodge.com"
   },
   {
     name: "Wild Thyme Gourmet",
@@ -68,7 +68,8 @@ const restaurants = [
     distance: "6 minutes",
     cuisine: "Gourmet Market",
     description: "Artisan foods, wine selection, and casual dining",
-    price: "$$"
+    price: "$$",
+    website: "https://wildthymegourmet.com"
   },
   {
     name: "Cyprus Restaurant",
@@ -76,7 +77,8 @@ const restaurants = [
     distance: "5 minutes",
     cuisine: "Mediterranean",
     description: "Fresh Mediterranean flavors in a cozy atmosphere",
-    price: "$$$"
+    price: "$$$",
+    website: "https://cyprusrestaurant.com"
   }
 ];
 
@@ -86,28 +88,32 @@ const activities = [
     type: "Golf",
     distance: "10 minutes",
     description: "18-hole championship golf course with mountain views",
-    season: "April - October"
+    season: "April - October",
+    website: "https://highlandscountryclub.com"
   },
   {
     name: "Highlands Nature Center",
     type: "Education",
     distance: "8 minutes",
     description: "Wildlife exhibits, botanical gardens, and nature trails",
-    season: "Year-round"
+    season: "Year-round",
+    website: "https://highlandsnaturecenter.org"
   },
   {
     name: "Sunset Rock",
     type: "Hiking",
     distance: "15 minutes",
     description: "Popular hiking destination with panoramic sunset views",
-    season: "Year-round"
+    season: "Year-round",
+    website: "https://www.alltrails.com/trail/us/north-carolina/sunset-rock"
   },
   {
     name: "Lake Sequoyah",
     type: "Recreation",
     distance: "12 minutes",
     description: "Swimming, fishing, and paddling on a pristine mountain lake",
-    season: "May - September"
+    season: "May - September",
+    website: "https://www.townofhighlands.com/lake-sequoyah"
   }
 ];
 
@@ -116,25 +122,29 @@ const shopping = [
     name: "Highland Hiker",
     type: "Outdoor Gear",
     distance: "6 minutes",
-    description: "Premium outdoor equipment and local trail guides"
+    description: "Premium outdoor equipment and local trail guides",
+    website: "https://highlandhiker.com"
   },
   {
     name: "Acorns & Bird Song",
     type: "Art Gallery",
     distance: "5 minutes",
-    description: "Local and regional artists featuring mountain-inspired artwork"
+    description: "Local and regional artists featuring mountain-inspired artwork",
+    website: "https://acornsandbirdsong.com"
   },
   {
     name: "Mountain Findings",
     type: "Antiques",
     distance: "7 minutes",
-    description: "Unique antiques and vintage mountain collectibles"
+    description: "Unique antiques and vintage mountain collectibles",
+    website: "https://mountainfindings.com"
   },
   {
     name: "The Hen House",
     type: "Home Goods",
     distance: "6 minutes",
-    description: "Mountain home decor and artisan crafts"
+    description: "Mountain home decor and artisan crafts",
+    website: "https://thehenhouse.com"
   }
 ];
 
@@ -170,37 +180,69 @@ const dayTrips = [
   <Header />
 
   <!-- Hero Section -->
-  <CloudinaryHero
-    publicId="banyan_tree/flat_mountain/highlands-downtown"
-    alt="Downtown Highlands, NC near The Bodhi vacation rental"
-    headline="Discover Highlands, NC"
-    subheadline="Your complete guide to Western North Carolina's mountain paradise"
-    height="70vh"
-    overlay={0.5}
-    className="mb-0"
-  />
+  <section class="relative overflow-hidden mb-0" style="height: 70vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_1080,q_auto:best,f_auto/banyan_tree/flat_mountain/downtown-highlands"
+      alt="Downtown Highlands, NC near The Bodhi vacation rental"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-6xl font-anamortee mb-6 leading-tight">
+          Discover Highlands, NC
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">
+          Your complete guide to Western North Carolina's mountain paradise
+        </p>
+        <div class="mt-8">
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            🏔️ Book Your Mountain Getaway
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Introduction -->
   <section class="py-16 bg-canvas">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-display text-deep-forest mb-6">
-          Explore the Magic of Highlands
+          Your Complete Highlands, NC Local Guide
         </h1>
         <p class="text-xl text-granite-700 leading-relaxed mb-8">
           From The Bodhi's prime location in Flat Mountain Estates, you're perfectly positioned to explore the best of Highlands, NC. This charming mountain town offers world-class dining, spectacular waterfalls, outdoor adventures, and year-round activities just minutes from your luxury vacation rental.
         </p>
-        <div class="bg-felted-green-light rounded-lg p-6">
-          <p class="text-lg text-deep-forest font-medium">
+        <div class="bg-felted-green-light rounded-lg p-6 mb-8">
+          <p class="text-lg text-deep-forest font-medium mb-4">
             <strong>Location:</strong> 480 Flat Mountain Estates Road - 5 minutes to downtown Highlands
           </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+            >
+              📅 Check Availability
+            </a>
+            <a
+              href="/property"
+              class="inline-flex items-center justify-center bg-deep-forest hover:bg-deep-forest-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+            >
+              🏡 View Property
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Waterfalls Section -->
-  <section class="py-16 bg-granite-50">
+  <section id="waterfalls" class="py-16 bg-granite-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display text-deep-forest mb-6">
@@ -211,15 +253,15 @@ const dayTrips = [
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto mb-12">
         {waterfalls.map((waterfall) => (
           <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <div class="aspect-w-16 aspect-h-12">
-              <CloudinaryImageEnhanced
-                publicId={waterfall.image}
+            <div class="h-48 overflow-hidden">
+              <img
+                src={`https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_600,h_400,q_auto:best,f_auto/${waterfall.image}`}
                 alt={`${waterfall.name} near Highlands, NC`}
-                preset="gallery"
-                className="w-full h-48 object-cover"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
               />
             </div>
             <div class="p-6">
@@ -235,11 +277,25 @@ const dayTrips = [
           </div>
         ))}
       </div>
+
+      <!-- Waterfall CTA -->
+      <div class="bg-brook-blue text-white rounded-lg p-8 text-center max-w-4xl mx-auto">
+        <h3 class="text-2xl font-semibold mb-4">🌊 Plan Your Waterfall Adventures</h3>
+        <p class="text-lg mb-6 opacity-90">
+          Stay at The Bodhi and explore all four waterfalls with easy day trips from your luxury mountain retreat.
+        </p>
+        <a
+          href="/book"
+          class="inline-flex items-center justify-center bg-white text-brook-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-colors duration-200"
+        >
+          Book Your Waterfall Weekend →
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Dining Section -->
-  <section class="py-16 bg-canvas">
+  <section id="restaurants" class="py-16 bg-canvas">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display text-deep-forest mb-6">
@@ -250,12 +306,22 @@ const dayTrips = [
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
         {restaurants.map((restaurant) => (
           <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
             <div class="flex items-start justify-between mb-4">
               <div>
-                <h3 class="text-xl font-semibold text-deep-forest mb-1">{restaurant.name}</h3>
+                <h3 class="text-xl font-semibold text-deep-forest mb-1">
+                  <a
+                    href={restaurant.website}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    class="hover:underline"
+                    style="color: rgb(45, 69, 56);"
+                  >
+                    {restaurant.name}
+                  </a>
+                </h3>
                 <p class="text-felted-green font-medium">{restaurant.cuisine} • {restaurant.type}</p>
               </div>
               <div class="text-right">
@@ -263,15 +329,59 @@ const dayTrips = [
                 <div class="text-brook-blue font-medium">{restaurant.price}</div>
               </div>
             </div>
-            <p class="text-granite-600">{restaurant.description}</p>
+            <p class="text-granite-600 mb-3">{restaurant.description}</p>
+            <a
+              href={restaurant.website}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="inline-flex items-center text-sm font-medium hover:underline"
+              style="color: rgb(86, 125, 95);"
+            >
+              🌐 Visit Website →
+            </a>
           </div>
         ))}
+      </div>
+
+      <!-- Dining CTA -->
+      <div class="rounded-xl p-10 text-center max-w-4xl mx-auto shadow-2xl text-white" style="background: linear-gradient(135deg, rgb(86, 125, 95) 0%, rgb(45, 69, 56) 100%);">
+        <h3 class="text-3xl font-bold mb-4 text-white">🍽️ Gourmet Mountain Dining Awaits</h3>
+        <p class="text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-white">
+          From fine dining to casual mountain fare, experience Highlands' culinary scene during your stay at The Bodhi.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]"
+            style="color: rgb(45, 69, 56); background-color: white;"
+            onmouseover="this.style.backgroundColor='rgb(248, 249, 248)'"
+            onmouseout="this.style.backgroundColor='white'"
+          >
+            📅 Reserve Your Dates
+          </a>
+          <a
+            href="/property#chef-kitchen"
+            class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px] text-white"
+            style="background-color: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.4);"
+            onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.3)'; this.style.borderColor='rgba(255, 255, 255, 0.6)'"
+            onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'; this.style.borderColor='rgba(255, 255, 255, 0.4)'"
+          >
+            🍳 See Chef's Kitchen
+          </a>
+        </div>
+
+        <!-- Additional visual element -->
+        <div class="mt-8 pt-6" style="border-top: 1px solid rgba(255, 255, 255, 0.2);">
+          <p class="text-sm text-white" style="opacity: 0.9;">
+            ⭐ 5-star luxury kitchen • 🥂 Wine cellar • 🔥 Big Green Egg
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Activities Section -->
-  <section class="py-16 bg-granite-50">
+  <section id="activities" class="py-16 bg-granite-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display text-deep-forest mb-6">
@@ -282,18 +392,65 @@ const dayTrips = [
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
         {activities.map((activity) => (
           <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300">
-            <h3 class="text-lg font-semibold text-deep-forest mb-2">{activity.name}</h3>
+            <h3 class="text-lg font-semibold mb-2">
+              <a
+                href={activity.website}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                class="hover:underline"
+                style="color: rgb(45, 69, 56);"
+              >
+                {activity.name}
+              </a>
+            </h3>
             <div class="text-felted-green font-medium mb-2">{activity.type}</div>
             <div class="text-granite-600 text-sm mb-3">{activity.distance}</div>
             <p class="text-granite-600 text-sm mb-3">{activity.description}</p>
-            <div class="bg-brook-blue-light text-brook-blue px-3 py-1 rounded-full text-sm">
+            <div class="bg-brook-blue-light text-brook-blue px-3 py-1 rounded-full text-sm mb-3">
               {activity.season}
             </div>
+            <a
+              href={activity.website}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="inline-flex items-center text-xs font-medium hover:underline"
+              style="color: rgb(86, 125, 95);"
+            >
+              🌐 Learn More →
+            </a>
           </div>
         ))}
+      </div>
+
+      <!-- Activities CTA -->
+      <div class="bg-canvas border-2 border-felted-green rounded-lg p-8 text-center max-w-4xl mx-auto">
+        <h3 class="text-2xl font-semibold text-deep-forest mb-4">⛰️ Adventure Base Camp</h3>
+        <p class="text-lg text-granite-700 mb-6">
+          The Bodhi is your perfect home base for all mountain adventures. Relax in luxury after your outdoor explorations.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div class="text-center">
+            <div class="text-2xl mb-2">🏔️</div>
+            <div class="font-medium text-felted-green">Mountain Views</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl mb-2">🛁</div>
+            <div class="font-medium text-felted-green">Hot Tub & Sauna</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl mb-2">🐕</div>
+            <div class="font-medium text-felted-green">Pet-Friendly</div>
+          </div>
+        </div>
+        <a
+          href="/book"
+          class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          Start Your Mountain Adventure →
+        </a>
       </div>
     </div>
   </section>
@@ -313,12 +470,121 @@ const dayTrips = [
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {shopping.map((shop) => (
           <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-            <h3 class="text-lg font-semibold text-deep-forest mb-2">{shop.name}</h3>
+            <h3 class="text-lg font-semibold mb-2">
+              <a
+                href={shop.website}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                class="hover:underline"
+                style="color: rgb(45, 69, 56);"
+              >
+                {shop.name}
+              </a>
+            </h3>
             <div class="text-felted-green font-medium mb-2">{shop.type}</div>
             <div class="text-granite-600 text-sm mb-3">{shop.distance}</div>
-            <p class="text-granite-600 text-sm">{shop.description}</p>
+            <p class="text-granite-600 text-sm mb-3">{shop.description}</p>
+            <a
+              href={shop.website}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="inline-flex items-center text-xs font-medium hover:underline"
+              style="color: rgb(86, 125, 95);"
+            >
+              🛍️ Visit Shop →
+            </a>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Maps Section -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-display text-deep-forest mb-6">
+          📍 Your Location Advantage
+        </h2>
+        <p class="text-xl text-granite-700 max-w-3xl mx-auto mb-8">
+          The Bodhi's prime location in Flat Mountain Estates puts you minutes from everything that makes Highlands special.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
+        <!-- Interactive Distance Guide -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h3 class="text-2xl font-semibold text-deep-forest mb-6">🚗 Drive Times from The Bodhi</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b border-gray-100">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-felted-green rounded-full mr-3"></span>
+                <span class="font-medium">Downtown Highlands</span>
+              </div>
+              <span class="text-felted-green font-semibold">5 minutes</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-gray-100">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-brook-blue rounded-full mr-3"></span>
+                <span class="font-medium">Dry Falls</span>
+              </div>
+              <span class="text-brook-blue font-semibold">8 minutes</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-gray-100">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-brook-blue rounded-full mr-3"></span>
+                <span class="font-medium">Bridal Veil Falls</span>
+              </div>
+              <span class="text-brook-blue font-semibold">9 minutes</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-gray-100">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-granite rounded-full mr-3"></span>
+                <span class="font-medium">Cashiers, NC</span>
+              </div>
+              <span class="text-granite font-semibold">15 minutes</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-gray-100">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-granite rounded-full mr-3"></span>
+                <span class="font-medium">Franklin, NC</span>
+              </div>
+              <span class="text-granite font-semibold">25 minutes</span>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <div class="flex items-center">
+                <span class="w-3 h-3 bg-deep-forest rounded-full mr-3"></span>
+                <span class="font-medium">Asheville, NC</span>
+              </div>
+              <span class="text-deep-forest font-semibold">75 minutes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Area Map -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h3 class="text-2xl font-semibold text-deep-forest mb-6">🗺️ Highlands Area Map</h3>
+          <div class="relative bg-gray-100 rounded-lg h-80 mb-4 overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52234.89419341127!2d-83.23242473463867!3d35.054853699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8859f8c9f0b8d4e7%3A0x1234567890abcdef!2sHighlands%2C%20NC%2028741!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+              class="w-full h-full border-0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Highlands NC Area Map"
+            ></iframe>
+          </div>
+          <div class="text-center">
+            <a
+              href="https://goo.gl/maps/example"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+            >
+              📱 Get Directions to The Bodhi
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -385,20 +651,159 @@ const dayTrips = [
         </div>
 
         <div class="mt-12 bg-white/10 rounded-lg p-8">
-          <h3 class="text-2xl font-semibold mb-4">Planning Your Stay at The Bodhi</h3>
-          <p class="text-lg mb-6">
+          <h3 class="text-2xl font-semibold mb-4">🏡 Planning Your Stay at The Bodhi</h3>
+          <p class="text-lg mb-6 opacity-90">
             With so much to see and do, you'll want to plan your days to make the most of your mountain vacation. The Bodhi's location in Flat Mountain Estates puts you at the center of it all.
           </p>
-          <a
-            href="/property"
-            class="inline-flex items-center justify-center bg-white text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-granite-50 transition-colors duration-200"
-          >
-            View Property Details
-          </a>
+
+          <!-- Key Benefits Grid -->
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 text-center">
+            <div class="bg-white/20 rounded-lg p-4">
+              <div class="text-2xl mb-2">🕐</div>
+              <div class="font-medium text-sm">5 min to Downtown</div>
+            </div>
+            <div class="bg-white/20 rounded-lg p-4">
+              <div class="text-2xl mb-2">👥</div>
+              <div class="font-medium text-sm">Sleeps 17 Guests</div>
+            </div>
+            <div class="bg-white/20 rounded-lg p-4">
+              <div class="text-2xl mb-2">🎬</div>
+              <div class="font-medium text-sm">Private Theater</div>
+            </div>
+            <div class="bg-white/20 rounded-lg p-4">
+              <div class="text-2xl mb-2">🌊</div>
+              <div class="font-medium text-sm">Koi Pond & Views</div>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center bg-white text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-colors duration-200 shadow-lg"
+            >
+              📅 Book Your Highlands Getaway
+            </a>
+            <a
+              href="/property"
+              class="inline-flex items-center justify-center bg-white/20 text-white border border-white/30 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-colors duration-200"
+            >
+              🏠 View Property Details
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <Footer />
+
+  <!-- Local Guide Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TouristAttraction",
+        "name": "Highlands, NC Waterfalls",
+        "description": "Discover four spectacular waterfalls near The Bodhi vacation rental including Dry Falls, Bridal Veil Falls, Glen Falls, and Whitewater Falls.",
+        "url": "https://highlands-rental.com/local-guide",
+        "image": "https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_630,q_auto:best,f_auto/banyan_tree/flat_mountain/dryfallsfeature_m4ubgb",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.0545,
+          "longitude": -83.1976
+        },
+        "touristType": [
+          "Families",
+          "Nature Lovers",
+          "Hikers",
+          "Photographers"
+        ]
+      },
+      {
+        "@type": "Restaurant",
+        "@id": "the-old-edwards-inn",
+        "name": "The Old Edwards Inn & Spa",
+        "servesCuisine": "Contemporary American",
+        "priceRange": "$$$$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Highlands",
+          "addressRegion": "NC"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.0545,
+          "longitude": -83.1976
+        }
+      },
+      {
+        "@type": "LodgingBusiness",
+        "name": "The Bodhi at Flat Mountain Estates",
+        "description": "Luxury 5-bedroom vacation rental estate in Highlands, NC with private theater, koi pond, and mountain views. Perfect base for exploring Highlands attractions.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "480 Flat Mountain Estates Road",
+          "addressLocality": "Highlands",
+          "addressRegion": "NC",
+          "postalCode": "28741",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.0545,
+          "longitude": -83.1976
+        },
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Private Theater",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Koi Pond",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Pet Friendly",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Mountain Views",
+            "value": true
+          }
+        ],
+        "url": "https://highlands-rental.com",
+        "numberOfRooms": 5,
+        "maximumAttendeeCapacity": 17
+      },
+      {
+        "@type": "TravelGuide",
+        "name": "Complete Highlands, NC Local Guide",
+        "description": "Your comprehensive guide to Highlands, North Carolina including waterfalls, restaurants, outdoor activities, shopping, and day trips from The Bodhi vacation rental.",
+        "url": "https://highlands-rental.com/local-guide",
+        "inLanguage": "en-US",
+        "dateModified": "2024-09-18",
+        "about": {
+          "@type": "Place",
+          "name": "Highlands, North Carolina",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 35.0545,
+            "longitude": -83.1976
+          }
+        },
+        "mentions": [
+          {
+            "@id": "the-old-edwards-inn"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </BaseLayout>

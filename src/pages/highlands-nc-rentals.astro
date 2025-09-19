@@ -1,0 +1,393 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+const seoData = {
+  title: 'Highlands NC Vacation Rentals | Luxury Mountain Estates | Book The Bodhi',
+  description: 'Discover premium Highlands NC vacation rentals at The Bodhi. Luxury 5-bedroom mountain estate sleeping 17 guests. Private theater, koi pond & stunning Blue Ridge views. Book today!',
+  keywords: 'Highlands NC vacation rentals, Highlands North Carolina rentals, luxury mountain estate, Highlands NC cabins, large group rentals Highlands, pet friendly Highlands rentals',
+  type: 'website' as const
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden mb-0" style="height: 70vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_1080,q_auto:best,f_auto/banyan_tree/flat_mountain/downtown-highlands"
+      alt="Highlands NC Vacation Rentals - Downtown Highlands"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(45, 69, 56, 0.4), rgba(0, 0, 0, 0.7)); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-anamortee mb-6 leading-tight">
+          Highlands NC Vacation Rentals
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90 mb-8">
+          Luxury Mountain Estates in the Heart of the Blue Ridge Mountains
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors duration-200"
+            style="color: rgb(45, 69, 56);"
+          >
+            🏔️ Book Your Highlands Getaway
+          </a>
+          <a
+            href="/property"
+            class="inline-flex items-center justify-center bg-white/20 text-white border-2 border-white/40 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/30 transition-colors duration-200"
+          >
+            🏡 Explore The Bodhi Estate
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Highlands NC -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6" style="color: rgb(45, 69, 56);">
+            Why Choose Highlands NC for Your Mountain Vacation?
+          </h2>
+          <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+            At 4,118 feet elevation, <strong>Highlands, North Carolina</strong> offers the perfect escape from summer heat, spectacular fall foliage, and year-round mountain charm. Our premium <strong>Highlands NC vacation rentals</strong> provide the ideal base for exploring this enchanting mountain town.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <div class="text-center">
+            <div class="text-5xl mb-4">🌡️</div>
+            <h3 class="text-xl font-semibold mb-3" style="color: rgb(86, 125, 95);">Perfect Climate</h3>
+            <p class="text-gray-600">
+              Cool summer temperatures (70s-80s) and stunning fall foliage make Highlands NC a year-round destination for vacation rentals.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">🌊</div>
+            <h3 class="text-xl font-semibold mb-3" style="color: rgb(86, 125, 95);">Waterfalls Galore</h3>
+            <p class="text-gray-600">
+              Home to spectacular waterfalls including Dry Falls, Bridal Veil Falls, and Glen Falls - all within minutes of our vacation rental.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">🛍️</div>
+            <h3 class="text-xl font-semibold mb-3" style="color: rgb(86, 125, 95);">Charming Downtown</h3>
+            <p class="text-gray-600">
+              World-class shopping, fine dining, and art galleries along Main Street - just 5 minutes from our luxury mountain estate.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Bodhi - Featured Property -->
+  <section class="py-16" style="background-color: rgb(245, 245, 244);">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-6" style="color: rgb(45, 69, 56);">
+            The Bodhi: Premier Highlands NC Vacation Rental
+          </h2>
+          <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+            Experience the finest in <strong>Highlands NC vacation rentals</strong> at The Bodhi - a luxury 5-bedroom mountain estate in prestigious Flat Mountain Estates. Sleeping up to 17 guests with unique amenities rarely found in mountain rentals.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_800,h_600,q_auto:best,f_auto/banyan_tree/flat_mountain/hero-exterior_rdyocb"
+              alt="The Bodhi - Luxury Highlands NC Vacation Rental"
+              class="rounded-xl shadow-lg w-full"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold mb-6" style="color: rgb(86, 125, 95);">
+              Unmatched Amenities in Highlands NC Rentals
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <span class="text-2xl mr-3">🎬</span>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Private Movie Theater</h4>
+                  <p class="text-gray-600">State-of-the-art theater with plush seating - a rare amenity among Highlands NC vacation rentals</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="text-2xl mr-3">🐟</span>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Koi Pond & Waterfalls</h4>
+                  <p class="text-gray-600">Tranquil water feature creating a unique ambiance for relaxation and reflection</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="text-2xl mr-3">🔥</span>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Big Green Egg</h4>
+                  <p class="text-gray-600">Premium outdoor cooking experience for memorable mountain meals</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="text-2xl mr-3">🏔️</span>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Blue Ridge Mountain Views</h4>
+                  <p class="text-gray-600">Stunning vistas from multiple covered patios and throughout the estate</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8">
+              <a
+                href="/property"
+                class="inline-flex items-center justify-center text-white px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-colors"
+                style="background-color: rgb(86, 125, 95);"
+              >
+                Explore The Bodhi Estate
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlands NC Area Guide -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-6" style="color: rgb(45, 69, 56);">
+            Discover Highlands NC from Your Vacation Rental
+          </h2>
+          <p class="text-xl text-gray-700">
+            The Bodhi provides perfect access to all of Highlands' premier attractions, restaurants, and outdoor adventures.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background-color: rgb(86, 125, 95);">
+              <span class="text-white text-2xl">🌊</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">Waterfalls</h3>
+            <ul class="text-gray-600 text-sm space-y-1">
+              <li>• Dry Falls (8 minutes)</li>
+              <li>• Bridal Veil Falls (10 minutes)</li>
+              <li>• Glen Falls (12 minutes)</li>
+              <li>• Whitewater Falls (15 minutes)</li>
+            </ul>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background-color: rgb(71, 133, 169);">
+              <span class="text-white text-2xl">🍽️</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">Fine Dining</h3>
+            <ul class="text-gray-600 text-sm space-y-1">
+              <li>• The Ritz-Carlton Restaurant</li>
+              <li>• Lakeside Restaurant</li>
+              <li>• Cyprus Restaurant</li>
+              <li>• Paoletti Restaurant</li>
+            </ul>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background-color: rgb(86, 125, 95);">
+              <span class="text-white text-2xl">⛳</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">Golf Courses</h3>
+            <ul class="text-gray-600 text-sm space-y-1">
+              <li>• Highlands Country Club</li>
+              <li>• Cullasaja Club</li>
+              <li>• Wildcat Cliffs Country Club</li>
+              <li>• Sky Valley Golf Club</li>
+            </ul>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background-color: rgb(71, 133, 169);">
+              <span class="text-white text-2xl">🥾</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">Outdoor Activities</h3>
+            <ul class="text-gray-600 text-sm space-y-1">
+              <li>• Hiking trails</li>
+              <li>• Mountain biking</li>
+              <li>• Fishing</li>
+              <li>• Scenic drives</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="/local-guide"
+            class="inline-flex items-center justify-center border-2 px-8 py-4 rounded-xl font-bold text-lg hover:bg-felted-green hover:text-white transition-colors"
+            style="border-color: rgb(86, 125, 95); color: rgb(86, 125, 95);"
+          >
+            Complete Highlands NC Area Guide
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content Section -->
+  <section class="py-16" style="background-color: rgb(245, 245, 244);">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto prose prose-lg">
+        <h2 class="text-3xl font-bold text-center mb-12" style="color: rgb(45, 69, 56);">
+          Your Guide to Highlands NC Vacation Rentals
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-semibold mb-4" style="color: rgb(86, 125, 95);">
+              Types of Highlands NC Vacation Rentals
+            </h3>
+            <p class="text-gray-700 mb-4">
+              <strong>Highlands NC vacation rentals</strong> range from cozy mountain cabins to luxury estates like The Bodhi. Whether you're seeking an intimate romantic getaway or accommodations for a large family reunion, Highlands offers diverse options to suit every need and budget.
+            </p>
+            <p class="text-gray-700 mb-4">
+              <strong>Luxury mountain estates</strong> in Highlands NC typically feature premium amenities, mountain views, and prime locations near downtown attractions. Properties in exclusive communities like Flat Mountain Estates offer enhanced privacy and upscale features.
+            </p>
+            <p class="text-gray-700">
+              <strong>Large group rentals in Highlands NC</strong> are perfect for family reunions, corporate retreats, and special celebrations. The Bodhi's 17-guest capacity makes it ideal for multi-generational families and groups seeking shared experiences in a luxury setting.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-2xl font-semibold mb-4" style="color: rgb(86, 125, 95);">
+              Best Time to Book Highlands NC Rentals
+            </h3>
+            <p class="text-gray-700 mb-4">
+              <strong>Summer (June-August)</strong> is peak season for Highlands NC vacation rentals, offering cool mountain temperatures and perfect weather for outdoor activities. Book 3-6 months in advance for summer stays.
+            </p>
+            <p class="text-gray-700 mb-4">
+              <strong>Fall (September-November)</strong> showcases spectacular foliage, making it the most popular time for photography and scenic drives. October rentals book up quickly, so reserve early for fall color season.
+            </p>
+            <p class="text-gray-700">
+              <strong>Spring and Winter</strong> offer excellent value and fewer crowds, with spring bringing wildflowers and winter providing cozy fireside evenings. The Bodhi's multiple fireplaces and indoor amenities make it perfect for off-season getaways.
+            </p>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-16 p-8 rounded-xl" style="background-color: rgb(86, 125, 95);">
+          <h3 class="text-2xl font-bold text-white mb-4">
+            Ready to Experience the Best Highlands NC Vacation Rental?
+          </h3>
+          <p class="text-white opacity-90 mb-8 max-w-3xl mx-auto">
+            Book The Bodhi today and discover why our luxury mountain estate is considered the premier <strong>Highlands NC vacation rental</strong>. From our private theater to stunning Blue Ridge views, every detail has been designed for your perfect mountain getaway.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors"
+              style="color: rgb(45, 69, 56);"
+            >
+              🌊 Book Your Highlands Escape
+            </a>
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center bg-white/20 text-white border-2 border-white/40 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/30 transition-colors"
+            >
+              💬 Ask About Availability
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <!-- Highlands NC Vacation Rentals Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": "Highlands, North Carolina Vacation Rentals",
+    "description": "Discover luxury vacation rentals in Highlands NC including The Bodhi mountain estate. Premium accommodations in the Blue Ridge Mountains with world-class amenities.",
+    "url": "https://highlands-rental.com/highlands-nc-rentals",
+    "image": "https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1200,h_630,q_auto:best,f_auto/banyan_tree/flat_mountain/downtown-highlands",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Highlands",
+      "@region": "North Carolina",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.0547",
+      "longitude": "-83.1965"
+    },
+    "touristType": [
+      "Families",
+      "Couples",
+      "Large Groups",
+      "Corporate Retreats"
+    ],
+    "includesAttraction": [
+      {
+        "@type": "TouristAttraction",
+        "name": "Dry Falls",
+        "description": "Walk behind a 75-foot waterfall"
+      },
+      {
+        "@type": "TouristAttraction",
+        "name": "Bridal Veil Falls",
+        "description": "Drive through a 60-foot waterfall"
+      },
+      {
+        "@type": "TouristAttraction",
+        "name": "Downtown Highlands",
+        "description": "Charming mountain town with shops and restaurants"
+      }
+    ]
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What makes The Bodhi the best Highlands NC vacation rental?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Bodhi stands out among Highlands NC vacation rentals with unique amenities including a private movie theater, koi pond with waterfalls, Big Green Egg outdoor cooking, and accommodation for up to 17 guests in luxury mountain estate setting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far is The Bodhi from downtown Highlands attractions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Bodhi is located just 5 minutes from downtown Highlands shops and restaurants, 8 minutes from Dry Falls, and 10 minutes from Bridal Veil Falls, making it perfectly positioned for exploring all Highlands NC attractions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time to book Highlands NC vacation rentals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Peak season is summer (June-August) and fall foliage (September-October). Book 3-6 months in advance for summer stays and fall color season. Spring and winter offer excellent value with fewer crowds."
+        }
+      }
+    ]
+  }
+  </script>
+</BaseLayout>

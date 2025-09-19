@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Allow specific important pages
+Allow: /
+Allow: /property
+Allow: /book
+Allow: /contact
+Allow: /local-guide
+Allow: /highlands-nc-rentals
+Allow: /blog/
+Allow: /privacy
+Allow: /terms
+
+# Block admin and development URLs
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /debug-*
+Disallow: /.well-known/
+
+# Sitemap location
+Sitemap: https://highlands-rental.com/sitemap.xml
+
+# Optimized for vacation rental SEO
+# The Bodhi - Luxury Vacation Rental in Highlands, NC
+# 480 Flat Mountain Estates Road, Highlands, NC 28741

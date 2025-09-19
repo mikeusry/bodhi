@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+const seoData = {
+  title: 'Contact The Bodhi - Luxury Vacation Rental Highlands NC',
+  description: 'Contact The Bodhi luxury vacation rental in Highlands, NC. Book your stay, ask questions, or get information about our 5-bedroom mountain estate.',
+  keywords: 'contact The Bodhi, Highlands NC vacation rental booking, luxury mountain estate contact',
+  type: 'website' as const
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden mb-0" style="height: 50vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/hero-exterior_rdyocb"
+      alt="Contact The Bodhi Luxury Vacation Rental"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(45, 69, 56, 0.7); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-anamortee mb-4 leading-tight">
+          Contact The Bodhi
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">
+          Ready to book your luxury mountain getaway? We're here to help.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Primary CTA -->
+        <div class="bg-felted-green text-white rounded-xl p-10 text-center mb-16">
+          <h2 class="text-3xl font-bold mb-4">🏔️ Ready to Book Your Stay?</h2>
+          <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+            The easiest way to secure your dates at The Bodhi is through our booking page. Check availability, view rates, and reserve your luxury mountain retreat.
+          </p>
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors duration-200 shadow-lg"
+            style="color: rgb(45, 69, 56);"
+          >
+            📅 Check Availability & Book Now
+          </a>
+        </div>
+
+        <!-- Contact Methods -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+
+          <!-- Phone Contact -->
+          <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="text-4xl mb-4">📞</div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-3">Contact Us</h3>
+            <p class="text-gray-600 mb-4">
+              Reach out to our team about availability, special requests, or property questions.
+            </p>
+            <a
+              href="mailto:reservations@highlands-rental.com"
+              class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            >
+              📧 Email Us
+            </a>
+            <div class="text-sm text-gray-500 mt-3">
+              We respond within 24 hours
+            </div>
+          </div>
+
+          <!-- Email Contact -->
+          <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="text-4xl mb-4">✉️</div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-3">Email Us</h3>
+            <p class="text-gray-600 mb-4">
+              Send us your questions, special requests, or booking inquiries via email.
+            </p>
+            <a
+              href="mailto:reservations@highlands-rental.com"
+              class="inline-flex items-center justify-center bg-deep-forest hover:bg-deep-forest-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            >
+              📧 Send Email
+            </a>
+            <div class="text-sm text-gray-500 mt-3">
+              We respond within 24 hours
+            </div>
+          </div>
+
+          <!-- Property Manager -->
+          <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="text-4xl mb-4">🏠</div>
+            <h3 class="text-xl font-semibold text-deep-forest mb-3">Property Management</h3>
+            <p class="text-gray-600 mb-4">
+              For guest services, maintenance requests, or during-stay assistance.
+            </p>
+            <a
+              href="mailto:reservations@highlands-rental.com"
+              class="inline-flex items-center justify-center bg-brook-blue hover:bg-brook-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            >
+              🔧 Guest Services
+            </a>
+            <div class="text-sm text-gray-500 mt-3">
+              24/7 emergency line available
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Info -->
+        <div class="grid lg:grid-cols-2 gap-12 mb-16">
+          <!-- Address & Directions -->
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-semibold text-deep-forest mb-6">📍 Find The Bodhi</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Property Address:</h4>
+                <p class="text-gray-600">
+                  480 Flat Mountain Estates Road<br>
+                  Highlands, NC 28741
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Location Details:</h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li>• 5 minutes to downtown Highlands</li>
+                  <li>• 8 minutes to Dry Falls</li>
+                  <li>• 15 minutes to Cashiers, NC</li>
+                  <li>• Private gated community</li>
+                </ul>
+              </div>
+              <a
+                href="https://goo.gl/maps/example"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+              >
+                🗺️ Get Directions
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Info -->
+          <div class="bg-gradient-to-br from-felted-green to-deep-forest text-white rounded-lg p-8">
+            <h3 class="text-2xl font-semibold mb-6">🏔️ The Bodhi at a Glance</h3>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🛏️</span>
+                <span>5 bedrooms, 5 bathrooms</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">👥</span>
+                <span>Sleeps up to 17 guests</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🎬</span>
+                <span>Private movie theater</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🐕</span>
+                <span>Pet-friendly welcome</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🔥</span>
+                <span>Big Green Egg & outdoor kitchen</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🌊</span>
+                <span>Koi pond & mountain views</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-white/20">
+              <a
+                href="/property"
+                class="inline-flex items-center justify-center bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-200"
+              >
+                🏡 View Full Property Details
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h3 class="text-2xl font-semibold text-deep-forest mb-8 text-center">💬 Frequently Asked Questions</h3>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-semibold text-gray-800 mb-2">How do I make a reservation?</h4>
+              <p class="text-gray-600 mb-4">Visit our <a href="/book" class="hover:underline" style="color: rgb(86, 125, 95);">booking page</a> to check availability and secure your dates with instant confirmation.</p>
+
+              <h4 class="font-semibold text-gray-800 mb-2">What's included in my stay?</h4>
+              <p class="text-gray-600 mb-4">All amenities, linens, towels, fully equipped kitchen, private theater, and access to all property features are included.</p>
+
+              <h4 class="font-semibold text-gray-800 mb-2">Is The Bodhi pet-friendly?</h4>
+              <p class="text-gray-600">Yes! We welcome well-behaved pets. Additional pet fees may apply - see our booking page for details.</p>
+            </div>
+
+            <div>
+              <h4 class="font-semibold text-gray-800 mb-2">What's the cancellation policy?</h4>
+              <p class="text-gray-600 mb-4">Our cancellation policy varies by season and booking dates. Full details are provided during the booking process.</p>
+
+              <h4 class="font-semibold text-gray-800 mb-2">How far is downtown Highlands?</h4>
+              <p class="text-gray-600 mb-4">Just 5 minutes by car to downtown Highlands with all its restaurants, shops, and attractions.</p>
+
+              <h4 class="font-semibold text-gray-800 mb-2">Is there WiFi and cell service?</h4>
+              <p class="text-gray-600">Yes, high-speed WiFi is included, and cellular service is excellent throughout the property.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <!-- Contact Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact The Bodhi",
+    "description": "Contact information for The Bodhi luxury vacation rental in Highlands, NC",
+    "url": "https://highlands-rental.com/contact",
+    "mainEntity": {
+      "@type": "LodgingBusiness",
+      "name": "The Bodhi at Flat Mountain Estates",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "480 Flat Mountain Estates Road",
+        "addressLocality": "Highlands",
+        "addressRegion": "NC",
+        "postalCode": "28741",
+        "addressCountry": "US"
+      },
+      "email": "reservations@highlands-rental.com",
+      "url": "https://highlands-rental.com"
+    }
+  }
+  </script>
+</BaseLayout>

@@ -96,9 +96,6 @@ const seoData = {
 </BaseLayout>
 
 <script>
-  // Import our Cloudinary API functions
-  import { getAllTags, getResourcesByTags } from '../lib/cloudinary-api';
-
   document.addEventListener('DOMContentLoaded', function() {
     const loadTagsBtn = document.getElementById('load-tags-btn');
     const loadResourcesBtn = document.getElementById('load-resources-btn');
@@ -121,7 +118,7 @@ const seoData = {
       loading?.classList.add('hidden');
     }
 
-    function showError(message: string) {
+    function showError(message) {
       hideLoading();
       if (errorMessage) errorMessage.textContent = message;
       error?.classList.remove('hidden');
@@ -135,14 +132,23 @@ const seoData = {
       if (resourcesList) resourcesList.innerHTML = '';
     }
 
-    // Load all tags
+    // Load all tags via API endpoint
     loadTagsBtn?.addEventListener('click', async () => {
       showLoading();
       clearResults();
 
       try {
-        const tags = await getAllTags();
+        const response = await fetch('/api/cloudinary/simple?action=tags');
+        const data = await response.json();
+
         hideLoading();
+
+        if (!response.ok) {
+          showError(`API Error: ${data.error || 'Unknown error'}`);
+          return;
+        }
+
+        const tags = data.tags || [];
 
         if (tags.length === 0) {
           showError('No tags found. Make sure your Cloudinary credentials are set correctly.');
@@ -166,21 +172,48 @@ const seoData = {
         tagsSection?.classList.remove('hidden');
 
       } catch (err) {
-        showError(`Failed to load tags: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        showError(`Failed to load tags: ${err.message || 'Network error'}`);
       }
     });
 
-    // Load resources with tags
+    // Load resources with tags via API endpoint
     loadResourcesBtn?.addEventListener('click', async () => {
       showLoading();
       clearResults();
 
       try {
-        const groupedResources = await getResourcesByTags();
+        const response = await fetch('/api/cloudinary/simple?action=list');
+        const data = await response.json();
+
         hideLoading();
 
-        if (Object.keys(groupedResources).length === 0) {
+        if (!response.ok) {
+          showError(`API Error: ${data.error || 'Unknown error'}`);
+          return;
+        }
+
+        const resources = data.resources || [];
+
+        if (resources.length === 0) {
           showError('No resources found. Make sure your Cloudinary credentials are set correctly.');
+          return;
+        }
+
+        // Group resources by tags
+        const groupedResources = {};
+        resources.forEach(resource => {
+          if (resource.tags && resource.tags.length > 0) {
+            resource.tags.forEach(tag => {
+              if (!groupedResources[tag]) {
+                groupedResources[tag] = [];
+              }
+              groupedResources[tag].push(resource);
+            });
+          }
+        });
+
+        if (Object.keys(groupedResources).length === 0) {
+          showError('No tagged resources found.');
           return;
         }
 
@@ -197,11 +230,15 @@ const seoData = {
                   ${resources.map(resource => `
                     <div class="border border-granite-200 rounded-lg overflow-hidden">
                       <img
-                        src="${resource.url}"
+                        src="${resource.secure_url || resource.url}"
                         alt="${resource.public_id}"
                         class="w-full h-32 object-cover"
                         loading="lazy"
+                        onError="this.style.display='none'; this.nextElementSibling.style.display='block';"
                       />
+                      <div style="display:none;" class="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                        Image failed to load
+                      </div>
                       <div class="p-3">
                         <p class="text-sm font-mono text-granite-600 break-all">${resource.public_id}</p>
                         <p class="text-xs text-granite-500 mt-1">${resource.width}×${resource.height} • ${Math.round(resource.bytes / 1024)}KB</p>
@@ -227,9 +264,22 @@ const seoData = {
 
         // Log to console for easy copying
         console.log('🏠 Cloudinary Resources by Tags:', groupedResources);
+        console.log('📊 Total resources loaded:', resources.length);
+        console.log('🏷️ Tagged resources found:', Object.keys(groupedResources).length);
+
+        // Add debug info
+        const debugInfo = document.createElement('div');
+        debugInfo.className = 'mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg';
+        debugInfo.innerHTML = `
+          <h4 class="font-semibold text-blue-800 mb-2">Debug Information</h4>
+          <p class="text-blue-700">Total resources loaded: ${resources.length}</p>
+          <p class="text-blue-700">Unique tags found: ${Object.keys(groupedResources).length}</p>
+          <p class="text-blue-700">Sample image URL: ${resources[0]?.url || 'None'}</p>
+        `;
+        resourcesList.appendChild(debugInfo);
 
       } catch (err) {
-        showError(`Failed to load resources: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        showError(`Failed to load resources: ${err.message || 'Network error'}`);
       }
     });
 

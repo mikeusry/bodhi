@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+const seoData = {
+  title: 'Privacy Policy - The Bodhi at Flat Mountain Estates',
+  description: 'Privacy policy for The Bodhi luxury vacation rental in Highlands, NC. Learn how we protect your personal information.',
+  keywords: 'privacy policy, The Bodhi, data protection, vacation rental privacy',
+  type: 'website' as const
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden mb-0" style="height: 40vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/hero-exterior_rdyocb"
+      alt="Privacy Policy - The Bodhi"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(45, 69, 56, 0.8); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-anamortee mb-4 leading-tight">
+          Privacy Policy
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">
+          Your privacy is important to us
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Content -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg">
+
+        <p class="text-lg text-gray-700 mb-8">
+          <strong>Effective Date:</strong> September 18, 2024
+        </p>
+
+        <p class="mb-6">
+          At The Bodhi at Flat Mountain Estates ("we," "our," or "us"), we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or book a stay with us.
+        </p>
+
+        <h2 style="color: rgb(45, 69, 56);">Information We Collect</h2>
+
+        <h3 style="color: rgb(86, 125, 95);">Personal Information</h3>
+        <p>When you make a reservation or contact us, we may collect:</p>
+        <ul>
+          <li>Name and contact information (email, phone, address)</li>
+          <li>Payment and billing information</li>
+          <li>Booking preferences and special requests</li>
+          <li>Communication history with our team</li>
+        </ul>
+
+        <h3 style="color: rgb(86, 125, 95);">Website Usage Information</h3>
+        <p>We automatically collect certain information when you visit our website:</p>
+        <ul>
+          <li>IP address and browser information</li>
+          <li>Pages visited and time spent on our site</li>
+          <li>Referring website information</li>
+          <li>Device and operating system details</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">How We Use Your Information</h2>
+
+        <p>We use your information to:</p>
+        <ul>
+          <li><strong>Process Reservations:</strong> Confirm bookings, process payments, and manage your stay</li>
+          <li><strong>Communicate:</strong> Send booking confirmations, updates, and respond to inquiries</li>
+          <li><strong>Improve Services:</strong> Enhance our website and guest experience</li>
+          <li><strong>Legal Compliance:</strong> Meet legal obligations and protect our rights</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Information Sharing</h2>
+
+        <p>We do not sell, trade, or rent your personal information. We may share your information only in these circumstances:</p>
+        <ul>
+          <li><strong>Service Providers:</strong> Third-party companies that help us operate our business (payment processors, cleaning services, etc.)</li>
+          <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+          <li><strong>Business Transfers:</strong> In connection with a merger, sale, or transfer of assets</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Data Security</h2>
+
+        <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is 100% secure, and we cannot guarantee absolute security.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Cookies and Tracking</h2>
+
+        <p>Our website uses cookies to improve your browsing experience. Cookies are small files stored on your device that help us:</p>
+        <ul>
+          <li>Remember your preferences</li>
+          <li>Analyze website traffic</li>
+          <li>Provide personalized content</li>
+        </ul>
+
+        <p>You can control cookies through your browser settings, but disabling them may affect website functionality.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Your Rights</h2>
+
+        <p>You have the right to:</p>
+        <ul>
+          <li>Access and review your personal information</li>
+          <li>Request corrections to inaccurate information</li>
+          <li>Request deletion of your information (subject to legal requirements)</li>
+          <li>Opt out of marketing communications</li>
+        </ul>
+
+        <h2 style="color: rgb(45, 69, 56);">Third-Party Links</h2>
+
+        <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to read their privacy policies.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Children's Privacy</h2>
+
+        <p>Our services are not directed to children under 13, and we do not knowingly collect personal information from children under 13.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Changes to This Policy</h2>
+
+        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date. Your continued use of our services after changes are posted constitutes acceptance of the updated policy.</p>
+
+        <h2 style="color: rgb(45, 69, 56);">Contact Us</h2>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <p class="mb-4">If you have questions about this Privacy Policy or how we handle your information, please contact us:</p>
+          <ul class="list-none">
+            <li><strong>Email:</strong> <a href="mailto:reservations@highlands-rental.com" style="color: rgb(86, 125, 95);">reservations@highlands-rental.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+1-XXX-XXX-XXXX" style="color: rgb(86, 125, 95);">+1 (XXX) XXX-XXXX</a></li>
+            <li><strong>Address:</strong> 480 Flat Mountain Estates Road, Highlands, NC 28741</li>
+          </ul>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="mt-16 bg-white border-2 rounded-xl p-10 text-center" style="border-color: rgb(86, 125, 95);">
+          <h3 class="text-2xl font-bold mb-4" style="color: rgb(45, 69, 56);">Ready to Book Your Stay?</h3>
+          <p class="text-lg text-gray-700 mb-6">
+            Book with confidence knowing your privacy is protected at The Bodhi.
+          </p>
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center text-white px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200"
+            style="background-color: rgb(86, 125, 95);"
+          >
+            🏔️ Book Your Mountain Retreat
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

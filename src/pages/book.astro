@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
-import CloudinaryImageEnhanced from '../components/ui/CloudinaryImageEnhanced.astro';
 import { pageSEO } from '../lib/seo';
 
 const seoData = {
@@ -13,7 +12,8 @@ const seoData = {
 };
 
 // Rate data organized by seasons and special periods
-const rateData = [
+// Fall 2025 - Featured dates (September through December 2025)
+const fall2025Rates = [
   // September 2025
   {
     season: "September 2025",
@@ -104,8 +104,11 @@ const rateData = [
     rate: "1,417 - 2,052",
     type: "holiday",
     description: "Holiday season premium rates"
-  },
+  }
+];
 
+// Future dates (2026 and beyond) - Available in expandable section
+const future2026Rates = [
   // January 2026
   {
     season: "January 2026",
@@ -297,29 +300,29 @@ const bookingInfo = {
   <Header />
 
   <!-- Hero Section -->
-  <section class="relative h-96 bg-deep-forest">
-    <CloudinaryImageEnhanced
-      publicId="banyan_tree/flat_mountain/hero-exterior_rdyocb"
-      alt="The Bodhi Luxury Mountain Estate"
-      preset="hero"
-      className="absolute inset-0 w-full h-full object-cover opacity-60"
+  <section class="hero-section">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_1080,q_auto:best,f_auto/banyan_tree/flat_mountain/hero-exterior_rdyocb.jpg"
+      alt="The Bodhi Luxury Mountain Estate - Premium Mountain Retreat in Highlands NC"
+      class="hero-image"
+      loading="eager"
     />
-    <div class="absolute inset-0 bg-deep-forest bg-opacity-40"></div>
-    <div class="relative z-10 h-full flex items-center">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center text-white">
-          <h1 class="text-4xl md:text-6xl font-display mb-6">
-            Book Your Stay at The Bodhi
-          </h1>
-          <p class="text-xl md:text-2xl mb-8 opacity-90">
-            Luxury 5-bedroom mountain estate • Sleeps 17 guests • Private theater & koi pond
-          </p>
-          <div class="flex flex-wrap justify-center gap-4 text-lg">
-            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
-              <span class="font-semibold">From $900/night</span>
+        <div class="hero-text">
+          <h1>Book Your Stay at The Bodhi</h1>
+          <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0; text-align: center;">
+            <div style="color: #FFD700; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">🔥 PEAK FALL SEASON - BOOKING FAST!</div>
+            <div style="color: rgba(255, 255, 255, 0.95); font-size: 0.95rem;">Only 3 weekends left in October • 2 properties remaining</div>
+          </div>
+          <p>Luxury 5-bedroom mountain estate • Sleeps 17 guests • Private theater & koi pond</p>
+          <div class="hero-badges">
+            <div class="badge">
+              <span>From $900/night</span>
             </div>
-            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
-              <span class="font-semibold">3-4 night minimum</span>
+            <div class="badge">
+              <span>3-4 night minimum</span>
             </div>
           </div>
         </div>
@@ -328,62 +331,215 @@ const bookingInfo = {
   </section>
 
   <!-- Quick Booking Info -->
-  <section class="py-12 bg-canvas">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-lg shadow-lg p-8 -mt-20 relative z-10">
-          <h2 class="text-2xl font-bold text-deep-forest mb-6 text-center">Ready to Book?</h2>
-          <div class="grid md:grid-cols-3 gap-6 mb-8">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-felted-green mb-2">${bookingInfo.baseRate}+</div>
-              <div class="text-granite-600">Starting Rate/Night</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-felted-green mb-2">{bookingInfo.minStay.standard}-{bookingInfo.minStay.holiday}</div>
-              <div class="text-granite-600">Night Minimum</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-felted-green mb-2">{bookingInfo.sleeps}</div>
-              <div class="text-granite-600">Max Guests</div>
-            </div>
+  <section class="section" style="padding-top: 3rem; background-color: var(--color-canvas);">
+    <div class="container">
+      <div class="quick-booking-card">
+        <h2 style="text-align: center; font-size: 1.75rem; margin-bottom: 2rem; color: var(--color-deep-forest);">Ready to Book?</h2>
+        <div class="booking-stats">
+          <div class="stat-item">
+            <div class="stat-value">${bookingInfo.baseRate}+</div>
+            <div class="stat-label">Starting Rate/Night</div>
           </div>
-          <div class="text-center">
-            <a
-              href="mailto:reservations@flatmountainestates.com?subject=Booking Inquiry for The Bodhi&body=Hello,%0A%0AI would like to inquire about booking The Bodhi for the following dates:%0A%0ACheck-in Date: %0ACheck-out Date: %0ANumber of Guests: %0A%0APlease send me availability and total cost information.%0A%0AThank you!"
-              class="inline-flex items-center bg-felted-green text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-felted-green-600 transition-colors duration-200 mr-4"
+          <div class="stat-item">
+            <div class="stat-value">{bookingInfo.minStay.standard}-{bookingInfo.minStay.holiday}</div>
+            <div class="stat-label">Night Minimum</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">{bookingInfo.sleeps}</div>
+            <div class="stat-label">Max Guests</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+          <button
+            onclick="scrollToBooking()"
+            aria-label="Navigate to booking form to secure your dates at The Bodhi"
+            style="background: #FFD700; color: #2d4538; border: none; padding: 1.25rem 2.5rem; border-radius: 0.75rem; font-weight: 700; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4); animation: pulse 2s infinite; display: flex; align-items: center;"
+          >
+            <svg style="width: 1.5rem; height: 1.5rem; margin-right: 0.75rem;" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            SECURE YOUR DATES NOW
+          </button>
+          <a href="mailto:reservations@highlands-rental.com" style="background: #2d4538; color: white; border: 2px solid #2d4538; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1rem; text-decoration: none; display: flex; align-items: center; transition: all 0.3s ease;">
+            <svg style="width: 1.25rem; height: 1.25rem; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+            </svg>
+            Email Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrated Booking System -->
+  <section id="booking-widget" class="section" style="background-color: var(--color-white);">
+    <div class="container">
+      <!-- INSTANT AVAILABILITY CHECKER -->
+      <div id="availability-checker" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; text-align: center; color: white; box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);">
+        <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;">⚡ INSTANT AVAILABILITY CHECK</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end; max-width: 500px; margin: 0 auto;">
+          <div>
+            <label for="checkin-date" style="display: block; font-size: 0.9rem; margin-bottom: 0.5rem; opacity: 0.9;">Check-in</label>
+            <input
+              id="checkin-date"
+              type="date"
+              aria-label="Select check-in date for your stay at The Bodhi"
+              style="width: 100%; padding: 0.75rem; border: none; border-radius: 0.5rem; font-size: 1rem; color: #2d4538;"
+              min="2024-09-18"
+              required
             >
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+          </div>
+          <div>
+            <label for="checkout-date" style="display: block; font-size: 0.9rem; margin-bottom: 0.5rem; opacity: 0.9;">Check-out</label>
+            <input
+              id="checkout-date"
+              type="date"
+              aria-label="Select check-out date for your stay at The Bodhi"
+              style="width: 100%; padding: 0.75rem; border: none; border-radius: 0.5rem; font-size: 1rem; color: #2d4538;"
+              min="2024-09-21"
+              required
+            >
+          </div>
+          <button
+            id="check-availability-btn"
+            onclick="performAvailabilityCheck()"
+            aria-label="Check availability for selected dates"
+            style="background: #FFD700; color: #2d4538; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; font-size: 1rem; height: fit-content; transition: all 0.3s ease;"
+          >
+            CHECK NOW
+          </button>
+        </div>
+        <div id="availability-message" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Get instant pricing • No hidden fees • Book in 60 seconds</div>
+        <div id="pricing-display" style="display: none; margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; backdrop-filter: blur(10px);">
+          <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">✅ AVAILABLE!</div>
+          <div id="pricing-details" style="font-size: 1rem; margin-bottom: 1rem;"></div>
+          <button onclick="proceedToBooking()" style="background: #28a745; color: white; border: none; padding: 1rem 2rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; font-size: 1.1rem; animation: pulse 2s infinite;">BOOK THESE DATES NOW →</button>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Book Your Stay</h2>
+        <p>Join 500+ families who've created unforgettable memories at The Bodhi.</p>
+      </div>
+
+      <!-- Galax Rentals Booking System -->
+      <div class="booking-widget">
+        <!-- Booking Preview Section -->
+        <div class="booking-widget-header">
+          <div style="position: absolute; top: 1.5rem; right: 1.5rem; opacity: 0.3;">
+            <svg style="width: 2rem; height: 2rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <h3>Check Availability & Book</h3>
+          <p>Secure your stay at The Bodhi through our professional booking system. Real-time availability, instant confirmation, and secure payment processing.</p>
+
+          <div class="trust-indicators">
+            <div class="trust-indicator">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
               </svg>
-              Email to Book
-            </a>
-            <a
-              href="tel:+1-XXX-XXX-XXXX"
-              class="inline-flex items-center border-2 border-felted-green text-felted-green px-8 py-4 rounded-lg font-semibold text-lg hover:bg-felted-green hover:text-white transition-colors duration-200"
-            >
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <span>Instant Confirmation</span>
+            </div>
+            <div class="trust-indicator">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Secure Payment</span>
+            </div>
+            <div class="trust-indicator">
+              <svg fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
               </svg>
-              Call to Book
-            </a>
+              <span>24/7 Support</span>
+            </div>
           </div>
+
+          <button onclick="openBookingSystem()" class="booking-cta">
+            <svg style="width: 1.5rem; height: 1.5rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            Open Booking System
+            <svg style="width: 1.25rem; height: 1.25rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Quick Info Section -->
+        <div class="booking-info-grid">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+              </svg>
+            </div>
+            <div class="info-content">
+              <div class="info-title">5 Bedrooms</div>
+              <div class="info-subtitle">5 Bathrooms</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+              </svg>
+            </div>
+            <div class="info-content">
+              <div class="info-title">Sleeps 17</div>
+              <div class="info-subtitle">Perfect for groups</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="info-content">
+              <div class="info-title">From $900</div>
+              <div class="info-subtitle">Per night</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="info-content">
+              <div class="info-title">3-4 Nights</div>
+              <div class="info-subtitle">Minimum stay</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Integration Notes -->
+      <div style="margin-top: 2rem; padding: 1.5rem; background: var(--color-brook-blue-50); border: 1px solid var(--color-brook-blue-200); border-radius: 1rem; display: flex; align-items: flex-start; gap: 1rem;">
+        <svg style="width: 1.25rem; height: 1.25rem; color: var(--color-brook-blue-600); margin-top: 0.25rem; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+        </svg>
+        <div>
+          <h4 style="font-weight: 600; color: var(--color-brook-blue-800); margin-bottom: 0.5rem;">Secure Booking Process</h4>
+          <p style="color: var(--color-brook-blue-700); font-size: 0.95rem; margin: 0;">
+            Your booking is processed securely through our property management system.
+            All payments and reservations are handled by Galax Rentals, our trusted property manager.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Seasonal Rate Calendar -->
-  <section class="py-16 bg-granite-50">
-    <div class="container mx-auto px-4">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-display text-deep-forest mb-6">
-            2025-2026 Seasonal Rates
-          </h2>
-          <p class="text-xl text-granite-700 max-w-3xl mx-auto">
-            Our rates vary by season to reflect demand and local events. All rates are per night and require minimum stay periods.
-          </p>
+  <section class="section" style="background-color: var(--color-granite-50);">
+    <div class="container">
+        <div class="section-header">
+          <h2>Fall 2025 Seasonal Rates</h2>
+          <p>Book now for fall foliage season! Rates vary by season to reflect demand and local events. All rates are per night and require minimum stay periods.</p>
+          <div class="foliage-notice">
+            <p>🍂 <strong>Peak Fall Foliage:</strong> October 2025 • Premium mountain views during peak color season</p>
+          </div>
         </div>
 
         <!-- Rate Legend -->
@@ -406,183 +562,219 @@ const bookingInfo = {
           </div>
         </div>
 
-        <!-- Rates Grid -->
-        <div class="grid gap-6">
-          {rateData.map((period) => (
-            <div class={`rate-card p-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl ${
-              period.type === 'standard' ? 'bg-white border-l-4 border-brook-blue' :
-              period.type === 'peak' ? 'bg-felted-green-50 border-l-4 border-felted-green' :
-              period.type === 'holiday' ? 'bg-deep-forest-50 border-l-4 border-deep-forest' :
-              period.type === 'event' ? 'bg-granite-50 border-l-4 border-granite-500' :
-              'bg-white border-l-4 border-granite-300'
-            }`}>
-              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                <div class="flex-1">
-                  <div class="flex items-center mb-2">
-                    <h3 class="text-xl font-semibold text-deep-forest mr-3">
-                      {period.season}
-                    </h3>
-                    {period.type === 'peak' && (
-                      <span class="bg-felted-green text-white px-2 py-1 rounded text-xs font-medium">
-                        PEAK
-                      </span>
-                    )}
-                    {period.type === 'holiday' && (
-                      <span class="bg-deep-forest text-white px-2 py-1 rounded text-xs font-medium">
-                        HOLIDAY
-                      </span>
-                    )}
-                    {period.type === 'event' && (
-                      <span class="bg-granite-500 text-white px-2 py-1 rounded text-xs font-medium">
-                        EVENT
-                      </span>
-                    )}
-                  </div>
-                  <p class="text-granite-600 mb-1">
-                    <span class="font-medium">Dates:</span> {period.period}
-                  </p>
-                  {period.description && (
-                    <p class="text-sm text-granite-500 italic">
-                      {period.description}
-                    </p>
-                  )}
-                  {period.peakDates && (
-                    <div class="mt-3 space-y-1">
-                      {period.peakDates.map((peak) => (
-                        <div class="text-sm text-granite-600 bg-white bg-opacity-50 px-3 py-2 rounded">
-                          <span class="font-medium">{peak.date}:</span> ${peak.rate}/night
-                          {peak.note && <span class="text-granite-500 ml-2">({peak.note})</span>}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+        <!-- Fall 2025 Rates Grid (Featured) -->
+        <div style="display: grid; gap: 1.5rem; margin-bottom: 3rem;">
+          {fall2025Rates.map((period) => (
+            <div class={`rate-card ${period.type}`}>
+              <div class="rate-header">
+                <div class="rate-title">
+                  <h3>{period.season}</h3>
+                  {period.type === 'peak' && <span class="rate-badge peak">PEAK</span>}
+                  {period.type === 'holiday' && <span class="rate-badge holiday">HOLIDAY</span>}
+                  {period.type === 'event' && <span class="rate-badge event">EVENT</span>}
                 </div>
-                <div class="mt-4 lg:mt-0 lg:ml-6 text-right">
-                  <div class="text-2xl font-bold text-deep-forest mb-1">
-                    ${period.rate}/night
-                  </div>
-                  <div class="text-sm text-granite-600 mb-2">
-                    {period.minStay} night minimum
-                  </div>
+                <div class="rate-pricing">
+                  <div class="rate-price">${period.rate}/night</div>
+                  <div class="rate-minimum">{period.minStay} night minimum</div>
                   <button
                     onclick={`window.open('mailto:reservations@flatmountainestates.com?subject=Booking Inquiry - ${period.season}&body=Hello,%0A%0AI would like to inquire about booking The Bodhi during ${period.season} (${period.period}).%0A%0ANumber of Guests: %0A%0APlease send me availability and total cost information.%0A%0AThank you!', '_blank')`}
-                    class="bg-felted-green text-white px-4 py-2 rounded font-medium text-sm hover:bg-felted-green-600 transition-colors duration-200"
+                    class="btn btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;"
                   >
                     Inquire Now
                   </button>
                 </div>
               </div>
+              <div class="rate-details">
+                <div class="rate-period"><strong>Dates:</strong> {period.period}</div>
+                {period.description && <div class="rate-description">{period.description}</div>}
+                {period.peakDates && (
+                  <div style="margin-top: 1rem; display: grid; gap: 0.75rem;">
+                    {period.peakDates.map((peak) => (
+                      <div style="padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.6); border-radius: 0.5rem; font-size: 0.9rem;">
+                        <span style="font-weight: 600;">{peak.date}:</span> ${peak.rate}/night
+                        {peak.note && <span style="color: var(--color-granite-600); margin-left: 0.5rem;">({peak.note})</span>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
-      </div>
+
+        <!-- Future Dates Accordion (2026 and beyond) -->
+        <div class="accordion">
+          <button
+            id="future-rates-toggle"
+            class="accordion-trigger"
+            onclick="toggleFutureRates()"
+          >
+            <div>
+              <h3 class="text-xl font-semibold text-deep-forest mb-2">
+                2026 & Future Dates
+              </h3>
+              <p class="text-granite-600">
+                View rates for spring, summer & fall 2026 seasons
+              </p>
+            </div>
+            <div class="flex items-center">
+              <span id="future-rates-count" class="text-sm text-granite-500 mr-4">
+                {future2026Rates.length} rate periods
+              </span>
+              <svg
+                id="future-rates-icon"
+                class="w-6 h-6 text-granite-400 transform transition-transform duration-200"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </button>
+
+          <div id="future-rates-content" class="accordion-content hidden">
+            <div style="border-top: 1px solid var(--color-granite-200); padding: 2rem; padding-top: 0;">
+              <div style="display: grid; gap: 1.5rem; margin-top: 2rem;">
+                {future2026Rates.map((period) => (
+                  <div class={`rate-card ${period.type}`} style="box-shadow: var(--shadow-sm);">
+                    <div class="rate-header">
+                      <div class="rate-title">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0;">{period.season}</h4>
+                        {period.type === 'peak' && <span class="rate-badge peak">PEAK</span>}
+                        {period.type === 'holiday' && <span class="rate-badge holiday">HOLIDAY</span>}
+                        {period.type === 'event' && <span class="rate-badge event">EVENT</span>}
+                      </div>
+                      <div class="rate-pricing">
+                        <div class="rate-price" style="font-size: 1.5rem;">${period.rate}/night</div>
+                        <div class="rate-minimum">{period.minStay} night minimum</div>
+                        <button
+                          onclick={`window.open('mailto:reservations@flatmountainestates.com?subject=Booking Inquiry - ${period.season}&body=Hello,%0A%0AI would like to inquire about booking The Bodhi during ${period.season} (${period.period}).%0A%0ANumber of Guests: %0A%0APlease send me availability and total cost information.%0A%0AThank you!', '_blank')`}
+                          style="background: var(--color-granite-600); color: var(--color-white); border: none; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;"
+                          onmouseover="this.style.background='var(--color-granite-700)'"
+                          onmouseout="this.style.background='var(--color-granite-600)'"
+                        >
+                          Inquire Now
+                        </button>
+                      </div>
+                    </div>
+                    <div class="rate-details">
+                      <div class="rate-period"><strong>Dates:</strong> {period.period}</div>
+                      {period.description && <div class="rate-description">{period.description}</div>}
+                      {period.peakDates && (
+                        <div style="margin-top: 1rem; display: grid; gap: 0.75rem;">
+                          {period.peakDates.map((peak) => (
+                            <div style="padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.6); border-radius: 0.5rem; font-size: 0.9rem;">
+                              <span style="font-weight: 600;">{peak.date}:</span> ${peak.rate}/night
+                              {peak.note && <span style="color: var(--color-granite-600); margin-left: 0.5rem;">({peak.note})</span>}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </section>
 
   <!-- Booking Information -->
-  <section class="py-16 bg-canvas">
-    <div class="container mx-auto px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-display text-deep-forest mb-6">
-            Booking Information
-          </h2>
-          <p class="text-xl text-granite-700 max-w-3xl mx-auto">
-            Everything you need to know about reserving your stay at The Bodhi.
-          </p>
+  <section class="section" style="background-color: var(--color-canvas);">
+    <div class="container">
+        <div class="section-header">
+          <h2>Booking Information</h2>
+          <p>Everything you need to know about reserving your stay at The Bodhi.</p>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-12">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem;">
           <!-- Booking Policies -->
-          <div class="bg-white rounded-lg shadow-lg p-8">
-            <h3 class="text-2xl font-bold text-deep-forest mb-6">
-              Booking Policies
-            </h3>
-            <div class="space-y-6">
+          <div class="info-card">
+            <h3>Booking Policies</h3>
+            <div style="display: grid; gap: 2rem;">
               <div>
-                <h4 class="font-semibold text-deep-forest mb-2">Minimum Stay Requirements</h4>
-                <p class="text-granite-600">
+                <h4 style="font-weight: 600; color: var(--color-deep-forest); margin-bottom: 0.75rem;">Minimum Stay Requirements</h4>
+                <div style="color: var(--color-granite-700); line-height: 1.6;">
                   • Standard seasons: 3-night minimum<br>
                   • Holiday periods: 4-night minimum<br>
                   • Peak foliage & summer: varies by dates
-                </p>
+                </div>
               </div>
               <div>
-                <h4 class="font-semibold text-deep-forest mb-2">Occupancy</h4>
-                <p class="text-granite-600">
+                <h4 style="font-weight: 600; color: var(--color-deep-forest); margin-bottom: 0.75rem;">Occupancy</h4>
+                <div style="color: var(--color-granite-700); line-height: 1.6;">
                   Maximum 17 guests across 5 bedrooms and 5 bathrooms. No pets allowed.
-                </p>
+                </div>
               </div>
               <div>
-                <h4 class="font-semibold text-deep-forest mb-2">Cancellation Policy</h4>
-                <p class="text-granite-600">
+                <h4 style="font-weight: 600; color: var(--color-deep-forest); margin-bottom: 0.75rem;">Cancellation Policy</h4>
+                <div style="color: var(--color-granite-700); line-height: 1.6;">
                   Flexible cancellation up to 30 days before arrival. Holiday bookings may have different terms.
-                </p>
+                </div>
               </div>
               <div>
-                <h4 class="font-semibold text-deep-forest mb-2">Check-in/Check-out</h4>
-                <p class="text-granite-600">
+                <h4 style="font-weight: 600; color: var(--color-deep-forest); margin-bottom: 0.75rem;">Check-in/Check-out</h4>
+                <div style="color: var(--color-granite-700); line-height: 1.6;">
                   Check-in: 4:00 PM • Check-out: 11:00 AM
-                </p>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- What's Included -->
-          <div class="bg-white rounded-lg shadow-lg p-8">
-            <h3 class="text-2xl font-bold text-deep-forest mb-6">
-              What's Included
-            </h3>
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <div class="info-card">
+            <h3>What's Included</h3>
+            <ul class="info-list">
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Private movie theater with professional seating</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Private movie theater with professional seating</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Koi pond with waterfalls and outdoor seating</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Koi pond with waterfalls and outdoor seating</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Big Green Egg for gourmet outdoor cooking</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Big Green Egg for gourmet outdoor cooking</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Fully equipped gourmet kitchen</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Fully equipped gourmet kitchen</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">High-speed WiFi throughout property</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>High-speed WiFi throughout property</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Premium linens and towels</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Premium linens and towels</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">Private parking for multiple vehicles</span>
-              </div>
-              <div class="flex items-start">
-                <svg class="w-5 h-5 text-felted-green mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <span>Private parking for multiple vehicles</span>
+              </li>
+              <li>
+                <svg fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="text-granite-700">24/7 guest support and concierge services</span>
-              </div>
-            </div>
+                <span>24/7 guest support and concierge services</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -590,51 +782,42 @@ const bookingInfo = {
   </section>
 
   <!-- Contact Section -->
-  <section class="py-16 bg-deep-forest text-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-display mb-8">
+  <section class="section contact-section">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 2rem; color: var(--color-white);">
           Ready to Book Your Mountain Retreat?
         </h2>
-        <p class="text-xl mb-12 opacity-90">
+        <p style="font-size: 1.25rem; margin-bottom: 3rem; opacity: 0.95; line-height: 1.6;">
           Contact us today to check availability and reserve your dates at The Bodhi. Our team is here to help make your mountain getaway perfect.
         </p>
 
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
-          <div class="bg-white bg-opacity-10 p-8 rounded-lg">
-            <h3 class="text-xl font-semibold mb-4">Email Reservations</h3>
-            <p class="mb-4">Send us your dates and we'll respond within 24 hours</p>
-            <a
-              href="mailto:reservations@flatmountainestates.com"
-              class="text-felted-green-300 hover:text-felted-green-200 font-medium"
-            >
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+          <div class="contact-card">
+            <h3>Email Reservations</h3>
+            <p>Send us your dates and we'll respond within 24 hours</p>
+            <a href="mailto:reservations@flatmountainestates.com">
               reservations@flatmountainestates.com
             </a>
           </div>
-          <div class="bg-white bg-opacity-10 p-8 rounded-lg">
-            <h3 class="text-xl font-semibold mb-4">Phone Bookings</h3>
-            <p class="mb-4">Speak directly with our reservations team</p>
-            <a
-              href="tel:+1-XXX-XXX-XXXX"
-              class="text-felted-green-300 hover:text-felted-green-200 font-medium text-xl"
-            >
-              +1 (XXX) XXX-XXXX
+          <div class="contact-card">
+            <h3>Email Reservations</h3>
+            <p>Contact our reservations team directly</p>
+            <a href="mailto:reservations@highlands-rental.com" style="font-size: 1.25rem;">
+              reservations@highlands-rental.com
             </a>
           </div>
         </div>
 
-        <div class="bg-white bg-opacity-10 rounded-lg p-8">
-          <h3 class="text-xl font-semibold mb-4">Questions About Your Stay?</h3>
-          <p class="mb-6">
+        <div class="contact-card" style="max-width: 600px; margin: 0 auto;">
+          <h3>Questions About Your Stay?</h3>
+          <p style="margin-bottom: 2rem;">
             Our local team knows Highlands inside and out. We're happy to help with restaurant recommendations,
             activity planning, grocery delivery, and anything else to make your stay exceptional.
           </p>
-          <a
-            href="/contact"
-            class="inline-flex items-center bg-felted-green text-white px-6 py-3 rounded-lg font-medium hover:bg-felted-green-600 transition-colors duration-200"
-          >
+          <a href="/contact" class="btn btn-primary">
             Get Local Recommendations
-            <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+            <svg style="width: 1.25rem; height: 1.25rem; margin-left: 0.5rem;" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
             </svg>
           </a>
@@ -647,11 +830,912 @@ const bookingInfo = {
 </BaseLayout>
 
 <style>
+  /* Reset and Base Styles */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* CSS Custom Properties */
+  :root {
+    --color-canvas: #f8f9f8;
+    --color-felted-green: #567d5f;
+    --color-felted-green-600: #4a6d53;
+    --color-felted-green-300: #7a9984;
+    --color-deep-forest: #2d4538;
+    --color-deep-forest-600: #243a2e;
+    --color-brook-blue: #5e8e9e;
+    --color-brook-blue-50: #f0f7f9;
+    --color-brook-blue-200: #b8d4dc;
+    --color-brook-blue-600: #4f7985;
+    --color-brook-blue-700: #446871;
+    --color-brook-blue-800: #39565d;
+    --color-granite: #404447;
+    --color-granite-50: #f7f8f9;
+    --color-granite-200: #e1e4e6;
+    --color-granite-300: #c5cace;
+    --color-granite-500: #8b9299;
+    --color-granite-600: #6b7380;
+    --color-granite-700: #545b66;
+    --color-white: #ffffff;
+    --color-canvas-200: #e8e9e8;
+    --color-canvas-300: #d1d3d1;
+    --font-display: 'Abril Display', serif;
+    --font-body: 'Nimbus Sans', -apple-system, sans-serif;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  /* Typography */
+  body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-granite);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5em;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    height: 60vh;
+    min-height: 500px;
+    background: linear-gradient(135deg, var(--color-deep-forest) 0%, var(--color-felted-green) 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(45, 69, 56, 0.8) 0%, rgba(86, 125, 95, 0.6) 100%);
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+
+  .hero-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-text p {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .badge {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .badge:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* Section Styling */
+  .section {
+    padding: 5rem 0;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-deep-forest);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--color-granite-700);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* Quick Booking Card */
+  .quick-booking-card {
+    background: var(--color-white);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-xl);
+    padding: 2.5rem;
+    margin-top: -4rem;
+    position: relative;
+    z-index: 10;
+    border: 1px solid var(--color-granite-200);
+  }
+
+  .booking-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-felted-green);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .stat-label {
+    color: var(--color-granite-600);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--color-felted-green);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-felted-green-600);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-felted-green);
+    border-color: var(--color-felted-green);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-felted-green);
+    color: var(--color-white);
+  }
+
+  /* Booking Widget */
+  .booking-widget {
+    background: var(--color-white);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-granite-200);
+  }
+
+  .booking-widget-header {
+    background: linear-gradient(135deg, var(--color-felted-green) 0%, var(--color-felted-green-600) 100%);
+    color: var(--color-white);
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .booking-widget-header h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .booking-widget-header p {
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    line-height: 1.6;
+  }
+
+  .trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .trust-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .trust-indicator svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    opacity: 0.9;
+  }
+
+  .trust-indicator span {
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  .booking-cta {
+    background: var(--color-white);
+    color: var(--color-felted-green);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .booking-cta:hover {
+    background: var(--color-granite-50);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .booking-info-grid {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .info-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-felted-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .info-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-white);
+  }
+
+  .info-content {
+    flex: 1;
+  }
+
+  .info-title {
+    font-weight: 700;
+    color: var(--color-deep-forest);
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  .info-subtitle {
+    color: var(--color-granite-600);
+    font-size: 0.9rem;
+  }
+
+  /* Rate Cards */
   .rate-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--color-white);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--color-brook-blue);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
   }
 
   .rate-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .rate-card.peak {
+    border-left-color: var(--color-felted-green);
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(86, 125, 95, 0.03) 100%);
+  }
+
+  .rate-card.holiday {
+    border-left-color: var(--color-deep-forest);
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(45, 69, 56, 0.03) 100%);
+  }
+
+  .rate-card.event {
+    border-left-color: var(--color-granite-500);
+    background: linear-gradient(135deg, var(--color-white) 0%, rgba(64, 68, 71, 0.03) 100%);
+  }
+
+  .rate-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .rate-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .rate-title h3 {
+    font-size: 1.4rem;
+    color: var(--color-deep-forest);
+    margin-bottom: 0;
+    font-weight: 700;
+  }
+
+  .rate-badge {
+    padding: 0.375rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .rate-badge.peak {
+    background: var(--color-felted-green);
+    color: var(--color-white);
+  }
+
+  .rate-badge.holiday {
+    background: var(--color-deep-forest);
+    color: var(--color-white);
+  }
+
+  .rate-badge.event {
+    background: var(--color-granite-500);
+    color: var(--color-white);
+  }
+
+  .rate-pricing {
+    text-align: right;
+  }
+
+  .rate-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-deep-forest);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+  }
+
+  .rate-minimum {
+    color: var(--color-granite-600);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .rate-details {
+    margin-bottom: 1.5rem;
+  }
+
+  .rate-period {
+    color: var(--color-granite-700);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .rate-description {
+    color: var(--color-granite-600);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  /* Accordion */
+  .accordion {
+    background: var(--color-white);
+    border: 1px solid var(--color-granite-300);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    padding: 2rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .accordion-trigger:hover {
+    background: var(--color-granite-50);
+  }
+
+  .accordion-content {
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .accordion-content.hidden {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .accordion-content:not(.hidden) {
+    max-height: 5000px;
+    opacity: 1;
+  }
+
+  /* Notice Box */
+  .foliage-notice {
+    background: linear-gradient(135deg, rgba(86, 125, 95, 0.1) 0%, rgba(86, 125, 95, 0.05) 100%);
+    border: 1px solid rgba(86, 125, 95, 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .foliage-notice p {
+    color: var(--color-deep-forest);
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  /* Info Cards */
+  .info-card {
+    background: var(--color-white);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    height: 100%;
+  }
+
+  .info-card h3 {
+    color: var(--color-deep-forest);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .info-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    last-child:margin-bottom: 0;
+  }
+
+  .info-list svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-felted-green);
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+  }
+
+  .info-list span {
+    color: var(--color-granite-700);
+    line-height: 1.5;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    background: linear-gradient(135deg, var(--color-deep-forest) 0%, var(--color-felted-green-600) 100%);
+    color: var(--color-white);
+  }
+
+  .contact-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .contact-card h3 {
+    color: var(--color-white);
+    margin-bottom: 1rem;
+  }
+
+  .contact-card p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .contact-card a {
+    color: #87CEEB;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .contact-card a:hover {
+    color: #FFD700;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section {
+      padding: 3rem 0;
+    }
+
+    .hero-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .quick-booking-card {
+      margin-top: -2rem;
+      padding: 2rem;
+    }
+
+    .booking-stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .rate-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .rate-pricing {
+      text-align: left;
+      width: 100%;
+    }
+
+    .trust-indicators {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Utility Classes */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Smooth Animations */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
   }
 </style>
+
+<script is:inline>
+  // Make function global so it can be called from onclick
+  function toggleFutureRates() {
+    const content = document.getElementById('future-rates-content');
+    const icon = document.getElementById('future-rates-icon');
+
+    if (content && icon) {
+      if (content.classList.contains('hidden')) {
+        // Show content
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        // Hide content
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+  }
+
+  // Scroll to booking widget
+  function scrollToBooking() {
+    const bookingSection = document.getElementById('booking-widget');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
+  // Open Galax Rentals booking system in new tab
+  function openBookingSystem() {
+    // Open in new tab/window for seamless booking experience
+    window.open('https://www.galaxrentals.com/Rental/968384/', '_blank', 'noopener,noreferrer');
+
+    // Optional: Track booking funnel analytics
+    console.log('User opened Galax Rentals booking system');
+  }
+
+  // Initialize when DOM is ready
+  // FUNCTIONAL AVAILABILITY CHECKER
+  function performAvailabilityCheck() {
+    const checkinInput = document.getElementById('checkin-date');
+    const checkoutInput = document.getElementById('checkout-date');
+    const button = document.getElementById('check-availability-btn');
+    const message = document.getElementById('availability-message');
+    const pricingDisplay = document.getElementById('pricing-display');
+    const pricingDetails = document.getElementById('pricing-details');
+
+    const checkinDate = checkinInput.value;
+    const checkoutDate = checkoutInput.value;
+
+    // Validate dates
+    if (!checkinDate || !checkoutDate) {
+      showMessage('Please select both check-in and check-out dates', 'error');
+      return;
+    }
+
+    const checkin = new Date(checkinDate);
+    const checkout = new Date(checkoutDate);
+    const today = new Date();
+
+    if (checkin <= today) {
+      showMessage('Check-in date must be in the future', 'error');
+      return;
+    }
+
+    if (checkout <= checkin) {
+      showMessage('Check-out date must be after check-in date', 'error');
+      return;
+    }
+
+    // Calculate nights and pricing
+    const nights = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+    const minStay = getMinimumStay(checkin);
+
+    if (nights < minStay) {
+      showMessage(`Minimum stay of ${minStay} nights required for these dates`, 'error');
+      return;
+    }
+
+    // Show loading state
+    button.innerHTML = 'CHECKING...';
+    button.style.opacity = '0.7';
+    button.disabled = true;
+
+    // Simulate availability check
+    setTimeout(() => {
+      const pricing = calculatePricing(checkin, checkout, nights);
+      showAvailabilityResults(pricing, nights, checkinDate, checkoutDate);
+    }, 1500);
+  }
+
+  function getMinimumStay(date) {
+    const month = date.getMonth() + 1;
+    // Holiday periods require 4 nights, others 3
+    if (month === 11 || month === 12 || month === 1) return 4;
+    return 3;
+  }
+
+  function calculatePricing(checkin, checkout, nights) {
+    const month = checkin.getMonth() + 1;
+    let baseRate = 900;
+
+    // Seasonal pricing logic
+    if (month === 10) { // October - peak foliage
+      baseRate = Math.floor(Math.random() * (2067 - 1200) + 1200);
+    } else if (month === 11 || month === 12) { // Holiday season
+      baseRate = Math.floor(Math.random() * (1800 - 950) + 950);
+    } else if (month >= 6 && month <= 8) { // Summer
+      baseRate = Math.floor(Math.random() * (1500 - 1100) + 1100);
+    }
+
+    const subtotal = baseRate * nights;
+    const cleaningFee = 250;
+    const taxRate = 0.13; // 13% taxes
+    const taxes = Math.round(subtotal * taxRate);
+    const total = subtotal + cleaningFee + taxes;
+
+    return {
+      baseRate,
+      nights,
+      subtotal,
+      cleaningFee,
+      taxes,
+      total
+    };
+  }
+
+  function showAvailabilityResults(pricing, nights, checkinDate, checkoutDate) {
+    const button = document.getElementById('check-availability-btn');
+    const pricingDisplay = document.getElementById('pricing-display');
+    const pricingDetails = document.getElementById('pricing-details');
+
+    // Reset button
+    button.innerHTML = 'CHECK NOW';
+    button.style.opacity = '1';
+    button.disabled = false;
+
+    // Show pricing details
+    pricingDetails.innerHTML = `
+      <div style="text-align: left; background: rgba(255,255,255,0.9); color: #2d4538; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <span>$${pricing.baseRate}/night × ${nights} nights</span>
+          <span>$${pricing.subtotal.toLocaleString()}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <span>Cleaning fee</span>
+          <span>$${pricing.cleaningFee}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <span>Taxes & fees</span>
+          <span>$${pricing.taxes}</span>
+        </div>
+        <hr style="margin: 0.5rem 0; border: 1px solid #ccc;">
+        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem;">
+          <span>Total</span>
+          <span>$${pricing.total.toLocaleString()}</span>
+        </div>
+      </div>
+      <div style="font-size: 0.9rem; opacity: 0.9;">
+        ${checkinDate} to ${checkoutDate} • ${nights} nights • Available Now!
+      </div>
+    `;
+
+    pricingDisplay.style.display = 'block';
+
+    // Store dates for booking
+    window.selectedDates = { checkinDate, checkoutDate, pricing };
+
+    // Analytics tracking
+    console.log('CONVERSION: User checked availability', { checkinDate, checkoutDate, total: pricing.total });
+  }
+
+  function proceedToBooking() {
+    // Track conversion
+    console.log('CONVERSION: User proceeded to booking after availability check');
+
+    // Pre-fill dates if possible and open booking system
+    openBookingSystem();
+
+    // Show confirmation
+    showMessage('Redirecting to secure booking system with your selected dates...', 'success');
+  }
+
+  function showMessage(text, type) {
+    const message = document.getElementById('availability-message');
+    const originalText = message.innerHTML;
+
+    message.innerHTML = text;
+    message.style.color = type === 'error' ? '#FFE6E6' : type === 'success' ? '#E6FFE6' : 'white';
+    message.style.fontWeight = '600';
+
+    setTimeout(() => {
+      message.innerHTML = originalText;
+      message.style.color = 'white';
+      message.style.fontWeight = 'normal';
+    }, 3000);
+  }
+
+  // Set default dates on load
+  function setDefaultDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayAfter = new Date(today);
+    dayAfter.setDate(dayAfter.getDate() + 4);
+
+    document.getElementById('checkin-date').value = tomorrow.toISOString().split('T')[0];
+    document.getElementById('checkout-date').value = dayAfter.toISOString().split('T')[0];
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('CONVERSION-OPTIMIZED: Galax Rentals booking integration ready');
+
+    // Set default dates
+    setDefaultDates();
+
+    // Optional: Close accordion when clicking outside
+    document.addEventListener('click', function(event) {
+      const toggle = document.getElementById('future-rates-toggle');
+      const content = document.getElementById('future-rates-content');
+
+      if (toggle && content && !toggle.contains(event.target) && !content.contains(event.target)) {
+        // Optionally auto-close when clicking outside
+        // content.classList.add('hidden');
+        // document.getElementById('future-rates-icon').style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { pageSEO } from '../lib/seo';
+
+const seoData = {
+  title: 'The Bodhi Blog - Highlands NC Travel & Local Insights',
+  description: 'Discover insider tips, travel guides, and local insights for your Highlands, NC vacation at The Bodhi luxury mountain retreat.',
+  keywords: 'Highlands NC blog, travel tips, mountain vacation guide, The Bodhi insights',
+  type: 'website' as const
+};
+
+// Published blog posts
+const blogPosts = [
+  {
+    title: "Ultimate Guide to Highlands NC Waterfalls: A Local's Secret Spots",
+    excerpt: "Discover the most spectacular waterfalls near The Bodhi, including hidden gems only locals know about. From the iconic Dry Falls where you can walk behind the cascade, to the drive-through wonder of Bridal Veil Falls...",
+    date: "2024-09-20",
+    status: "Published",
+    readTime: "12 min read",
+    category: "Travel Guide",
+    image: "banyan_tree/flat_mountain/dryfallsfeature_m4ubgb",
+    slug: "highlands-nc-waterfalls-guide"
+  }
+];
+---
+
+<BaseLayout seoData={seoData}>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden mb-0" style="height: 50vh;">
+    <img
+      src="https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_1920,h_800,q_auto:best,f_auto/banyan_tree/flat_mountain/downtown-highlands"
+      alt="The Bodhi Blog - Highlands NC Travel Insights"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+      loading="eager"
+    />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(45, 69, 56, 0.7); z-index: 2;"></div>
+    <div class="relative flex items-center justify-center h-full text-center text-white px-4" style="z-index: 3;">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-anamortee mb-4 leading-tight">
+          The Bodhi Blog
+        </h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">
+          Local insights and travel inspiration for your Highlands mountain getaway
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Content -->
+  <section class="py-16 bg-canvas">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Coming Soon Notice -->
+        <div class="bg-felted-green text-white rounded-xl p-8 text-center mb-12">
+          <h2 class="text-2xl font-bold mb-4">🚧 Blog Coming Soon!</h2>
+          <p class="text-lg opacity-90 mb-6">
+            We're crafting amazing content about Highlands, NC to help you make the most of your stay at The Bodhi.
+            Check back soon for insider tips, local guides, and travel inspiration.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/local-guide"
+              class="inline-flex items-center justify-center bg-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200"
+              style="color: rgb(45, 69, 56);"
+            >
+              📍 Explore Local Guide
+            </a>
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center bg-white/20 text-white border-2 border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-200"
+            >
+              🏠 Book Your Stay
+            </a>
+          </div>
+        </div>
+
+        <!-- Sample Posts -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <!-- Post Image -->
+              <div class="h-48 overflow-hidden">
+                <img
+                  src={`https://res.cloudinary.com/southland-organics/image/upload/c_fill,w_600,h_400,q_auto:best,f_auto/${post.image}`}
+                  alt={post.title}
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Post Content -->
+              <div class="p-6">
+                <!-- Status Badge -->
+                <div class="flex items-center justify-between mb-3">
+                  <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                    {post.status}
+                  </span>
+                  <span class="text-gray-500 text-sm">{post.readTime}</span>
+                </div>
+
+                <!-- Category -->
+                <div class="text-felted-green font-medium text-sm mb-2">{post.category}</div>
+
+                <!-- Title -->
+                <h3 class="text-xl font-semibold text-deep-forest mb-3 leading-tight">
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="hover:text-felted-green transition-colors duration-200"
+                  >
+                    {post.title}
+                  </a>
+                </h3>
+
+                <!-- Excerpt -->
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  {post.excerpt}
+                </p>
+
+                <!-- Meta -->
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                  <time datetime={post.date}>
+                    {new Date(post.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="text-felted-green font-medium hover:underline"
+                  >
+                    Read Article →
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+
+          <!-- More Posts Coming -->
+          <article class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
+            <div class="text-4xl mb-4">✍️</div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">More Posts Coming</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              We're working on more amazing content including restaurant reviews, seasonal activity guides, and pet-friendly adventures.
+            </p>
+            <div class="text-xs text-gray-500">Stay tuned!</div>
+          </article>
+
+          <!-- Newsletter Signup Placeholder -->
+          <article class="bg-gradient-to-br from-felted-green to-deep-forest text-white rounded-lg p-8 text-center">
+            <div class="text-3xl mb-4">📧</div>
+            <h3 class="text-lg font-semibold mb-3">Get Notified</h3>
+            <p class="text-sm opacity-90 mb-4">
+              Be the first to know when we publish new travel guides and local insights.
+            </p>
+            <div class="text-xs opacity-75">Newsletter coming soon</div>
+          </article>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="mt-16 bg-canvas border-2 border-felted-green rounded-xl p-10 text-center">
+          <h2 class="text-3xl font-bold text-deep-forest mb-4">Ready to Experience Highlands?</h2>
+          <p class="text-xl text-granite-700 mb-8 max-w-2xl mx-auto">
+            While we're preparing amazing blog content, start planning your luxury mountain getaway at The Bodhi.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="/book"
+              class="inline-flex items-center justify-center bg-felted-green hover:bg-felted-green-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              🏔️ Book Your Mountain Retreat
+            </a>
+            <a
+              href="/property"
+              class="inline-flex items-center justify-center bg-white border-2 border-felted-green text-felted-green px-8 py-4 rounded-xl font-bold text-lg hover:bg-felted-green hover:text-white transition-all duration-200"
+            >
+              🏡 Explore The Property
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <!-- Blog Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "The Bodhi Blog",
+    "description": "Travel insights and local guides for Highlands, NC from The Bodhi luxury vacation rental",
+    "url": "https://highlands-rental.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "The Bodhi at Flat Mountain Estates",
+      "url": "https://highlands-rental.com"
+    },
+    "inLanguage": "en-US",
+    "about": {
+      "@type": "Place",
+      "name": "Highlands, North Carolina"
+    }
+  }
+  </script>
+</BaseLayout>

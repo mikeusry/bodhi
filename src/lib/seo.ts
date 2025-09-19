@@ -13,7 +13,7 @@ export interface SEOData {
 // Property-specific SEO data
 export const propertySEO = {
   siteName: 'The Bodhi - Luxury 5-Bedroom Mountain Estate in Highlands, NC',
-  baseURL: 'https://thebodhihighlands.com', // Update with actual domain
+  baseURL: 'https://highlands-rental.com',
   defaultImage: '/images/the-bodhi-hero-exterior.jpg',
 
   // Location-specific keywords for Highlands NC
@@ -83,35 +83,27 @@ export function generateSEODescription(
 // Page-specific SEO configurations
 export const pageSEO = {
   home: {
-    title: generateSEOTitle('The Bodhi'),
-    description: generateSEODescription(
-      'Escape to The Bodhi - a luxury 5-bedroom mountain estate in prestigious Flat Mountain Estates. Sleeps 17 guests with private theater, koi pond, and stunning Blue Ridge Mountain views. Perfect for large groups and special celebrations'
-    ),
-    keywords: propertySEO.keywords.primary.join(', ')
+    title: 'Highlands NC Vacation Rentals | The Bodhi Luxury Mountain Estate | Sleeps 17',
+    description: 'Book The Bodhi - luxury Highlands NC vacation rental sleeping 17 guests. 5-bedroom mountain estate with private theater, koi pond & stunning views. Best vacation rental in Highlands NC!',
+    keywords: 'Highlands NC vacation rentals, luxury mountain estate, Highlands NC rentals, vacation rental sleeps 17, private theater rental, Highlands North Carolina cabins'
   },
 
   property: {
-    title: generateSEOTitle('The Bodhi Property Details'),
-    description: generateSEODescription(
-      'Discover The Bodhi\'s unique amenities: private movie theater, tranquil koi pond with waterfalls, Big Green Egg, multiple fireplaces, and panoramic mountain views. 5 bedrooms, 5 bathrooms accommodating up to 17 guests'
-    ),
-    keywords: propertySEO.keywords.secondary.join(', ')
+    title: 'Luxury 5-Bedroom Highlands NC Rental | The Bodhi Property Details | Private Theater',
+    description: 'Explore The Bodhi luxury Highlands NC vacation rental: 5 bedrooms, private theater, koi pond, Big Green Egg & mountain views. Premium vacation rental sleeping 17 guests in Highlands NC.',
+    keywords: 'luxury Highlands NC rental, 5-bedroom vacation rental, private theater rental, large group rentals Highlands NC, mountain view vacation rental'
   },
 
   booking: {
-    title: generateSEOTitle('Book The Bodhi'),
-    description: generateSEODescription(
-      'Book The Bodhi luxury mountain estate today. Check availability for up to 17 guests and secure your reservation at this exceptional Flat Mountain Estates vacation rental with private theater and unique amenities'
-    ),
-    keywords: 'book The Bodhi Highlands NC, luxury mountain estate reservations, large group vacation rental booking'
+    title: 'Book Highlands NC Vacation Rental | The Bodhi Estate | Check Availability',
+    description: 'Book The Bodhi luxury Highlands NC vacation rental online. Check availability for 17 guests at our premium mountain estate. Best rates guaranteed for Highlands NC rentals!',
+    keywords: 'book Highlands NC rental, vacation rental booking, large group rental Highlands, luxury mountain estate booking, Highlands NC availability'
   },
 
   localGuide: {
-    title: generateSEOTitle('Highlands Area Guide'),
-    description: generateSEODescription(
-      'Your complete guide to Highlands, NC from The Bodhi. Discover restaurants, waterfalls, hiking trails, and attractions near Flat Mountain Estates. Perfect for planning your Blue Ridge Mountain vacation'
-    ),
-    keywords: 'Highlands NC attractions, Flat Mountain Estates area, things to do near The Bodhi, Highlands waterfalls'
+    title: 'Highlands NC Travel Guide | Things to Do | Vacation Rental Insider Tips',
+    description: 'Complete Highlands NC travel guide from The Bodhi vacation rental. Discover waterfalls, restaurants, activities & attractions. Expert local recommendations for your Highlands NC vacation.',
+    keywords: 'Highlands NC travel guide, things to do Highlands NC, Highlands waterfalls, Highlands restaurants, vacation rental travel tips'
   }
 };
 

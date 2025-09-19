@@ -25,10 +25,10 @@ export const GET: APIRoute = async ({ url }) => {
     let requestUrl = '';
 
     if (action === 'list') {
-      // List resources with basic parameters - increase max_results
-      requestUrl = `${apiUrl}/resources/image?max_results=500&tags=true`;
+      // List resources with basic parameters - filter to flat_mountain folder only
+      requestUrl = `${apiUrl}/resources/image?type=upload&max_results=500&tags=true&prefix=banyan_tree/flat_mountain`;
     } else if (action === 'tags') {
-      // Get all tags
+      // Get all tags for flat_mountain folder only
       requestUrl = `${apiUrl}/tags/image?max_results=100`;
     }
 
