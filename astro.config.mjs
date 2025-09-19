@@ -31,9 +31,6 @@ export default defineConfig({
     sitemap: true
   },
 
-  experimental: {
-    contentCollectionCache: true
-  },
 
   // Image optimization
   image: {
